@@ -186,15 +186,12 @@ def generer(emplacements, graine, ids_libres):
 PIECE_DEPART, ID_DEPART = "106", 3
 
 
-# Munitions qui remplacent l'arme donnée au départ, à son emplacement (« un objet de base », choix du joueur).
-MUNITIONS_ARME = {3: (17, 15), 6: (18, 6), 13: (18, 6), 11: (25, 6)}
-
-
 def garantir_arme_depart(resultat, graine, ids_armes):
     """Option « arme garantie au départ » (v0.9.6, choix du joueur le 21/11/2026) : une des armes mélangées, tirée
     au sort selon la graine (toutes ont la même chance, Magnum compris), est DONNÉE dans l'inventaire au début d'une
     nouvelle partie, avec ses munitions de base (celles de son emplacement d'origine). L'emplacement où le mélange
-    l'avait placée reçoit à la place des munitions de cette arme. Le pistolet d'autodéfense n'est pas une arme de la
+    l'avait placée reçoit à la place un objet de base tiré au sort (n'importe lequel des objets ordinaires du jeu,
+    avec sa quantité habituelle ; choix du joueur, 21/11/2026). Le pistolet d'autodéfense n'est pas une arme de la
     liste : c'est un objet (IDS_LIBRES_DE_BASE). Renvoie {"id", "quantite"} de l'arme donnée, ou None."""
     armes = [r for r in resultat if r["nouveau"]["id"] in ids_armes]
     if not armes:
@@ -202,8 +199,16 @@ def garantir_arme_depart(resultat, graine, ids_armes):
     choix = random.Random(graine ^ 0x5EED).choice(
         sorted(armes, key=lambda r: (r["piece"], r.get("case", 0), r["nouveau"]["id"])))
     arme = dict(choix["nouveau"])
-    mid, mqte = MUNITIONS_ARME.get(arme["id"], (17, 15))
-    choix["nouveau"] = {"id": mid, "quantite": mqte}
+    # objet de base tiré parmi ceux du mélange (sans les armes), avec leur quantité dans le jeu, AU PRORATA de leur
+    # fréquence dans le jeu : herbes et munitions souvent, objets rares rarement (et les 4 sortes de trousses ne
+    # comptent pas 4 fois)
+    modeles = sorted((r["ancien"]["id"], r["ancien"]["quantite"]) for r in resultat
+                     if r["ancien"]["id"] in IDS_LIBRES_DE_BASE)
+    if modeles:
+        oid, oqte = random.Random(graine ^ 0xBA5E).choice(modeles)
+        choix["nouveau"] = {"id": oid, "quantite": oqte}
+    else:
+        choix["nouveau"] = {"id": 17, "quantite": 15}
     return arme
 
 

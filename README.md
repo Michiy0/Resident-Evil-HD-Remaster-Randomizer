@@ -43,7 +43,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.6 (test)
+## Status: version 0.9.6.1 (test)
 
 | Supported | Coming |
 |---|---|
@@ -153,12 +153,14 @@ otherwise).
 
 - **Installation** — game folder, randomizer and installed seed status, install / update / uninstall the
   DLL (and the launch option on Steam Deck). The app opens here until the DLL is installed and up to date.
-- **Generate a seed** — unlocked once the DLL is in place:
-  - *Playthrough*: character and difficulty;
+- **Generate a seed** — unlocked once the DLL is in place, with four sub-tabs:
+  - *Character and difficulty*;
   - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
     pickup), random starting item box (ticked by default; new game only), random weapons (ticking it shows the weapon list; untick those that should stay in place) and
-    guaranteed starting weapon (given in the inventory, with its ammo; its location gets ammo instead) and random
-    starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon);
+    guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and random
+    starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon); below,
+    in its own card, *For the crazy ones* (no logic, coming soon);
+  - *Enemies*: random enemies (coming soon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both);
   - **Generate seed**, with the seed (or “Random”) next to it — same seed + same options = same result: writes
     the seed to the `seeds` folder and installs it in the game.
@@ -338,7 +340,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.6 (test)
+## État : version 0.9.6.1 (test)
 
 | Pris en charge | À venir |
 |---|---|
@@ -456,13 +458,14 @@ système, anglais sinon).
 - **Installation** — dossier du jeu, état du randomizer et de la seed installée, installer / mettre à
   jour / désinstaller la DLL (et l'option de lancement sur Steam Deck). L'application s'ouvre ici tant
   que la DLL n'est pas installée et à jour.
-- **Générer une seed** — débloqué une fois la DLL en place :
-  - *Partie* : personnage et difficulté ;
+- **Générer une seed** — débloqué une fois la DLL en place, avec quatre sous-onglets :
+  - *Personnage et difficulté* ;
   - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
     ramassage), malle de départ aléatoire (cochée d'office ; nouvelle partie seulement), armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent
     rester à leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement
-    reçoit des munitions) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
-    on peut commencer sans arme) ;
+    reçoit un objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
+    on peut commencer sans arme) ; en dessous, dans sa propre carte, *Pour les fous* (sans logique, à venir) ;
+  - *Ennemis* : ennemis aléatoires (à venir) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) ;
   - **Générer la seed**, avec la graine (ou « Au hasard ») juste à côté — même graine + mêmes options = même
     résultat : écrit la seed dans le dossier `seeds` et l'installe dans le jeu.

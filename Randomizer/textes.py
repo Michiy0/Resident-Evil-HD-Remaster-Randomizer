@@ -80,7 +80,8 @@ T = {
                         "Siguiente: generar una semilla  →", "Próximo: gerar uma semente  →",
                         "Далее: создать сид  →", "下一步：生成种子  →"),
     "carte_jeu": ("Jeu", "Game", "ゲーム", "Juego", "Jogo", "Игра", "游戏"),
-    "carte_partie": ("Partie", "Playthrough", "プレイ設定", "Partida", "Partida", "Прохождение", "游戏设置"),
+    "carte_partie": ("Personnage et difficulté", "Character and difficulty", "キャラクターと難易度",
+                     "Personaje y dificultad", "Personagem e dificuldade", "Персонаж и сложность", "角色与难度"),
     "carte_options": ("Options", "Options", "オプション", "Opciones", "Opções", "Параметры", "选项"),
     "carte_fun": ("Fun", "Fun", "おたのしみ", "Diversión", "Diversão", "Для веселья", "娱乐"),
     "note_fun": ("Des options pour s'amuser : elles rendent la partie beaucoup plus facile.",
@@ -458,18 +459,18 @@ T = {
                     "开局保证有武器"),
     "note_arme_depart": (
         "Une des armes mélangées est donnée dans l'inventaire au début de la partie, avec ses munitions de base. "
-        "Son emplacement reçoit des munitions à la place. Nouvelle partie seulement.",
+        "Son emplacement reçoit un objet au hasard à la place. Nouvelle partie seulement.",
         "One of the shuffled weapons is given in the inventory at the start, with its basic ammo. Its location "
-        "gets ammo instead. New game only.",
+        "gets a random item instead. New game only.",
         "シャッフルされた武器の1つが、基本の弾薬とともにゲーム開始時にインベントリに入ります。その場所には代わりに"
-        "弾薬が置かれます。ニューゲームのみ。",
+        "ランダムなアイテムが置かれます。ニューゲームのみ。",
         "Una de las armas mezcladas se da en el inventario al empezar, con su munición básica. Su ubicación recibe "
-        "munición en su lugar. Solo en partida nueva.",
+        "un objeto al azar en su lugar. Solo en partida nueva.",
         "Uma das armas embaralhadas é dada no inventário no início, com sua munição básica. O local dela recebe "
-        "munição no lugar. Só em um novo jogo.",
-        "Одно из перемешанных орудий выдаётся в инвентарь в начале игры, с базовыми патронами. На его месте будут "
-        "патроны. Только для новой игры.",
-        "被打乱的武器之一会在开局时连同基础弹药放入物品栏，其原位置改为放置弹药。仅限新游戏。"),
+        "um item aleatório no lugar. Só em um novo jogo.",
+        "Одно из перемешанных орудий выдаётся в инвентарь в начале игры, с базовыми патронами. На его месте будет "
+        "случайный предмет. Только для новой игры.",
+        "被打乱的武器之一会在开局时连同基础弹药放入物品栏，其原位置改为放置一个随机物品。仅限新游戏。"),
     "couteau_aleatoire": ("Couteau de départ aléatoire", "Random starting knife", "初期装備のナイフをランダム化",
                           "Cuchillo inicial aleatorio", "Faca inicial aleatória", "Случайный стартовый нож",
                           "随机初始小刀"),
@@ -948,8 +949,8 @@ ALLEMAND_ITALIEN = {
                         'Avanti: genera un seed  →'),
     'carte_jeu': ('Spiel',
                   'Gioco'),
-    'carte_partie': ('Spieldurchlauf',
-                     'Partita'),
+    'carte_partie': ('Charakter und Schwierigkeit',
+                     'Personaggio e difficoltà'),
     'carte_options': ('Optionen',
                       'Opzioni'),
     'carte_fun': ('Spaß',
@@ -1169,9 +1170,9 @@ ALLEMAND_ITALIEN = {
     'arme_depart': ('Garantierte Startwaffe',
                     "Arma garantita all'inizio"),
     'note_arme_depart': ("Eine der gemischten Waffen kommt zu Spielbeginn mit ihrer Grundmunition ins Inventar. "
-                         "An ihrem Fundort liegt stattdessen Munition. Nur bei einem neuen Spiel.",
+                         "An ihrem Fundort liegt stattdessen ein zufälliger Gegenstand. Nur bei einem neuen Spiel.",
                          "Una delle armi mescolate viene data nell'inventario all'inizio, con le sue munizioni di "
-                         "base. Al suo posto ci saranno munizioni. Solo in una nuova partita."),
+                         "base. Al suo posto ci sarà un oggetto a caso. Solo in una nuova partita."),
     'graine': ('Seed',
                'Seed'),
     'au_hasard': ('Zufällig',

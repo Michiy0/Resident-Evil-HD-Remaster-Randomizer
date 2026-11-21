@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.6"
+VERSION = "0.9.6.1"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -467,6 +467,14 @@ def appliquer_style(racine):
                 font=(POLICE, 10, "bold"))
     s.map("TNotebook.Tab", foreground=[("disabled", c["grise"]), ("selected", "#ffffff"), ("active", c["texte"])],
           expand=[("selected", (0, 0, 0, 0))], padding=[("selected", (10, 8, 7, 6))])
+    # sous-onglets de « Générer une seed » : mêmes intercalaires, plus petits
+    s.configure("Sous.TNotebook", background=c["fond"], borderwidth=0, tabmargins=(0, 0, 0, 0))
+    s.layout("Sous.TNotebook", [("Intercalaire.client", {"sticky": "nswe"})])
+    s.layout("Sous.TNotebook.Tab", s.layout("TNotebook.Tab"))
+    s.configure("Sous.TNotebook.Tab", background=c["fond"], foreground=c["discret"], padding=(12, 6, 10, 4),
+                font=(POLICE, 9, "bold"))
+    s.map("Sous.TNotebook.Tab", foreground=[("disabled", c["grise"]), ("selected", "#ffffff"), ("active", c["texte"])],
+          expand=[("selected", (0, 0, 0, 0))], padding=[("selected", (12, 6, 10, 4))])
     # liste déroulante (sélecteur de langue)
     s.configure("TCombobox", fieldbackground=c["champ"], background=c["champ"], foreground=c["texte"],
                 arrowcolor=c["texte"], bordercolor=c["bord"], lightcolor=c["champ"], darkcolor=c["champ"],
@@ -877,22 +885,24 @@ class Application(tk.Tk):
 
     # --- onglet « Générer une seed » : partie, options, puis génération
     def construire_generation(self, page):
-        # les cartes défilent si l'écran est petit ; le bouton Générer et le journal restent visibles en bas
+        # Sous-onglets, dans cet ordre (demande du joueur, 21/11/2026) : Personnage et difficulté, Options
+        # (+ « Pour les fous » dans sa propre tuile, sous les clés aléatoires), Ennemis, Fun. Les sous-onglets restent
+        # toujours visibles : seul le contenu de chacun défile (petits écrans). Le bouton Générer et le journal, en
+        # bas, gardent la même taille quel que soit le sous-onglet.
         page.columnconfigure(0, weight=1)
         page.rowconfigure(0, weight=1)
-        defile = Defilable(page)
-        defile.grid(row=0, column=0, sticky="nsew")
-        cadre = defile.interieur
-        cadre.columnconfigure(0, weight=1, uniform="col")
-        cadre.columnconfigure(1, weight=1, uniform="col")
+        self.sous_onglets = ttk.Notebook(page, style="Sous.TNotebook")
+        self.sous_onglets.grid(row=0, column=0, sticky="nsew")
+        pages = {}
+        for cle in ("carte_partie", "carte_options", "carte_ennemis", "carte_fun"):
+            conteneur = ttk.Frame(self.sous_onglets, padding=(0, 12, 0, 0))
+            self.sous_onglets.add(conteneur, text=self.t(cle))
+            defile = Defilable(conteneur)
+            defile.pack(fill="both", expand=True)
+            pages[cle] = defile.interieur
+        gauche = pages["carte_partie"]
 
-        # deux colonnes indépendantes : Partie + Fun à gauche ; Options + Pour les fous + Ennemis à droite
-        gauche = ttk.Frame(cadre)
-        gauche.grid(row=0, column=0, sticky="new", padx=(0, 8))
-        droite = ttk.Frame(cadre)
-        droite.grid(row=0, column=1, sticky="new", padx=(8, 0))
-
-        # --- Partie
+        # --- Personnage et difficulté
         partie, p = self.carte(gauche, self.t("carte_partie"))
         partie.pack(fill="x")
         p.columnconfigure(1, weight=1)
@@ -910,9 +920,9 @@ class Application(tk.Tk):
                             variable=self.difficulte, state="normal" if dispo else "disabled"
                             ).grid(row=1 + i, column=1, sticky="w", padx=(24, 0))
 
-        # --- Fun : options qui rendent la partie plus facile (sous « Partie »)
-        fun, f = self.carte(gauche, self.t("carte_fun"))
-        fun.pack(fill="x", pady=(16, 0))
+        # --- Fun : options qui rendent la partie plus facile
+        fun, f = self.carte(pages["carte_fun"], self.t("carte_fun"))
+        fun.pack(fill="x")
         ttk.Label(f, text=self.t("note_fun"), style="Note.TLabel", wraplength=300,
                   justify="left").pack(anchor="w", pady=(0, 6))
         ttk.Checkbutton(f, text=self.t("armes_bonus"), variable=self.armes_bonus,
@@ -929,7 +939,7 @@ class Application(tk.Tk):
                   justify="left").pack(anchor="w", padx=(27, 0), pady=(4, 0))
 
         # --- Options
-        options, o = self.carte(droite, self.t("carte_options"))
+        options, o = self.carte(pages["carte_options"], self.t("carte_options"))
         options.pack(fill="x")
         ttk.Checkbutton(o, text=self.t("objets_visibles"), variable=self.visibles).pack(anchor="w")
         ttk.Label(o, text=self.t("note_objets_visibles"), style="Note.TLabel", wraplength=280,
@@ -964,7 +974,7 @@ class Application(tk.Tk):
                         state="disabled").pack(anchor="w", pady=(6, 0))
 
         # --- Pour les fous : options qui peuvent rendre la partie impossible à finir
-        fous, fo = self.carte(droite, self.t("carte_fous"))
+        fous, fo = self.carte(pages["carte_options"], self.t("carte_fous"))
         fous.pack(fill="x", pady=(16, 0))
         ttk.Checkbutton(fo, text=self.t("sans_logique") + a_venir, variable=self.sans_logique,
                         state="disabled").pack(anchor="w")
@@ -972,12 +982,13 @@ class Application(tk.Tk):
                   justify="left").pack(anchor="w", padx=(27, 0))
 
         # --- Ennemis
-        ennemis, en = self.carte(droite, self.t("carte_ennemis"))
-        ennemis.pack(fill="x", pady=(16, 0))
+        ennemis, en = self.carte(pages["carte_ennemis"], self.t("carte_ennemis"))
+        ennemis.pack(fill="x")
         ttk.Checkbutton(en, text=self.t("ennemis_aleatoires") + a_venir, variable=self.ennemis,
                         state="disabled").pack(anchor="w")
 
-        self.notes_pleine_largeur(cadre)
+        for interieur in pages.values():
+            self.notes_pleine_largeur(interieur)
 
         # --- Actions
         boutons = ttk.Frame(page)
@@ -1013,23 +1024,7 @@ class Application(tk.Tk):
         self.journal.configure(yscrollcommand=defil.set)
         defil.pack(side="right", fill="y")
         self.journal.pack(side="left", fill="both", expand=True)
-
-        # place libre sous les cartes : donnée au journal (les cartes ne prennent que la hauteur dont elles ont
-        # besoin) ; si elles ne tiennent plus (liste des armes ouverte, petit écran), elles défilent comme avant
-        def ajuster(_=None):
-            besoin = cadre.winfo_reqheight()
-            libre = page.winfo_height() - boutons.winfo_height() - 12 - 14 - 110   # 110 : journal minimum
-            if libre <= 1:
-                return
-            if besoin <= libre:
-                defile.toile.configure(height=besoin)
-                page.rowconfigure(0, weight=0)
-                page.rowconfigure(2, weight=1)
-            else:
-                page.rowconfigure(0, weight=1)
-                page.rowconfigure(2, weight=0)
-        page.bind("<Configure>", ajuster, add="+")
-        cadre.bind("<Configure>", lambda _: self.after_idle(ajuster), add="+")
+        page.rowconfigure(2, weight=0)                # journal : hauteur fixe (5 lignes), le reste aux sous-onglets
 
     # --- onglet « Spoiler » : la liste complète des changements, cachée tant qu'on ne coche pas
     def construire_spoiler(self, cadre):
@@ -1158,7 +1153,7 @@ class Application(tk.Tk):
         moitié droite des cartes vide) : chaque note se recalcule quand sa carte change de taille."""
         def parcourir(w):
             for enfant in w.winfo_children():
-                if isinstance(enfant, ttk.Label) and str(enfant.cget("style")) == "Note.TLabel":
+                if isinstance(enfant, ttk.Label) and str(enfant.cget("style")) in ("Note.TLabel", "Alerte.TLabel"):
                     try:
                         retrait = enfant.pack_info().get("padx", 0)
                     except tk.TclError:
