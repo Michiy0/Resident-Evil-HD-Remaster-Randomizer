@@ -6,6 +6,7 @@ Le jeu a aussi l'allemand et l'italien, mais pas le portugais ni le russe : ces 
 
 NOMS = {
     1: {"fr": "Couteau de survie", "en": "Survival knife", "ja": "サバイバルナイフ", "es": "Cuchillo supervivencia", "zh": "求生刀", "de": "Kampfmesser", "it": "Coltello sopravvivenza"},
+    2: {"fr": "Couteau de survie", "en": "Survival knife", "ja": "サバイバルナイフ", "es": "Cuchillo supervivencia", "zh": "求生刀", "de": "Kampfmesser", "it": "Coltello sopravvivenza"},   # couteau de départ de Chris : pas d'étiquette item0020, même nom
     3: {"fr": "Pistolet", "en": "Handgun", "ja": "ハンドガン", "es": "Pistola", "zh": "手枪", "de": "Pistole", "it": "Pistola"},
     4: {"fr": "Pistolet d'autodéfense", "en": "Self-defense gun", "ja": "護身用拳銃", "es": "Pistola de autodefensa", "zh": "防身手枪", "de": "Selbstverteidigungswaffe", "it": "Pistola per autodifesa"},
     6: {"fr": "Fusil", "en": "Shotgun", "ja": "ショットガン", "es": "Escopeta", "zh": "霰弹枪", "de": "Gewehr", "it": "Fucile"},

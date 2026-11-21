@@ -457,13 +457,42 @@ T = {
                     "Arma garantizada al inicio", "Arma garantida no início", "Оружие в начале игры",
                     "开局保证有武器"),
     "note_arme_depart": (
-        "Une des armes mélangées remplace toujours le pistolet du hall.",
-        "One of the shuffled weapons always takes the main hall handgun's place.",
-        "シャッフルされた武器の1つが必ずホールのハンドガンの位置に置かれます。",
-        "Una de las armas mezcladas siempre ocupa el lugar de la pistola del vestíbulo.",
-        "Uma das armas embaralhadas sempre fica no lugar da pistola do saguão.",
-        "Одно из перемешанных орудий всегда лежит на месте пистолета в главном зале.",
-        "被打乱的武器之一总会放在大厅手枪的位置。"),
+        "Une des armes mélangées est donnée dans l'inventaire au début de la partie, avec ses munitions de base. "
+        "Son emplacement reçoit des munitions à la place. Nouvelle partie seulement.",
+        "One of the shuffled weapons is given in the inventory at the start, with its basic ammo. Its location "
+        "gets ammo instead. New game only.",
+        "シャッフルされた武器の1つが、基本の弾薬とともにゲーム開始時にインベントリに入ります。その場所には代わりに"
+        "弾薬が置かれます。ニューゲームのみ。",
+        "Una de las armas mezcladas se da en el inventario al empezar, con su munición básica. Su ubicación recibe "
+        "munición en su lugar. Solo en partida nueva.",
+        "Uma das armas embaralhadas é dada no inventário no início, com sua munição básica. O local dela recebe "
+        "munição no lugar. Só em um novo jogo.",
+        "Одно из перемешанных орудий выдаётся в инвентарь в начале игры, с базовыми патронами. На его месте будут "
+        "патроны. Только для новой игры.",
+        "被打乱的武器之一会在开局时连同基础弹药放入物品栏，其原位置改为放置弹药。仅限新游戏。"),
+    "couteau_aleatoire": ("Couteau de départ aléatoire", "Random starting knife", "初期装備のナイフをランダム化",
+                          "Cuchillo inicial aleatorio", "Faca inicial aleatória", "Случайный стартовый нож",
+                          "随机初始小刀"),
+    "note_couteau_aleatoire": (
+        "Le couteau du début est remplacé par un objet au hasard et se retrouve ailleurs. Sans « Arme garantie au "
+        "départ », tu risques de commencer la partie sans aucune arme ! Nouvelle partie seulement.",
+        "The starting knife is replaced by a random item and ends up somewhere else. Without “Guaranteed starting "
+        "weapon”, you may start the game with no weapon at all! New game only.",
+        "最初のナイフがランダムなアイテムに置き換わり、別の場所に移ります。「序盤に武器を確保」なしでは、武器なしで"
+        "始まることがあります！ニューゲームのみ。",
+        "El cuchillo inicial se sustituye por un objeto al azar y acaba en otro sitio. Sin «Arma garantizada al "
+        "inicio», ¡puedes empezar sin ninguna arma! Solo en partida nueva.",
+        "A faca inicial é substituída por um item aleatório e vai parar em outro lugar. Sem “Arma garantida no "
+        "início”, você pode começar sem nenhuma arma! Só em um novo jogo.",
+        "Стартовый нож заменяется случайным предметом и оказывается в другом месте. Без «Гарантированного оружия» "
+        "можно начать игру вообще без оружия! Только для новой игры.",
+        "开局的小刀会被随机物品替换并出现在别处。如果不勾选“开局保证有武器”，可能会在没有任何武器的情况下开始游戏！"
+        "仅限新游戏。"),
+    "inventaire_depart": ("Inventaire de départ", "Starting inventory", "初期インベントリ", "Inventario inicial",
+                          "Inventário inicial", "Стартовый инвентарь", "初始物品栏"),
+    "gen_arme_depart": ("Arme donnée au départ : {arme}", "Weapon given at the start: {arme}",
+                        "開始時に渡される武器：{arme}", "Arma dada al inicio: {arme}", "Arma dada no início: {arme}",
+                        "Оружие в начале игры: {arme}", "开局获得的武器：{arme}"),
     "graine": ("Graine", "Seed", "シード", "Semilla", "Semente", "Сид", "种子"),
     "au_hasard": ("Au hasard", "Random", "ランダム", "Al azar", "Aleatória", "Случайно", "随机"),
     "note_graine": ("Même graine + mêmes options = même résultat.", "Same seed + same options = same result.",
@@ -1139,8 +1168,10 @@ ALLEMAND_ITALIEN = {
                           'Le chiavi possono finire ovunque: la partita potrebbe essere impossibile da finire.'),
     'arme_depart': ('Garantierte Startwaffe',
                     "Arma garantita all'inizio"),
-    'note_arme_depart': ('Eine der gemischten Waffen nimmt immer den Platz der Pistole in der Eingangshalle ein.',
-                         "Una delle armi mescolate prende sempre il posto della pistola dell'atrio."),
+    'note_arme_depart': ("Eine der gemischten Waffen kommt zu Spielbeginn mit ihrer Grundmunition ins Inventar. "
+                         "An ihrem Fundort liegt stattdessen Munition. Nur bei einem neuen Spiel.",
+                         "Una delle armi mescolate viene data nell'inventario all'inizio, con le sue munizioni di "
+                         "base. Al suo posto ci saranno munizioni. Solo in una nuova partita."),
     'graine': ('Seed',
                'Seed'),
     'au_hasard': ('Zufällig',
@@ -1293,6 +1324,14 @@ ALLEMAND_ITALIEN = {
                  'Lanciarazzi (munizioni illimitate)'),
 }
 ALLEMAND_ITALIEN.update({
+    "couteau_aleatoire": ("Zufälliges Startmesser", "Coltello iniziale casuale"),
+    "note_couteau_aleatoire": (
+        "Das Messer vom Anfang wird durch einen zufälligen Gegenstand ersetzt und landet woanders. Ohne „Garantierte "
+        "Startwaffe“ beginnst du das Spiel eventuell ganz ohne Waffe! Nur bei einem neuen Spiel.",
+        "Il coltello iniziale viene sostituito da un oggetto a caso e finisce altrove. Senza «Arma garantita "
+        "all'inizio» rischi di iniziare la partita senza nessuna arma! Solo in una nuova partita."),
+    "inventaire_depart": ("Startinventar", "Inventario iniziale"),
+    "gen_arme_depart": ("Waffe zu Spielbeginn: {arme}", "Arma data all'inizio: {arme}"),
     "malle_aleatoire": ("Zufällige Kiste am Start", "Baule iniziale casuale"),
     "note_malle_aleatoire": (
         "Die Gegenstände in der Kiste zu Spielbeginn werden mit den anderen gemischt. Nur bei einem neuen Spiel.",

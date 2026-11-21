@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.5"
+VERSION = "0.9.6"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -660,6 +660,7 @@ class Application(tk.Tk):
         self.armes = tk.BooleanVar(value=False)
         self.visibles = tk.BooleanVar(value=True)              # objets visibles par terre et dans l'aperçu
         self.malle = tk.BooleanVar(value=True)                 # malle de départ mélangée avec les autres objets
+        self.couteau = tk.BooleanVar(value=False)              # couteau de départ mélangé (risque : partir sans arme)
         # une case par arme de base (cochées par défaut, sauf celles pas encore relevées) ; visibles seulement avec « Armes aléatoires »
         self.arme_depart = tk.BooleanVar(value=True)           # une arme toujours au pistolet du hall
         self.armes_cochees = {cle: tk.BooleanVar(value=id_arme is not None) for cle, id_arme, _ in gen.ARMES}
@@ -953,6 +954,10 @@ class Application(tk.Tk):
         self.case_arme_depart = ttk.Checkbutton(o, text=self.t("arme_depart"), variable=self.arme_depart)
         self.case_arme_depart.pack(anchor="w", pady=(6, 0))
         ttk.Label(o, text=self.t("note_arme_depart"), style="Note.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+        # « Couteau de départ aléatoire » : sans arme garantie, on peut commencer sans arme (avertissement en orange)
+        ttk.Checkbutton(o, text=self.t("couteau_aleatoire"), variable=self.couteau).pack(anchor="w", pady=(6, 0))
+        ttk.Label(o, text=self.t("note_couteau_aleatoire"), style="Alerte.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
         self.afficher_liste_armes()
         ttk.Checkbutton(o, text=self.t("cles_aleatoires") + a_venir, variable=self.cles,
@@ -1718,7 +1723,7 @@ class Application(tk.Tk):
                                   personnage=self.personnage.get(), difficulte=self.difficulte.get(),
                                   langue=langue, dire_spoiler=spoiler.append, armes_choisies=armes,
                                   objets_visibles=self.visibles.get(), arme_depart=self.arme_depart.get(),
-                                  malle_aleatoire=self.malle.get(),
+                                  malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(),
                                   armes_bonus=self.armes_bonus_choisies(), messages_differes=True)
             except Exception as e:  # on affiche l'erreur plutôt que de fermer l'application
                 messages.append(textes.Msg("erreur", e=e))

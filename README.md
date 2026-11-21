@@ -43,14 +43,14 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.5 (test)
+## Status: version 0.9.6 (test)
 
 | Supported | Coming |
 |---|---|
 | Chris, Normal difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
 | 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | Keys and quest items (with logic that keeps the game completable) |
 | **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
-| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option | The other weapons (grenade launcher, flamethrower), random enemies |
+| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies |
 | **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) | — |
 | Windows and **Steam Deck** (tested in game under Proton, SD card included); Linux | **[Archipelago](#archipelago-coming-soon)** support |
 
@@ -157,7 +157,8 @@ otherwise).
   - *Playthrough*: character and difficulty;
   - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
     pickup), random starting item box (ticked by default; new game only), random weapons (ticking it shows the weapon list; untick those that should stay in place) and
-    guaranteed starting weapon;
+    guaranteed starting weapon (given in the inventory, with its ammo; its location gets ammo instead) and random
+    starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both);
   - **Generate seed**, with the seed (or “Random”) next to it — same seed + same options = same result: writes
     the seed to the `seeds` folder and installs it in the game.
@@ -337,14 +338,14 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.5 (test)
+## État : version 0.9.6 (test)
 
 | Pris en charge | À venir |
 |---|---|
 | Chris, difficulté Normal (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
 | 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | Clés et objets de quête (avec une logique qui garantit que la partie reste finissable) |
 | **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
-| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires |
+| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires |
 | Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) | — |
 | Windows et **Steam Deck** (testé en jeu sous Proton, carte SD comprise) ; Linux | Support d'**[Archipelago](#archipelago-à-venir)** |
 
@@ -459,7 +460,9 @@ système, anglais sinon).
   - *Partie* : personnage et difficulté ;
   - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
     ramassage), malle de départ aléatoire (cochée d'office ; nouvelle partie seulement), armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent
-    rester à leur place) et arme garantie au départ ;
+    rester à leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement
+    reçoit des munitions) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
+    on peut commencer sans arme) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) ;
   - **Générer la seed**, avec la graine (ou « Au hasard ») juste à côté — même graine + mêmes options = même
     résultat : écrit la seed dans le dossier `seeds` et l'installe dans le jeu.

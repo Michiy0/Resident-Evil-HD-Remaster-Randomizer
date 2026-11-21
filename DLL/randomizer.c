@@ -73,6 +73,16 @@ static int    g_nb_examens;
  * (lignes « decalage = pièce, ancien = id d'origine, y = … » de la seed, v0.9.3+). */
 /* Malle de départ (v0.9.5) : au début d'une nouvelle partie, la case « malle » de la malle, qui contient l'objet
  * « ancien », reçoit id / qte (lignes « malle = case, ancien = …, id = …, qte = … » de la seed). */
+/* Inventaire de départ (v0.9.6) : au début d'une nouvelle partie, la case « inv » de l'inventaire qui contient
+ * l'objet « ancien » reçoit id / qte (option « Couteau de départ aléatoire ») ; l'arme « depart » x qte est donnée
+ * dans la première case vide (option « Arme garantie au départ »). Lignes « inv = case, ancien, id, qte » et
+ * « depart = id, qte » de la seed. */
+#define MAX_INV 8
+typedef struct { DWORD caseno, ancien, id, qte; } CaseInv;
+static CaseInv g_inv[MAX_INV];
+static int     g_nb_inv;
+static DWORD   g_depart_id, g_depart_qte;
+
 #define MAX_MALLE 32
 typedef struct { DWORD caseno, ancien, id, qte; } CaseMalle;
 static CaseMalle g_malle[MAX_MALLE];
@@ -151,7 +161,25 @@ static int charger_seed(const char *chemin)
     if (!f) return 0;
     g_nb = 0;
     while (fgets(ligne, sizeof ligne, f)) {
-        if (strstr(ligne, "malle =")) {
+        if (strstr(ligne, "inv =")) {
+            DWORD v[5];
+            if (lire_nombres(ligne, v, 5) == 4 && g_nb_inv < MAX_INV && v[0] < 10) {
+                g_inv[g_nb_inv].caseno = v[0];
+                g_inv[g_nb_inv].ancien = v[1];
+                g_inv[g_nb_inv].id = v[2];
+                g_inv[g_nb_inv++].qte = v[3];
+            } else {
+                journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
+            }
+        } else if (strstr(ligne, "depart =")) {
+            DWORD v[3];
+            if (lire_nombres(ligne, v, 3) == 2 && v[0] > 0 && v[0] < 0x85) {
+                g_depart_id = v[0];
+                g_depart_qte = v[1];
+            } else {
+                journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
+            }
+        } else if (strstr(ligne, "malle =")) {
             DWORD v[5];
             if (lire_nombres(ligne, v, 5) == 4 && g_nb_malle < MAX_MALLE && v[0] < 256) {
                 g_malle[g_nb_malle].caseno = v[0];
@@ -330,6 +358,15 @@ static const struct { DWORD table, dernier; } g_tables_pieces[5] = {
     { BASE_JEU + 0x8B7E48u, 0x12 }, { BASE_JEU + 0x8B8090u, 0x15 } };
 static char g_noms_modeles[MAX_EMPLACEMENTS][8];
 static BYTE g_modele_ok[MAX_EMPLACEMENTS];
+/* Objets sans modèle au sol (les couteaux : seulement l'aperçu i001v / i002v / i066v) : on affiche par terre le
+ * modèle d'un objet qui leur ressemble (le poignard, 112 ; idée du joueur, 21/11/2026). L'objet reçu au ramassage
+ * reste le bon (bhd.exe+1512ED). 0 = pas de substitution. */
+static DWORD g_id_modele[MAX_EMPLACEMENTS];
+
+static DWORD substitut_modele(DWORD id)
+{
+    return (id == 1 || id == 2 || id == 66) ? 112u : 0u;
+}
 
 static int liste_contient(const DWORD *liste, int n, const char *nom)
 {
@@ -390,7 +427,12 @@ static int ajouter_modeles_piece(DWORD piece, int *sans_modele)
     if (n) memcpy(neuve, ancienne, n * sizeof(DWORD));
     for (j = 0; g_visible && j < g_nb; j++) {           /* objets posés de cette pièce */
         if (g_seed[j].piece != piece) continue;
-        if (!modele_existe(g_seed[j].id, g_noms_modeles[j], sizeof g_noms_modeles[j])) { (*sans_modele)++; continue; }
+        g_id_modele[j] = g_seed[j].id;
+        if (!modele_existe(g_seed[j].id, g_noms_modeles[j], sizeof g_noms_modeles[j])) {
+            DWORD sub = substitut_modele(g_seed[j].id);
+            if (!sub || !modele_existe(sub, g_noms_modeles[j], sizeof g_noms_modeles[j])) { (*sans_modele)++; continue; }
+            g_id_modele[j] = sub;                       /* modèle d'un autre objet, l'objet reçu reste le bon */
+        }
         g_modele_ok[j] = 1;
         if (liste_contient(neuve, n + nouveaux, g_noms_modeles[j]) || nouveaux >= 64) continue;
         neuve[n + nouveaux++] = (DWORD)g_noms_modeles[j];
@@ -473,7 +515,7 @@ static void remplacer_au_placement(CONTEXT *c)
     if (!e || !g_modele_ok[e - g_seed]) return;        /* pas de modèle chargé : on laisse l'objet d'origine */
     ancien_id = *(DWORD *)(esp + 0x04);
     ancienne_qte = *(DWORD *)(esp + 0x10);
-    *(DWORD *)(esp + 0x04) = e->id;
+    *(DWORD *)(esp + 0x04) = g_id_modele[e - g_seed] ? g_id_modele[e - g_seed] : e->id;
     *(DWORD *)(esp + 0x10) = e->qte;
     {   /* +8 = pointeur vers la position (x, y, z) : objet remonté si la seed le demande */
         int k;
@@ -1273,6 +1315,83 @@ static void remplacer_malle_depart(void)
                 (unsigned long)g_malle[k].ancien, (unsigned long)g_malle[k].id, (unsigned long)g_malle[k].qte);
 }
 
+/* Inventaire de départ de Chris (fonction de nouvelle partie, bhd.exe+EEB00 environ) : case 1 = couteau (id 2),
+ * case 7 (cachée) = briquet (77), case 8 (cachée) = arme équipée (id 2, le couteau). « Nouvelle partie » = cases 2 à 6
+ * vides et couteau en case 1 et 8. Vérifié à chaque arrivée dans une pièce ; une fois modifié, l'inventaire ne
+ * correspond plus : jamais deux fois. Une partie déjà commencée n'est pas touchée. */
+#define ID_COUTEAU_CHRIS 2u
+
+/* Arme en main (trouvé le 21/11/2026) : le personnage est créé avec le couteau en main, quel que soit l'inventaire
+ * ([personnage+0x15D0] = 1 : numéro d'arme du couteau, relevé en jeu). Pour l'enlever proprement, on fait comme le jeu
+ * (bhd.exe+2AA710, « demander un changement d'arme ») : [personnage+0x1D40] = numéro d'arme (0 = mains nues),
+ * [+0x1D44] = munitions, puis bit 0x10 de [+0x1530]. La mise à jour du personnage, sur le fil du jeu, appelle alors
+ * bhd.exe+2AC140 (changer d'arme) et baisse le bit. Personnage : bhd.exe+EC600 (__thiscall, ecx = [bhd.exe+8F2E84]). */
+#define ARME_COUTEAU     1u        /* numéro d'arme du couteau en main (relevé en jeu le 21/11/2026 : +0x15D0 = 1) */
+#define ADR_GEST_JOUEUR  (BASE_JEU + 0x8F2E84u)
+#define ADR_GET_JOUEUR   (BASE_JEU + 0xEC600u)
+static const BYTE g_get_joueur_attendu[7] = { 0xFF, 0x71, 0x24, 0xFF, 0x71, 0x20, 0xE8 };
+typedef DWORD (__attribute__((thiscall)) *GetJoueur)(void *gestionnaire);
+static int   g_retirer_couteau;            /* 1 : demander « mains nues » dès que le personnage existe */
+static DWORD g_retirer_depuis;
+
+static void retirer_couteau_en_main(void)
+{
+    DWORD gest, joueur;
+    if (!g_retirer_couteau) return;
+    if (GetTickCount() - g_retirer_depuis > 60000) {            /* personnage jamais trouvé : on abandonne */
+        g_retirer_couteau = 0;
+        journal("Couteau en main : personnage introuvable, rien n'est fait.");
+        return;
+    }
+    if (!lisible((void *)ADR_GET_JOUEUR, sizeof g_get_joueur_attendu, 0) ||
+        memcmp((void *)ADR_GET_JOUEUR, g_get_joueur_attendu, sizeof g_get_joueur_attendu) != 0) {
+        g_retirer_couteau = 0;
+        journal("Couteau en main : code inattendu en bhd.exe+EC600, rien n'est fait.");
+        return;
+    }
+    if (!lisible((void *)ADR_GEST_JOUEUR, 4, 0) || !(gest = *(DWORD *)ADR_GEST_JOUEUR)) return;
+    joueur = ((GetJoueur)ADR_GET_JOUEUR)((void *)gest);
+    if (!joueur || !lisible((void *)(joueur + 0x1530), 4, 1) || !lisible((void *)(joueur + 0x15D0), 4, 0) ||
+        !lisible((void *)(joueur + 0x1D40), 8, 1)) return;           /* pas encore créé : on réessaie */
+    if (*(DWORD *)(joueur + 0x15D0) != ARME_COUTEAU) return;        /* pas (encore) le couteau en main */
+    *(volatile DWORD *)(joueur + 0x1D40) = 0;                       /* mains nues */
+    *(volatile DWORD *)(joueur + 0x1D44) = 0;
+    InterlockedOr((volatile LONG *)(joueur + 0x1530), 0x10);        /* le jeu fera le changement lui-même */
+    g_retirer_couteau = 0;
+    journal("Couteau en main : changement d'arme demande (mains nues).");
+}
+
+static void preparer_inventaire_depart(void)
+{
+    DWORD partie, *c, i;
+    int k, verrou, change_couteau = 0;
+    if (g_nb_inv == 0 && g_depart_id == 0) return;
+    if (!lisible((void *)ADR_PTR_PARTIE, 4, 0) || !(partie = *(DWORD *)ADR_PTR_PARTIE)) return;
+    if (!lisible((void *)(partie + 0x38), 10 * 8, 1) || !lisible((void *)partie, 0x20, 0) ||
+        !lisible((void *)(partie + 0x5110), 4, 0) || *(DWORD *)(partie + 0x5110) == 1) return;   /* Chris seulement */
+    c = (DWORD *)(partie + 0x38);
+    if (c[0] != ID_COUTEAU_CHRIS || c[7 * 2] != ID_COUTEAU_CHRIS) return;
+    for (i = 1; i < 6; i++) if (c[i * 2] != 0) return;
+    for (k = 0; k < g_nb_inv; k++) if (c[g_inv[k].caseno * 2] != g_inv[k].ancien) return;
+
+    verrou = *(BYTE *)(partie + 0x1C) || (lisible((void *)(BASE_JEU + 0x95978Cu), 1, 0) && *(BYTE *)(BASE_JEU + 0x95978Cu));
+    if (verrou) EnterCriticalSection((CRITICAL_SECTION *)(partie + 0x04));
+    for (k = 0; k < g_nb_inv; k++) {
+        if (g_inv[k].caseno == 0 && g_inv[k].ancien == ID_COUTEAU_CHRIS && g_inv[k].id != ID_COUTEAU_CHRIS)
+            change_couteau = 1;
+        c[g_inv[k].caseno * 2] = g_inv[k].id;
+        c[g_inv[k].caseno * 2 + 1] = g_inv[k].qte;
+    }
+    if (change_couteau) { c[7 * 2] = 0; c[7 * 2 + 1] = 0; }   /* plus d'arme équipée : le couteau n'est plus là */
+    if (verrou) LeaveCriticalSection((CRITICAL_SECTION *)(partie + 0x04));
+    for (k = 0; k < g_nb_inv; k++)
+        journal("Inventaire de depart : case %lu, id %lu -> id %lu x%lu%s", (unsigned long)g_inv[k].caseno + 1,
+                (unsigned long)g_inv[k].ancien, (unsigned long)g_inv[k].id, (unsigned long)g_inv[k].qte,
+                change_couteau && g_inv[k].caseno == 0 ? " (arme equipee retiree)" : "");
+    if (g_depart_id) donner_objet(g_depart_id, g_depart_qte);
+    if (change_couteau) { g_retirer_couteau = 1; g_retirer_depuis = GetTickCount(); }
+}
+
 static void test_donner(void)
 {
     /* L'écran-titre affiche une pièce (106) en arrière-plan : on attend un CHANGEMENT de pièce (début de partie ou
@@ -1281,7 +1400,7 @@ static void test_donner(void)
     static int deja;
     DWORD piece;
     if ((g_test_donne || !g_test_donner_id) && (g_malle_faite || !g_test_malle) &&
-        (g_test_malle_donne || !g_test_malle_id) && !g_nb_malle) return;
+        (g_test_malle_donne || !g_test_malle_id)) return;
     if (!piece_actuelle(&piece) || piece == 0) return;
     if (premiere == 0xFFFFFFFF) premiere = piece;
     if (piece == premiere && piece_vue == 0xFFFFFFFF) return;
@@ -1289,7 +1408,7 @@ static void test_donner(void)
     if (GetTickCount() - depuis < 4000 || deja) return;  /* pièce stable depuis 4 s : le joueur a la main */
     deja = 1;                                            /* une fois par arrivée dans une pièce */
     if (g_test_malle && !g_malle_faite) { g_malle_faite = 1; copier_partie(); }
-    remplacer_malle_depart();                            /* avant tout ajout dans la malle */
+    /* (inventaire et malle de départ : vérifiés en continu dans la boucle de surveillance) */
     if (g_test_donner_id && !g_test_donne) { g_test_donne = 1; donner_objet(g_test_donner_id, g_test_donner_qte); }
     if (g_test_malle_id && !g_test_malle_donne) { g_test_malle_donne = 1; donner_malle(g_test_malle_id, g_test_malle_qte); }
 }
@@ -1648,7 +1767,14 @@ static DWORD WINAPI surveillance(LPVOID inutile)
         if (InterlockedExchange(&g_veille_changee, 0)) parcourir_threads(2);   /* pièges déplacés */
         else if (tour % 4 == 0) parcourir_threads(1);   /* arme les threads créés depuis le dernier passage */
         if (g_diagnostic || g_releve) diagnostic_periodique();
-        if ((g_test_donner_id || g_test_malle || g_test_malle_id || g_nb_malle) && !g_coupe) test_donner();
+        /* Inventaire et malle de départ : vérifiés à chaque tour (4 fois par seconde), pour modifier la nouvelle partie
+         * pendant son chargement, AVANT l'apparition du joueur (test du 21/11/2026 : après 4 s, Chris tenait déjà le
+         * couteau). Les deux ne s'appliquent qu'au contenu exact de départ : jamais deux fois. */
+        if ((g_nb_inv || g_depart_id) && !g_coupe) preparer_inventaire_depart();
+        if (g_retirer_couteau && !g_coupe) retirer_couteau_en_main();
+        if (g_nb_malle && !g_coupe) remplacer_malle_depart();
+        if ((g_test_donner_id || g_test_malle || g_test_malle_id) && !g_coupe)
+            test_donner();
         if (g_visible && !g_coupe) mettre_a_jour_evenements();
         Sleep(250);
     }
@@ -1666,7 +1792,7 @@ static void demarrer(void)
     _snprintf(g_journal, MAX_PATH, "%srandomizer_journal.txt", g_dossier);
     _snprintf(ini, MAX_PATH, "%srandomizer.ini", g_dossier);
 
-    journal("---- Resident Evil HD Remaster Randomizer v0.9.5 : demarrage");
+    journal("---- Resident Evil HD Remaster Randomizer v0.9.6 : demarrage");
     {
         /* Les adresses ne valent que pour une version précise de bhd.exe : sur une autre version,
          * on ne pose rien (le jeu tourne normalement, XInput reste transmis). */
@@ -1733,7 +1859,8 @@ static void demarrer(void)
                 "Fichier : %s", g_graine, g_nb, g_nb_examens, g_nb_malle,
                 g_armes == 1 ? "OUI" : g_armes == 0 ? "non" : "inconnu", chemin_seed);
     }
-    if (g_nb == 0 && g_nb_examens == 0 && g_nb_malle == 0 && !g_diagnostic && !g_releve) return;
+    if (g_nb == 0 && g_nb_examens == 0 && g_nb_malle == 0 && g_nb_inv == 0 && g_depart_id == 0 &&
+        !g_diagnostic && !g_releve) return;
     /* Objets examinés : relevé (pour connaître leurs ids), diagnostic, ou seed qui en remplace. Examens=0 dans
      * randomizer.ini désactive ce point d'arrêt. */
     g_examens_voulus = GetPrivateProfileIntA("Randomizer", "Examens", 1, ini)

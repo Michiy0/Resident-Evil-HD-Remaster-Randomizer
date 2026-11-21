@@ -133,6 +133,18 @@ def lire_emplacements(chemin, personnage="Chris", difficulte="Normal"):
 # les autres. Pièce « malle », empreinte = numéro de case. La DLL (v0.9.5+) remplace la malle au début d'une nouvelle
 # partie (lignes « malle = case, ancien, id, qte »), seulement si elle contient encore exactement son contenu d'origine.
 PIECE_MALLE = "malle"
+# Inventaire de départ (option « Couteau de départ aléatoire », v0.9.6) : le couteau de Chris (id 2, case 1) devient
+# un emplacement comme les autres et le couteau part dans le mélange. Pièce « inventaire », empreinte = case.
+PIECE_INVENTAIRE = "inventaire"
+ID_COUTEAU = 2
+PIECES_SPECIALES = (PIECE_MALLE, PIECE_INVENTAIRE)
+
+
+def emplacement_couteau(personnage):
+    if personnage != "Chris":                # Jill : pas encore relevée
+        return []
+    return [{"piece": PIECE_INVENTAIRE, "case": 0, "nom_piece": "", "description": "Couteau de départ (inventaire)",
+             "id": ID_COUTEAU, "quantite": 1, "chemin": "inventaire", "empreinte": ["inv0"]}]
 
 
 def lire_malle(chemin, personnage="Chris", difficulte="Normal"):
@@ -174,23 +186,25 @@ def generer(emplacements, graine, ids_libres):
 PIECE_DEPART, ID_DEPART = "106", 3
 
 
+# Munitions qui remplacent l'arme donnée au départ, à son emplacement (« un objet de base », choix du joueur).
+MUNITIONS_ARME = {3: (17, 15), 6: (18, 6), 13: (18, 6), 11: (25, 6)}
+
+
 def garantir_arme_depart(resultat, graine, ids_armes):
-    """Option « arme garantie au départ » : l'emplacement du pistolet du hall reçoit une arme (choisie au hasard,
-    selon la graine, parmi les armes mélangées). On échange simplement deux objets du résultat : la seed contient
-    toujours exactement les mêmes objets. Toutes les armes cochées ont la même chance, Magnum compris (choix du
-    joueur, 21/11/2026). Le pistolet d'autodéfense n'en fait pas partie : c'est un objet (IDS_LIBRES_DE_BASE).
-    Renvoie l'id de l'arme placée au départ, ou None si rien à faire."""
-    depart = next((r for r in resultat if r["piece"].lower() == PIECE_DEPART and r["ancien"]["id"] == ID_DEPART), None)
-    if depart is None:
-        return None                                  # pistolet non mélangé : il reste au hall, déjà une arme
+    """Option « arme garantie au départ » (v0.9.6, choix du joueur le 21/11/2026) : une des armes mélangées, tirée
+    au sort selon la graine (toutes ont la même chance, Magnum compris), est DONNÉE dans l'inventaire au début d'une
+    nouvelle partie, avec ses munitions de base (celles de son emplacement d'origine). L'emplacement où le mélange
+    l'avait placée reçoit à la place des munitions de cette arme. Le pistolet d'autodéfense n'est pas une arme de la
+    liste : c'est un objet (IDS_LIBRES_DE_BASE). Renvoie {"id", "quantite"} de l'arme donnée, ou None."""
     armes = [r for r in resultat if r["nouveau"]["id"] in ids_armes]
-    if depart["nouveau"]["id"] in ids_armes:
-        return depart["nouveau"]["id"]
     if not armes:
         return None
-    choix = random.Random(graine ^ 0x5EED).choice(sorted(armes, key=lambda r: (r["piece"], r["nouveau"]["id"])))
-    depart["nouveau"], choix["nouveau"] = choix["nouveau"], depart["nouveau"]
-    return depart["nouveau"]["id"]
+    choix = random.Random(graine ^ 0x5EED).choice(
+        sorted(armes, key=lambda r: (r["piece"], r.get("case", 0), r["nouveau"]["id"])))
+    arme = dict(choix["nouveau"])
+    mid, mqte = MUNITIONS_ARME.get(arme["id"], (17, 15))
+    choix["nouveau"] = {"id": mid, "quantite": mqte}
+    return arme
 
 
 def placer_armes_bonus(resultat, graine, ids_bonus=None):
@@ -225,6 +239,9 @@ def resume_spoiler(sortie, langue="fr"):
     """Lignes de résumé du spoiler (graine, nombre d'objets mélangés), à partir du contenu du fichier .json."""
     armes = sortie.get("options", {}).get("armes_aleatoires", False)
     lignes = [tr("gen_resume", langue, graine=sortie["graine"], armes=tr("gen_oui" if armes else "gen_non", langue))]
+    if sortie.get("depart"):                 # arme donnée au début de la partie (v0.9.6)
+        lignes.append(tr("gen_arme_depart", langue, arme=nom_objet(sortie["depart"]["id"], langue)
+                         + _fois(sortie["depart"])))
     if "laisses" in sortie:                  # absent des seeds d'avant la v0.9.3
         lignes.append(tr("gen_compte", langue, n=len(sortie["remplacements"]), m=sortie["laisses"],
                          pistolet="" if armes else tr("gen_pistolet", langue)))
@@ -237,6 +254,8 @@ def lignes_spoiler(sortie, langue="fr"):
     def lieu(r):
         if r["piece"] == PIECE_MALLE:
             return tr("malle_depart", langue), tr("malle_case", langue, n=r.get("case", 0) + 1)
+        if r["piece"] == PIECE_INVENTAIRE:
+            return tr("inventaire_depart", langue), tr("malle_case", langue, n=r.get("case", 0) + 1)
         return r["piece"].upper(), r.get("nom_piece") or ""
     return [(*lieu(r),
              nom_objet(r["ancien"]["id"], langue) + _fois(r["ancien"]),
@@ -351,7 +370,7 @@ def tirer_graine():
 def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=False, dossier_jeu=None,
              dire=print, personnage="Chris", difficulte="Normal", langue="fr", dire_spoiler=None,
              armes_choisies=None, objets_visibles=True, arme_depart=False, armes_bonus=False,
-             messages_differes=False, malle_aleatoire=False):
+             messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -361,7 +380,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     objets_visibles : la DLL remplace aussi les objets posés (modèle par terre et aperçu) avant ramassage.
     arme_depart : avec armes_aleatoires, une arme est toujours placée au pistolet du hall (106).
     armes_bonus : ids des armes bonus à placer (option « Fun ») ; True = toutes, False / None / vide = aucune.
-    malle_aleatoire : les objets de la malle de départ sont mélangés avec les autres (nouvelle partie seulement)."""
+    malle_aleatoire : les objets de la malle de départ sont mélangés avec les autres (nouvelle partie seulement).
+    couteau_aleatoire : le couteau de départ (Chris) est mélangé avec les autres objets (nouvelle partie seulement)."""
     dire_brut = dire
     if not messages_differes:
         dire = lambda m: dire_brut(rendre(m, langue))   # noqa: E731
@@ -371,6 +391,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     ids_armes = set(IDS_ARMES) if armes_choisies is None else set(armes_choisies) & IDS_ARMES
     armes_aleatoires = bool(armes_aleatoires and ids_armes)   # aucune arme cochée = option sans effet
     ids_libres = set(IDS_LIBRES_DE_BASE) | (ids_armes if armes_aleatoires else set())
+    if couteau_aleatoire:
+        ids_libres.add(ID_COUTEAU)
     if armes_bonus is True:
         armes_bonus = set(IDS_ARMES_BONUS)
     armes_bonus = set(armes_bonus or ()) & IDS_ARMES_BONUS
@@ -384,10 +406,11 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
         return False
     if malle_aleatoire:
         emplacements = emplacements + lire_malle(fichier, personnage, difficulte)
+    if couteau_aleatoire:
+        emplacements = emplacements + emplacement_couteau(personnage)
     resultat = generer(emplacements, graine, ids_libres)
-    if arme_depart and armes_aleatoires:
-        garantir_arme_depart(resultat, graine, ids_armes)
-    verifier(resultat)                       # avant les armes bonus : elles remplacent des objets (ajout voulu)
+    verifier(resultat)       # avant l'arme de départ et les armes bonus : elles changent des objets (voulu)
+    depart = garantir_arme_depart(resultat, graine, ids_armes) if arme_depart and armes_aleatoires else None
     if armes_bonus:
         placer_armes_bonus(resultat, graine, armes_bonus)
 
@@ -398,7 +421,9 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
         "graine": graine, "options": {"armes_aleatoires": armes_aleatoires, "objets_visibles": bool(objets_visibles),
                                       "arme_depart": bool(arme_depart and armes_aleatoires),
                                       "armes_bonus": sorted(armes_bonus),
-                                      "malle_aleatoire": bool(malle_aleatoire)},
+                                      "malle_aleatoire": bool(malle_aleatoire),
+                                      "couteau_aleatoire": bool(couteau_aleatoire)},
+        "depart": depart,
         "remplacements": resultat,
         "laisses": len(emplacements) - len(resultat),
         "non_utilises": [[f["piece"].upper(), f["description"]] for f, _ in ignores],
@@ -413,7 +438,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
            "return {", f"  graine = {graine},",
            f"  armes_aleatoires = {'true' if armes_aleatoires else 'false'},",
            f"  objets_visibles = {'true' if objets_visibles else 'false'},", "  remplacements = {"]
-    posees = [r for r in resultat if r["piece"] != PIECE_MALLE]
+    posees = [r for r in resultat if r["piece"] not in PIECES_SPECIALES]
+    inventaire = sorted((r for r in resultat if r["piece"] == PIECE_INVENTAIRE), key=lambda r: r["case"])
     malle = sorted((r for r in resultat if r["piece"] == PIECE_MALLE), key=lambda r: r["case"])
     for r in posees:
         emp = ", ".join("0x" + v.upper() for v in r["empreinte"])
@@ -446,6 +472,14 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     for r in malle:
         lua.append(f"    {{ malle = {r['case']}, ancien = {r['ancien']['id']}, id = {r['nouveau']['id']}, "
                    f"qte = {r['nouveau']['quantite']} }},")
+    # Inventaire de départ (DLL v0.9.6+) : couteau remplacé, arme donnée ; nouvelle partie seulement.
+    lua += ["  },", "  inventaire = {"]
+    for r in inventaire:
+        lua.append(f"    {{ inv = {r['case']}, ancien = {r['ancien']['id']}, id = {r['nouveau']['id']}, "
+                   f"qte = {r['nouveau']['quantite']} }},")
+    lua += ["  },", "  donner = {"]
+    if depart:
+        lua.append(f"    {{ depart = {depart['id']}, qte = {depart['quantite']} }},")
     lua += ["  },", "}"]
     fichier_lua = sortie_dir / f"{nom}.lua"
     fichier_lua.write_text("\n".join(lua) + "\n", encoding="utf-8")
