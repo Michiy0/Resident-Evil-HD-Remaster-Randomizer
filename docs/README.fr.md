@@ -43,18 +43,19 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 <td align="center"><img src="../images/appli_installation_fr.png" alt="Installation : la DLL en un clic" width="420"><br><sub>Installation : la DLL en un clic</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
+<td align="center"><img src="../images/appli_difficulte_fr.png" alt="Personnage et difficulté : quelle réponse choisir dans le jeu" width="420"><br><sub>Personnage et difficulté : quelle réponse choisir dans le jeu</sub></td>
+<td align="center"><img src="../images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
 </tr>
 </table>
 
-## État : version 0.9.7 (test)
+## État : version 0.9.7.1 (test)
 
 | Pris en charge | À venir |
 |---|---|
 | Chris, difficulté Facile (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
 | 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | Clés et objets de quête (avec une logique qui garantit que la partie reste finissable) |
 | **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
-| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires |
+| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires, portes aléatoires |
 | Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) | — |
 | Windows et **Steam Deck** (testé en jeu sous Proton, carte SD comprise) ; Linux | Support d'**[Archipelago](#archipelago-à-venir)** |
 
@@ -173,6 +174,7 @@ système, anglais sinon).
     reçoit un objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
     on peut commencer sans arme) ; en dessous, dans sa propre carte, *Pour les fous* (sans logique, à venir) ;
   - *Ennemis* : ennemis aléatoires (à venir) ;
+  - *Portes* : portes aléatoires, chaque porte mène vers une autre pièce (à venir) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) ;
   - **Générer la seed**, avec la graine (ou « Au hasard ») juste à côté — même graine + mêmes options = même
     résultat : écrit la seed dans le dossier `seeds` et l'installe dans le jeu.

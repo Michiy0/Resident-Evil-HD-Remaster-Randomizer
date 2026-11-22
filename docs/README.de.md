@@ -45,7 +45,8 @@ oder Strategien zu vergleichen.
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installation" width="420"><br><sub>Installation: die DLL mit einem Klick</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
+<td align="center"><img src="../images/appli_difficulte_en.png" alt="Charakter und Schwierigkeit: welche Antwort im Spiel zu wählen ist" width="420"><br><sub>Charakter und Schwierigkeit: welche Antwort im Spiel zu wählen ist</sub></td>
+<td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
 </tr>
 </table>
 
@@ -56,7 +57,7 @@ oder Strategien zu vergleichen.
 | Chris, Schwierigkeit Leicht (ganzes Spiel erfasst, Labor inklusive) | Jill, weitere Schwierigkeitsgrade |
 | 164 Fundorte: Munition (Pistole, Gewehr, Magnum), grüne, rote und blaue Kräuter, Farbbänder, Dolche, Blendgranaten, Selbstverteidigungswaffe, Erste-Hilfe-Sprays und -Kästen | Schlüssel und Questgegenstände (mit einer Logik, die das Spiel schaffbar hält) |
 | **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau; Option **Zufällige Kiste am Start** | Sichtbare Questgegenstände und Gegenstände, die man durch Untersuchen erhält (Edelsteine der Trophäen, Angelhaken…: von der DLL bereits unterstützt), mit den Schlüsseln |
-| Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!) | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner |
+| Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!) | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner, zufällige Türen |
 | Bereich **Spaß**: **Bonuswaffen** (Samurai Edge und Raketenwerfer mit unendlicher Munition) | — |
 | Windows und **Steam Deck** (im Spiel unter Proton getestet, auch SD-Karte); Linux | **[Archipelago](#archipelago-demnächst)** |
 
@@ -129,6 +130,7 @@ Die App hat sechs Tabs und oben rechts eine Sprachauswahl („Automatisch“ = S
     Garantierte Startwaffe (ins Inventar, mit Munition; ihr Fundort erhält einen zufälligen Gegenstand) und
     Zufälliges Startmesser; darunter *Für die Verrückten* (Ohne Logik, demnächst);
   - *Gegner*: Zufällige Gegner (demnächst);
+  - *Türen*: Zufällige Türen, jede Tür führt in einen anderen Raum (demnächst);
   - *Spaß*: Bonuswaffen (Samurai Edge, Raketenwerfer oder beide);
   - **Seed erstellen** mit dem Seed (oder „Zufällig“) daneben — gleicher Seed + gleiche Optionen = gleiches
     Ergebnis.

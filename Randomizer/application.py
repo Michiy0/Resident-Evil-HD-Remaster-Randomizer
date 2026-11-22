@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.7"
+VERSION = "0.9.7.1"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -686,6 +686,7 @@ class Application(tk.Tk):
         self.cles = tk.BooleanVar(value=False)
         self.sans_logique = tk.BooleanVar(value=False)         # option à venir (grisée) : clés sans logique
         self.ennemis = tk.BooleanVar(value=False)              # option à venir (grisée)
+        self.portes = tk.BooleanVar(value=False)               # option à venir (grisée)
         self.armes_bonus = tk.BooleanVar(value=False)          # option « Fun » : Samurai Edge + lance-roquettes
         self.bonus_coches = {ident: tk.BooleanVar(value=True) for _, ident, _ in gen.ARMES_BONUS}
         self.graine = tk.StringVar(value=str(gen.tirer_graine()))
@@ -905,7 +906,7 @@ class Application(tk.Tk):
         self.sous_onglets = ttk.Notebook(page, style="Sous.TNotebook")
         self.sous_onglets.grid(row=0, column=0, sticky="nsew")
         pages = {}
-        for cle in ("carte_partie", "carte_options", "carte_ennemis", "carte_fun"):
+        for cle in ("carte_partie", "carte_options", "carte_ennemis", "carte_portes", "carte_fun"):
             conteneur = ttk.Frame(self.sous_onglets, padding=(0, 12, 0, 0))
             self.sous_onglets.add(conteneur, text=self.t(cle))
             defile = Defilable(conteneur)
@@ -1000,6 +1001,14 @@ class Application(tk.Tk):
         ennemis.pack(fill="x")
         ttk.Checkbutton(en, text=self.t("ennemis_aleatoires") + a_venir, variable=self.ennemis,
                         state="disabled").pack(anchor="w")
+
+        # --- Portes (projet : chaque porte mène vers une autre pièce)
+        portes, po = self.carte(pages["carte_portes"], self.t("carte_portes"))
+        portes.pack(fill="x")
+        ttk.Checkbutton(po, text=self.t("portes_aleatoires") + a_venir, variable=self.portes,
+                        state="disabled").pack(anchor="w")
+        ttk.Label(po, text=self.t("note_portes"), style="Note.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
 
         for interieur in pages.values():
             self.notes_pleine_largeur(interieur)

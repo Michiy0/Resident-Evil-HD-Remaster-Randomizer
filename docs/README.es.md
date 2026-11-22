@@ -45,7 +45,8 @@ o estrategias.
 <td align="center"><img src="../images/appli_installation_en.png" alt="Instalación" width="420"><br><sub>Instalación: la DLL en un clic</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: la lista completa de cambios</sub></td>
+<td align="center"><img src="../images/appli_difficulte_en.png" alt="Personaje y dificultad: qué respuesta elegir en el juego" width="420"><br><sub>Personaje y dificultad: qué respuesta elegir en el juego</sub></td>
+<td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: la lista completa de cambios</sub></td>
 </tr>
 </table>
 
@@ -56,7 +57,7 @@ o estrategias.
 | Chris, dificultad Fácil (todo el juego registrado, laboratorio incluido) | Jill, otras dificultades |
 | 164 ubicaciones: munición (pistola, escopeta y magnum), hierbas verdes, rojas y azules, cintas, puñales, granadas cegadoras, pistola de autodefensa, sprays y botiquines | Llaves y objetos de misión (con una lógica que mantiene la partida terminable) |
 | **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa; opción **Baúl inicial aleatorio** | Objetos de misión visibles y objetos que se obtienen al examinar algo (gemas de los trofeos, anzuelo…: ya admitidos por la DLL), con las llaves |
-| Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!) | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios |
+| Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!) | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios, puertas aleatorias |
 | Sección **Diversión**: **armas extra** (Samurai Edge y lanzacohetes con munición ilimitada) | — |
 | Windows y **Steam Deck** (probado en el juego con Proton, también en tarjeta SD); Linux | **[Archipelago](#archipelago-próximamente)** |
 
@@ -128,6 +129,7 @@ La aplicación tiene seis pestañas y un selector de idioma arriba a la derecha 
     armas), arma garantizada al inicio (en el inventario, con su munición; su ubicación recibe un objeto al
     azar) y cuchillo inicial aleatorio; debajo, *Para los locos* (sin lógica, próximamente);
   - *Enemigos*: enemigos aleatorios (próximamente);
+  - *Puertas*: puertas aleatorias, cada puerta lleva a otra sala (próximamente);
   - *Diversión*: armas extra (Samurai Edge, lanzacohetes o ambos);
   - **Generar la seed**, con la seed (o «Al azar») al lado — misma seed + mismas opciones = mismo resultado.
 - **Spoiler** — la lista completa de cambios en una tabla, con búsqueda y orden, oculta hasta que marques

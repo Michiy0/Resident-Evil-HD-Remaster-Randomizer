@@ -41,18 +41,19 @@ or strategies.
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installation: the DLL in one click" width="420"><br><sub>Installation: the DLL in one click</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
+<td align="center"><img src="../images/appli_difficulte_en.png" alt="Character and difficulty: which answer to pick in the game" width="420"><br><sub>Character and difficulty: which answer to pick in the game</sub></td>
+<td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
 </tr>
 </table>
 
-## Status: version 0.9.7 (test)
+## Status: version 0.9.7.1 (test)
 
 | Supported | Coming |
 |---|---|
 | Chris, Easy difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
 | 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | Keys and quest items (with logic that keeps the game completable) |
 | **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
-| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies |
+| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies, random doors |
 | **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) | — |
 | Windows and **Steam Deck** (tested in game under Proton, SD card included); Linux | **[Archipelago](#archipelago-coming-soon)** support |
 
@@ -163,6 +164,7 @@ otherwise).
     starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon); below,
     in its own card, *For the crazy ones* (no logic, coming soon);
   - *Enemies*: random enemies (coming soon);
+  - *Doors*: random doors, each door leads to a different room (coming soon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both);
   - **Generate seed**, with the seed (or “Random”) next to it — same seed + same options = same result: writes
     the seed to the `seeds` folder and installs it in the game.

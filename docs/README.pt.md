@@ -44,7 +44,8 @@ estratégias.
 <td align="center"><img src="../images/appli_installation_en.png" alt="Instalação" width="420"><br><sub>Instalação: a DLL em um clique</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
+<td align="center"><img src="../images/appli_difficulte_en.png" alt="Personagem e dificuldade: qual resposta escolher no jogo" width="420"><br><sub>Personagem e dificuldade: qual resposta escolher no jogo</sub></td>
+<td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
 </tr>
 </table>
 
@@ -55,7 +56,7 @@ estratégias.
 | Chris, dificuldade Fácil (jogo inteiro levantado, laboratório incluído) | Jill, outras dificuldades |
 | 164 locais: munição (pistola, espingarda e magnum), ervas verdes, vermelhas e azuis, fitas, adagas, granadas de luz, pistola de autodefesa, sprays e kits de primeiros socorros | Chaves e itens de missão (com uma lógica que mantém o jogo terminável) |
 | **Itens visíveis no chão**: o novo item aparece na sala e na prévia; opção **Baú inicial aleatório** | Itens de missão visíveis e itens obtidos ao examinar algo (gemas dos troféus, anzol…: já suportados pela DLL), com as chaves |
-| Opção **Armas aleatórias** (pistola, espingarda, espingarda de assalto, magnum) e **Arma garantida no início** (no inventário no início, com sua munição); opção **Faca inicial aleatória** (você pode começar sem arma!) | Outras armas (lança-granadas, lança-chamas), inimigos aleatórios |
+| Opção **Armas aleatórias** (pistola, espingarda, espingarda de assalto, magnum) e **Arma garantida no início** (no inventário no início, com sua munição); opção **Faca inicial aleatória** (você pode começar sem arma!) | Outras armas (lança-granadas, lança-chamas), inimigos aleatórios, portas aleatórias |
 | Seção **Diversão**: **armas bônus** (Samurai Edge e lança-foguetes com munição ilimitada) | — |
 | Windows e **Steam Deck** (testado no jogo com Proton, inclusive no cartão SD); Linux | **[Archipelago](#archipelago-em-breve)** |
 
@@ -126,6 +127,7 @@ O app tem seis abas e um seletor de idioma no canto superior direito (“Automá
     garantida no início (no inventário, com sua munição; o local dela recebe um item aleatório) e faca inicial
     aleatória; abaixo, *Para os loucos* (sem lógica, em breve);
   - *Inimigos*: inimigos aleatórios (em breve);
+  - *Portas*: portas aleatórias, cada porta leva a outra sala (em breve);
   - *Diversão*: armas bônus (Samurai Edge, lança-foguetes ou os dois);
   - **Gerar a seed**, com a seed (ou “Aleatória”) ao lado — mesma seed + mesmas opções = mesmo resultado.
 - **Spoiler** — a lista completa de mudanças em uma tabela, com busca e ordenação, escondida até você marcar

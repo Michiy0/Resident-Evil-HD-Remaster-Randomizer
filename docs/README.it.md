@@ -45,7 +45,8 @@ tempi o strategie.
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installazione" width="420"><br><sub>Installazione: la DLL in un clic</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: l'elenco completo delle modifiche</sub></td>
+<td align="center"><img src="../images/appli_difficulte_en.png" alt="Personaggio e difficoltà: quale risposta scegliere nel gioco" width="420"><br><sub>Personaggio e difficoltà: quale risposta scegliere nel gioco</sub></td>
+<td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: l'elenco completo delle modifiche</sub></td>
 </tr>
 </table>
 
@@ -56,7 +57,7 @@ tempi o strategie.
 | Chris, difficoltà Facile (tutto il gioco rilevato, laboratorio compreso) | Jill, altre difficoltà |
 | 164 punti: munizioni (pistola, fucile e magnum), erbe verdi, rosse e blu, nastri, pugnali, granate accecanti, pistola per autodifesa, spray e kit di pronto soccorso | Chiavi e oggetti della missione (con una logica che mantiene la partita completabile) |
 | **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima; opzione **Baule iniziale casuale** | Oggetti della missione visibili e oggetti ottenuti esaminando qualcosa (gemme dei trofei, amo…: già gestiti dalla DLL), con le chiavi |
-| Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'inizio, con le sue munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!) | Altre armi (lanciagranate, lanciafiamme), nemici casuali |
+| Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'inizio, con le sue munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!) | Altre armi (lanciagranate, lanciafiamme), nemici casuali, porte casuali |
 | Sezione **Divertimento**: **armi bonus** (Samurai Edge e lanciarazzi con munizioni illimitate) | — |
 | Windows e **Steam Deck** (testato in gioco con Proton, anche su scheda SD); Linux | **[Archipelago](#archipelago-in-arrivo)** |
 
@@ -126,6 +127,7 @@ L'app ha sei schede e un selettore della lingua in alto a destra («Automatica»
     garantita all'inizio (nell'inventario, con le sue munizioni; il suo posto riceve un oggetto a caso) e
     coltello iniziale casuale; sotto, *Per i folli* (senza logica, in arrivo);
   - *Nemici*: nemici casuali (in arrivo);
+  - *Porte*: porte casuali, ogni porta porta a un'altra stanza (in arrivo);
   - *Divertimento*: armi bonus (Samurai Edge, lanciarazzi o entrambi);
   - **Genera il seed**, con il seed (o «Casuale») accanto — stesso seed + stesse opzioni = stesso risultato.
 - **Spoiler** — l'elenco completo delle modifiche in una tabella, con ricerca e ordinamento, nascosto finché
