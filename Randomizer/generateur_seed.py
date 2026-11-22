@@ -139,6 +139,9 @@ def lire_emplacements(chemin, personnage="Chris", difficulte="Facile"):
 # les autres. Pièce « malle », empreinte = numéro de case. La DLL (v0.9.5+) remplace la malle au début d'une nouvelle
 # partie (lignes « malle = case, ancien, id, qte »), seulement si elle contient encore exactement son contenu d'origine.
 PIECE_MALLE = "malle"
+# Clé du placard (salle des costumes) : le jeu la met en tête de malle seulement dans une partie « Une fois de plus ».
+# Option « Clé du placard dès le départ » : ajoutée dans la première case vide de la malle d'une nouvelle partie.
+ID_CLE_PLACARD = 62
 # Inventaire de départ (option « Couteau de départ aléatoire », v0.9.6) : le couteau de Chris (id 2, case 1) devient
 # un emplacement comme les autres et le couteau part dans le mélange. Pièce « inventaire », empreinte = case.
 PIECE_INVENTAIRE = "inventaire"
@@ -381,7 +384,7 @@ def tirer_graine():
 def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=False, dossier_jeu=None,
              dire=print, personnage="Chris", difficulte="Facile", langue="fr", dire_spoiler=None,
              armes_choisies=None, objets_visibles=True, arme_depart=False, armes_bonus=False,
-             messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False):
+             messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False, cle_placard=False, une_fois_de_plus=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -392,7 +395,10 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     arme_depart : avec armes_aleatoires, une arme est toujours placée au pistolet du hall (106).
     armes_bonus : ids des armes bonus à placer (option « Fun ») ; True = toutes, False / None / vide = aucune.
     malle_aleatoire : les objets de la malle de départ sont mélangés avec les autres (nouvelle partie seulement).
-    couteau_aleatoire : le couteau de départ (Chris) est mélangé avec les autres objets (nouvelle partie seulement)."""
+    couteau_aleatoire : le couteau de départ (Chris) est mélangé avec les autres objets (nouvelle partie seulement).
+    cle_placard : la clé du placard (salle des costumes) est ajoutée à la malle de départ (nouvelle partie seulement).
+    une_fois_de_plus : partie « Une fois de plus » (jeu déjà terminé) : le jeu met la clé du placard en case 1 de la
+    malle, le contenu de départ est donc décalé d'une case (hypothèse du 22/11/2026, à confirmer en jeu)."""
     dire_brut = dire
     if not messages_differes:
         dire = lambda m: dire_brut(rendre(m, langue))   # noqa: E731
@@ -433,7 +439,9 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
                                       "arme_depart": bool(arme_depart and armes_aleatoires),
                                       "armes_bonus": sorted(armes_bonus),
                                       "malle_aleatoire": bool(malle_aleatoire),
-                                      "couteau_aleatoire": bool(couteau_aleatoire)},
+                                      "couteau_aleatoire": bool(couteau_aleatoire),
+                                      "cle_placard": bool(cle_placard and not une_fois_de_plus),
+                                      "une_fois_de_plus": bool(une_fois_de_plus)},
         "depart": depart,
         "remplacements": resultat,
         "laisses": len(emplacements) - len(resultat),
@@ -450,7 +458,11 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
            f"  armes_aleatoires = {'true' if armes_aleatoires else 'false'},",
            f"  objets_visibles = {'true' if objets_visibles else 'false'},",
            # valeur de la difficulté dans le jeu ([partie]+0x24) : la DLL n'applique la seed que dans celle-ci
-           f"  difficulte = {DIFFICULTE_JEU[difficulte]},", "  remplacements = {"]
+           f"  difficulte = {DIFFICULTE_JEU[difficulte]},",
+           # clé du placard dès le départ : la DLL (v0.9.7.3+) active aussi la porte de la salle des costumes
+           f"  placard = {1 if cle_placard and not une_fois_de_plus else 0},",
+           # « Une fois de plus » : la DLL (v0.9.7.3+) retire les armes infinies et remet un départ normal
+           f"  ufp = {1 if une_fois_de_plus else 0},", "  remplacements = {"]
     posees = [r for r in resultat if r["piece"] not in PIECES_SPECIALES]
     inventaire = sorted((r for r in resultat if r["piece"] == PIECE_INVENTAIRE), key=lambda r: r["case"])
     malle = sorted((r for r in resultat if r["piece"] == PIECE_MALLE), key=lambda r: r["case"])
@@ -482,9 +494,22 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
             lua.append(f"    {{ decalage = 0x{piece}, ancien = {ancien}, y = {DECALAGES[(piece, ancien)]} }},")
     # Malle de départ : toutes les cases (même inchangées), la DLL vérifie le contenu d'origine case par case.
     lua += ["  },", "  coffre = {"]
-    for r in malle:
-        lua.append(f"    {{ malle = {r['case']}, ancien = {r['ancien']['id']}, id = {r['nouveau']['id']}, "
-                   f"qte = {r['nouveau']['quantite']} }},")
+    coffre = {r["case"]: (r["ancien"]["id"], r["nouveau"]["id"], r["nouveau"]["quantite"]) for r in malle}
+    if une_fois_de_plus and coffre:
+        # « Une fois de plus » : la clé du placard est en case 1, le contenu de départ commence en case 2
+        coffre = {case + 1: v for case, v in coffre.items()}
+        coffre[0] = (ID_CLE_PLACARD, ID_CLE_PLACARD, 1)
+    elif cle_placard:
+        # La DLL ne touche à la malle que si chaque case listée a son contenu d'origine (nouvelle partie) : on liste
+        # aussi les cases inchangées, puis la clé dans la première case vide (« ancien = 0 »). Dans une partie
+        # « Une fois de plus », la clé est déjà en tête de malle : le contenu ne correspond pas, rien n'est ajouté.
+        origine = lire_malle(fichier, personnage, difficulte)
+        for c in origine:
+            coffre.setdefault(c["case"], (c["id"], c["id"], c["quantite"]))
+        if origine:
+            coffre[len(origine)] = (0, ID_CLE_PLACARD, 1)
+    for case, (ancien, nouvel_id, qte) in sorted(coffre.items()):
+        lua.append(f"    {{ malle = {case}, ancien = {ancien}, id = {nouvel_id}, qte = {qte} }},")
     # Inventaire de départ (DLL v0.9.6+) : couteau remplacé, arme donnée ; nouvelle partie seulement.
     lua += ["  },", "  inventaire = {"]
     for r in inventaire:

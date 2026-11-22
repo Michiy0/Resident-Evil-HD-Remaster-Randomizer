@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.7.2"
+VERSION = "0.9.7.3"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -676,10 +676,15 @@ class Application(tk.Tk):
 
         self.personnage = tk.StringVar(value="Chris")
         self.difficulte = tk.StringVar(value="Facile")
+        # type de partie : nouvelle partie (questionnaire) ou « Une fois de plus » (jeu déjà terminé) ; un seul
+        # choix pour les deux colonnes de l'onglet (valeur « type:difficulté »), qui donne difficulte et ufp
+        self.choix_partie = tk.StringVar(value="nouvelle:Facile")
+        self.ufp = tk.BooleanVar(value=False)
         self.armes = tk.BooleanVar(value=False)
         self.visibles = tk.BooleanVar(value=True)              # objets visibles par terre et dans l'aperçu
         self.malle = tk.BooleanVar(value=True)                 # malle de départ mélangée avec les autres objets
         self.couteau = tk.BooleanVar(value=False)              # couteau de départ mélangé (risque : partir sans arme)
+        self.cle_placard = tk.BooleanVar(value=False)          # clé du placard (costumes) dans la malle de départ
         # une case par arme de base (cochées par défaut, sauf celles pas encore relevées) ; visibles seulement avec « Armes aléatoires »
         self.arme_depart = tk.BooleanVar(value=True)           # une arme toujours au pistolet du hall
         self.armes_cochees = {cle: tk.BooleanVar(value=id_arme is not None) for cle, id_arme, _ in gen.ARMES}
@@ -917,23 +922,41 @@ class Application(tk.Tk):
         # --- Personnage et difficulté
         partie, p = self.carte(gauche, self.t("carte_partie"))
         partie.pack(fill="x")
-        p.columnconfigure(1, weight=1)
+        p.columnconfigure(3, weight=1)       # colonnes serrées à gauche
         a_venir = f"  · {self.t('a_venir')}"
         ttk.Label(p, text=self.t("personnage"), style="Carte.TLabel").grid(row=0, column=0, sticky="w")
         for i, (nom, dispo) in enumerate((("Chris", True), ("Jill", False))):
             ttk.Radiobutton(p, text=nom if dispo else nom + a_venir, value=nom, variable=self.personnage,
                             state="normal" if dispo else "disabled").grid(row=1 + i, column=0, sticky="w")
-        ttk.Label(p, text=self.t("difficulte"), style="Carte.TLabel").grid(row=0, column=1, sticky="w",
-                                                                         padx=(24, 0))
-        for i, nom in enumerate(("Très facile", "Facile", "Normal", "Difficile", "Real Survival")):
-            dispo = nom == "Facile"          # nos relevés sont en Facile (réponse « II. Gamer », 22/11/2026)
-            libelle = self.t(f"diff_{nom}")
-            ttk.Radiobutton(p, text=libelle if dispo else libelle + a_venir, value=nom,
-                            variable=self.difficulte, state="normal" if dispo else "disabled"
-                            ).grid(row=1 + i, column=1, sticky="w", padx=(24, 0))
+        # Difficultés en deux colonnes, comme dans le jeu (22/11/2026) : nouvelle partie = réponse au questionnaire
+        # (I. Old school = Normal, II. Gamer = Facile, III. Casual = Débutant) ; « Une fois de plus » (jeu déjà
+        # terminé) = difficulté choisie par son nom. Nos relevés sont en Facile.
+        colonnes = (
+            ("nouvelle", "partie_nouvelle", "note_partie_nouvelle",
+             (("Très facile", "III. Casual"), ("Facile", "II. Gamer"), ("Normal", "I. Old school"))),
+            ("ufp", "partie_ufp", "note_partie_ufp",
+             tuple((nom, None) for nom in ("Très facile", "Facile", "Normal", "Difficile", "Real Survival"))),
+        )
+        for col, (cle, titre, note, choix) in enumerate(colonnes, start=1):
+            ttk.Label(p, text=self.t(titre), style="Carte.TLabel").grid(row=0, column=col, sticky="w", padx=(24, 0))
+            ttk.Label(p, text=self.t(note), style="Note.TLabel", wraplength=190, justify="left").grid(
+                row=1, column=col, sticky="w", padx=(24, 0), pady=(0, 4))
+            for i, (nom, reponse) in enumerate(choix):
+                dispo = nom == "Facile"
+                libelle = self.t(f"diff_{nom}") if reponse is None else f"{reponse}  ({self.t(f'diff_{nom}')})"
+                ttk.Radiobutton(p, text=libelle if dispo else libelle + a_venir, value=f"{cle}:{nom}",
+                                variable=self.choix_partie, command=self.choisir_partie,
+                                state="normal" if dispo else "disabled"
+                                ).grid(row=2 + i, column=col, sticky="w", padx=(24, 0))
         # comment choisir la bonne difficulté dans le jeu (la DLL n'applique pas la seed sinon)
         ttk.Label(p, text=self.t("note_difficulte"), style="Alerte.TLabel", wraplength=300,
-                  justify="left").grid(row=6, column=0, columnspan=2, sticky="w", pady=(10, 0))
+                  justify="left").grid(row=8, column=0, columnspan=4, sticky="w", pady=(10, 0))
+        # clé du placard (salle des costumes) dès le départ, sans avoir fini le jeu (nouvelle partie seulement)
+        self.case_cle_placard = ttk.Checkbutton(p, text=self.t("cle_placard"), variable=self.cle_placard)
+        self.case_cle_placard.grid(row=9, column=0, columnspan=4, sticky="w", pady=(12, 0))
+        self.note_cle = ttk.Label(p, style="Note.TLabel", wraplength=300, justify="left")
+        self.note_cle.grid(row=10, column=0, columnspan=4, sticky="w", padx=(27, 0))
+        self.choisir_partie()
 
         # --- Fun : options qui rendent la partie plus facile
         fun, f = self.carte(pages["carte_fun"], self.t("carte_fun"))
@@ -1519,6 +1542,15 @@ class Application(tk.Tk):
         if messagebox.askyesno(TITRE, self.t("maj_erreur", e=erreur)):
             webbrowser.open(self.maj.get("page") or URL_DEPOT + "/releases/latest")
 
+    def choisir_partie(self):
+        """Type de partie et difficulté choisis dans l'onglet « Personnage et difficulté »."""
+        type_partie, difficulte = self.choix_partie.get().split(":", 1)
+        self.difficulte.set(difficulte)
+        self.ufp.set(type_partie == "ufp")
+        # en « Une fois de plus », le jeu donne déjà la clé du placard : l'option n'a pas de sens
+        self.case_cle_placard.state(["disabled"] if self.ufp.get() else ["!disabled"])
+        self.note_cle.configure(text=self.t("note_cle_placard_ufp" if self.ufp.get() else "note_cle_placard"))
+
     def actualiser_etat(self):
         d = Path(self.dossier_jeu.get()) if self.dossier_jeu.get() else None
         if not d or not (d / "bhd.exe").exists():
@@ -1741,7 +1773,8 @@ class Application(tk.Tk):
                                   personnage=self.personnage.get(), difficulte=self.difficulte.get(),
                                   langue=langue, dire_spoiler=spoiler.append, armes_choisies=armes,
                                   objets_visibles=self.visibles.get(), arme_depart=self.arme_depart.get(),
-                                  malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(),
+                                  malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(), cle_placard=self.cle_placard.get() and not self.ufp.get(),
+                                  une_fois_de_plus=self.ufp.get(),
                                   armes_bonus=self.armes_bonus_choisies(), messages_differes=True)
             except Exception as e:  # on affiche l'erreur plutôt que de fermer l'application
                 messages.append(textes.Msg("erreur", e=e))

@@ -48,13 +48,13 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.7.2 (test)
+## État : version 0.9.7.3 (test)
 
 | Pris en charge | À venir |
 |---|---|
 | Chris, difficulté Facile (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
 | 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | Clés et objets de quête (avec une logique qui garantit que la partie reste finissable) |
-| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
+| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** (aussi en *Une fois de plus*) ; option **clé du placard dès le départ** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
 | Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires, portes aléatoires |
 | Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) | — |
 | Windows et **Steam Deck** (testé en jeu sous Proton, carte SD comprise) ; Linux | Support d'**[Archipelago](#archipelago-à-venir)** |
@@ -184,8 +184,12 @@ système, anglais sinon).
 - **Installation** — dossier du jeu, état du randomizer et de la seed installée, installer / mettre à
   jour / désinstaller la DLL (et l'option de lancement sur Steam Deck). L'application s'ouvre ici tant
   que la DLL n'est pas installée et à jour.
-- **Générer une seed** — débloqué une fois la DLL en place, avec quatre sous-onglets :
-  - *Personnage et difficulté* ;
+- **Générer une seed** — débloqué une fois la DLL en place, avec cinq sous-onglets :
+  - *Personnage et difficulté* : la difficulté en deux colonnes, *Nouvelle partie* (réponse à la première
+    question : I. Old school, II. Gamer, III. Casual) et *Une fois de plus* (jeu déjà terminé, difficulté
+    choisie par son nom ; les armes infinies débloquées ne sont pas données, passer par *Armes bonus*), et l'option
+    *Clé du placard dès le départ* (la clé de la salle des costumes est dans la malle dès le début, et sa porte
+    fonctionne) ;
   - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
     ramassage), malle de départ aléatoire (cochée d'office ; nouvelle partie seulement), armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent
     rester à leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement

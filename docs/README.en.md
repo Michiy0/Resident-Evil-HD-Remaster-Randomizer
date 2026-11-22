@@ -46,13 +46,13 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.7.2 (test)
+## Status: version 0.9.7.3 (test)
 
 | Supported | Coming |
 |---|---|
 | Chris, Easy difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
 | 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | Keys and quest items (with logic that keeps the game completable) |
-| **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
+| **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option (also in *Once Again*); **Closet Key from the start** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
 | **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies, random doors |
 | **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) | — |
 | Windows and **Steam Deck** (tested in game under Proton, SD card included); Linux | **[Archipelago](#archipelago-coming-soon)** support |
@@ -174,8 +174,11 @@ otherwise).
 
 - **Installation** — game folder, randomizer and installed seed status, install / update / uninstall the
   DLL (and the launch option on Steam Deck). The app opens here until the DLL is installed and up to date.
-- **Generate a seed** — unlocked once the DLL is in place, with four sub-tabs:
-  - *Character and difficulty*;
+- **Generate a seed** — unlocked once the DLL is in place, with five sub-tabs:
+  - *Character and difficulty*: the difficulty in two columns, *New game* (answer to the first question:
+    I. Old school, II. Gamer, III. Casual) and *Once Again* (game already finished, difficulty picked by name;
+    unlocked infinite weapons are not given, use *Bonus weapons* instead), and the *Closet Key from the start*
+    option (the key to the costume room is in the item box from the start, and its door works);
   - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
     pickup), random starting item box (ticked by default; new game only), random weapons (ticking it shows the weapon list; untick those that should stay in place) and
     guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and random

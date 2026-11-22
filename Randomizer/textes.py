@@ -293,6 +293,43 @@ T = {
                         "Случайные ключи", "随机钥匙"),
     "ennemis_aleatoires": ("Ennemis aléatoires", "Random enemies", "敵もランダム", "Enemigos aleatorios",
                            "Inimigos aleatórios", "Случайные враги", "随机敌人"),
+    "partie_nouvelle": ("Nouvelle partie", "New game", "ニューゲーム", "Partida nueva", "Novo jogo", "Новая игра",
+                        "新游戏"),
+    "note_partie_nouvelle": ("Réponse à « Quel est votre style de jeu ? »",
+                             "Answer to “What is your play style?”", "「プレイスタイル」の質問への答え",
+                             "Respuesta a la pregunta sobre tu estilo de juego",
+                             "Resposta à pergunta sobre o seu estilo de jogo", "Ответ на вопрос о стиле игры",
+                             "对“游戏风格”问题的回答"),
+    "partie_ufp": ("Une fois de plus", "Once Again", "2周目", "Nueva partida+", "Novo jogo+", "Новая игра+", "二周目"),
+    "note_partie_ufp": ("Jeu déjà terminé : on choisit la difficulté par son nom. Les armes infinies débloquées ne sont pas données (voir Armes bonus).",
+                        "Game already finished: you pick the difficulty by name. Unlocked infinite weapons are not given (see Bonus weapons).",
+                        "クリア後：難易度を名前で選びます。解放済みの無限武器は支給されません（ボーナス武器を参照）。", "Juego ya terminado: eliges la dificultad por su nombre. Las armas infinitas desbloqueadas no se dan (ver Armas extra).",
+                        "Jogo já zerado: você escolhe a dificuldade pelo nome. As armas infinitas desbloqueadas não são dadas (veja Armas bônus).",
+                        "Игра уже пройдена: сложность выбирается по названию. Открытое бесконечное оружие не выдаётся (см. Бонусное оружие).", "已通关：按名称选择难度。已解锁的无限武器不会给予（见奖励武器）。"),
+    "note_cle_placard_ufp": ("En « Une fois de plus », le jeu met déjà la clé du placard dans la malle.",
+                             "In “Once Again”, the game already puts the Closet Key in the item box.",
+                             "2周目では、ゲームがもともとクローゼットのカギをアイテムボックスに入れます。",
+                             "En Nueva partida+, el juego ya pone la llave del armario en el baúl.",
+                             "No Novo jogo+, o jogo já coloca a chave do armário no baú.",
+                             "В новой игре+ игра уже кладёт ключ от кладовой в сундук.",
+                             "二周目时，游戏本来就会把衣柜钥匙放进道具箱。"),
+    "cle_placard": ("Clé du placard dès le départ", "Closet Key from the start", "最初からクローゼットのカギ",
+                    "Llave del armario desde el inicio", "Chave do armário desde o início",
+                    "Ключ от кладовой с самого начала", "开局即有衣柜钥匙"),
+    "note_cle_placard": (
+        "La clé de la salle des costumes est dans la malle dès le début, comme quand on a déjà fini le jeu. "
+        "Nouvelle partie seulement (en « Une fois de plus », le jeu la donne déjà).",
+        "The key to the costume room is in the item box from the start, as when you have already finished the game. "
+        "New game only (in “Once Again”, the game already gives it).",
+        "衣装部屋のカギが、クリア後と同じように最初からアイテムボックスに入っています。ニューゲームのみ"
+        "（クリアデータからのゲームでは、もともと入っています）。",
+        "La llave de la sala de trajes está en el baúl desde el principio, como cuando ya has terminado el juego. "
+        "Solo en partida nueva (desde una partida terminada, el juego ya la da).",
+        "A chave da sala de roupas está no baú desde o início, como quando você já zerou o jogo. "
+        "Só em um novo jogo (a partir de um save zerado, o jogo já a dá).",
+        "Ключ от комнаты с костюмами лежит в сундуке с самого начала, как после прохождения игры. "
+        "Только для новой игры (при игре с сохранения пройденной игры он уже есть).",
+        "服装间的钥匙从一开始就在道具箱里，就像已经通关时一样。仅限新游戏（从通关存档开始时，游戏本来就会给）。"),
     "portes_aleatoires": ("Portes aléatoires", "Random doors", "ドアもランダム", "Puertas aleatorias",
                           "Portas aleatórias", "Случайные двери", "随机门"),
     "note_portes": (
@@ -486,27 +523,19 @@ T = {
                           "Cuchillo inicial aleatorio", "Faca inicial aleatória", "Случайный стартовый нож",
                           "随机初始小刀"),
     "note_difficulte": (
-        "Les seeds sont faites pour la difficulté Facile (la seule difficulté relevée pour l'instant). Nouvelle partie : à la "
-        "question « Quel est votre style de jeu ? », choisis la 2e réponse, « II. Gamer ». Partie lancée depuis une "
-        "sauvegarde de jeu terminé : choisis « Facile ». Si ta partie est dans une autre difficulté, la seed ne "
-        "s'applique pas.",
-        "Seeds are made for the Easy difficulty (the only difficulty surveyed so far). New game: at the question “What is your play "
-        "style?”, pick the 2nd answer, “II. Gamer”. Game started from a cleared save: pick “Easy”. If your game is "
-        "on another difficulty, the seed is not applied.",
-        "シードは難易度イージー用です（現在調査済みの難易度はこれだけです）。ニューゲーム：「プレイスタイル」の質問で2番目の"
-        "答え「II」を選んでください。クリアデータから始める場合：「イージー」を選んでください。別の難易度では"
-        "シードは適用されません。",
-        "Las semillas están hechas para la dificultad Fácil (la única dificultad registrada por ahora). Partida nueva: en la "
-        "pregunta sobre tu estilo de juego, elige la 2.ª respuesta, «II. Gamer». Partida iniciada desde una partida "
-        "terminada: elige «Fácil». Si tu partida está en otra dificultad, la semilla no se aplica.",
-        "As seeds são feitas para a dificuldade Fácil (a única dificuldade levantada por enquanto). Novo jogo: na pergunta sobre o "
-        "seu estilo de jogo, escolha a 2ª resposta, “II. Gamer”. Jogo iniciado a partir de um save zerado: escolha "
-        "“Fácil”. Se o seu jogo estiver em outra dificuldade, a seed não é aplicada.",
-        "Сиды сделаны для сложности «Легко» (пока собрана только она). Новая игра: на вопрос о вашем стиле игры "
-        "выберите 2-й ответ, «II. Gamer». Игра с сохранения пройденной игры: выберите «Легко». Если игра на другой "
-        "сложности, сид не применяется.",
-        "种子是为“简单”难度制作的（目前只记录了这一难度）。新游戏：在询问游戏风格的问题中选择第 2 个答案“II”。从通关存档"
-        "开始的游戏：选择“简单”。如果游戏是其他难度，种子不会生效。"),
+        "Les seeds sont faites pour la difficulté Facile (la seule relevée pour l'instant) : choisis la même dans le "
+        "jeu, sinon la seed ne s'applique pas.",
+        "Seeds are made for the Easy difficulty (the only one surveyed so far): pick the same one in the game, "
+        "otherwise the seed is not applied.",
+        "シードは難易度イージー用です（現在調査済みはこれだけです）。ゲームでも同じ難易度を選んでください。"
+        "違う場合、シードは適用されません。",
+        "Las semillas están hechas para la dificultad Fácil (la única registrada por ahora): elige la misma en el "
+        "juego; si no, la semilla no se aplica.",
+        "As seeds são feitas para a dificuldade Fácil (a única levantada por enquanto): escolha a mesma no jogo; "
+        "senão, a seed não é aplicada.",
+        "Сиды сделаны для сложности «Легко» (пока собрана только она): выберите её же в игре, иначе сид не "
+        "применяется.",
+        "种子是为“简单”难度制作的（目前只记录了这一难度）：请在游戏中选择相同难度，否则种子不会生效。"),
     "note_couteau_aleatoire": (
         "Le couteau du début est remplacé par un objet au hasard et se retrouve ailleurs. Sans « Arme garantie au "
         "départ », tu risques de commencer la partie sans aucune arme ! Nouvelle partie seulement.",
@@ -1013,6 +1042,18 @@ ALLEMAND_ITALIEN = {
     'carte_ennemis': ('Gegner',
                       'Nemici'),
     'carte_portes': ('Türen', 'Porte'),
+    'partie_nouvelle': ('Neues Spiel', 'Nuova partita'),
+    'note_partie_nouvelle': ('Antwort auf die Frage nach deinem Spielstil', 'Risposta alla domanda sul tuo stile di gioco'),
+    'partie_ufp': ('Neues Spiel+', 'Nuova partita+'),
+    'note_partie_ufp': ('Spiel schon beendet: Der Schwierigkeitsgrad wird nach Namen gewählt. Freigeschaltete unendliche Waffen werden nicht gegeben (siehe Bonuswaffen).',
+                        'Gioco già finito: scegli la difficoltà per nome. Le armi infinite sbloccate non vengono date (vedi Armi bonus).'),
+    'note_cle_placard_ufp': ('Bei Neues Spiel+ legt das Spiel den Kammerschlüssel schon in die Kiste.',
+                             'In Nuova partita+ il gioco mette già la chiave del ripostiglio nel baule.'),
+    'cle_placard': ('Kammerschlüssel von Anfang an', "Chiave del ripostiglio dall'inizio"),
+    'note_cle_placard': ('Der Schlüssel zum Kostümraum liegt von Anfang an in der Kiste, wie nach dem Durchspielen. '
+                         'Nur bei einem neuen Spiel (aus einem abgeschlossenen Spielstand gibt ihn das Spiel schon).',
+                         "La chiave della stanza dei costumi è nel baule fin dall'inizio, come quando hai già finito "
+                         "il gioco. Solo in una nuova partita (da un salvataggio di gioco finito, il gioco la dà già)."),
     'portes_aleatoires': ('Zufällige Türen', 'Porte casuali'),
     'note_portes': ('Jede Tür führt in einen anderen Raum als sonst: Das Herrenhaus wird zu einem echten Labyrinth.',
                     'Ogni porta porta a una stanza diversa dal solito: la villa diventa un vero labirinto.'),
@@ -1364,12 +1405,10 @@ ALLEMAND_ITALIEN = {
 ALLEMAND_ITALIEN.update({
     "couteau_aleatoire": ("Zufälliges Startmesser", "Coltello iniziale casuale"),
     "note_difficulte": (
-        "Die Seeds sind für den Schwierigkeitsgrad Leicht gemacht (bisher der einzige erfasste Schwierigkeitsgrad). Neues Spiel: Wähle bei der "
-        "Frage nach deinem Spielstil die 2. Antwort, „II. Gamer“. Spiel aus einem abgeschlossenen Spielstand: Wähle "
-        "„Leicht“. Bei einem anderen Schwierigkeitsgrad wird der Seed nicht angewendet.",
-        "I seed sono fatti per la difficoltà Facile (l'unica difficoltà rilevata per ora). Nuova partita: alla domanda sul tuo stile "
-        "di gioco scegli la 2ª risposta, «II. Gamer». Partita avviata da un salvataggio di gioco finito: scegli "
-        "«Facile». Se la partita è in un'altra difficoltà, il seed non viene applicato."),
+        "Die Seeds sind für den Schwierigkeitsgrad Leicht gemacht (bisher der einzige erfasste): Wähle im Spiel "
+        "denselben, sonst wird der Seed nicht angewendet.",
+        "I seed sono fatti per la difficoltà Facile (l'unica rilevata per ora): scegli la stessa nel gioco, "
+        "altrimenti il seed non viene applicato."),
     "note_couteau_aleatoire": (
         "Das Messer vom Anfang wird durch einen zufälligen Gegenstand ersetzt und landet woanders. Ohne „Garantierte "
         "Startwaffe“ beginnst du das Spiel eventuell ganz ohne Waffe! Nur bei einem neuen Spiel.",

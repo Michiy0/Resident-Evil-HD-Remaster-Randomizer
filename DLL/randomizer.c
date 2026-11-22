@@ -85,6 +85,10 @@ static DWORD   g_depart_id, g_depart_qte;
 /* Difficulté de la partie pour laquelle la seed est faite ([partie]+0x24 : 0 Facile, 1 Normal, 2 Expert,
  * 3 Débutant ; relevé le 22/11/2026). -1 : seed d'avant la v0.9.7, aucune vérification. */
 static LONG    g_difficulte = -1;
+/* « placard = 1 » : option Clé du placard dès le départ (v0.9.7.3), voir ADR_PLACARD */
+static int     g_placard;
+/* « ufp = 1 » : seed pour une partie « Une fois de plus » (v0.9.7.3), voir ADR_NP_ARMES */
+static int     g_ufp;
 
 #define MAX_MALLE 32
 typedef struct { DWORD caseno, ancien, id, qte; } CaseMalle;
@@ -164,7 +168,13 @@ static int charger_seed(const char *chemin)
     if (!f) return 0;
     g_nb = 0;
     while (fgets(ligne, sizeof ligne, f)) {
-        if (strstr(ligne, "difficulte =")) {
+        if (strstr(ligne, "ufp =")) {
+            DWORD v[2];
+            if (lire_nombres(ligne, v, 2) == 1) g_ufp = v[0] != 0;
+        } else if (strstr(ligne, "placard =")) {
+            DWORD v[2];
+            if (lire_nombres(ligne, v, 2) == 1) g_placard = v[0] != 0;
+        } else if (strstr(ligne, "difficulte =")) {
             DWORD v[2];
             if (lire_nombres(ligne, v, 2) == 1 && v[0] <= 3) g_difficulte = (LONG)v[0];
             else journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
@@ -973,6 +983,30 @@ static DWORD taille_dll(void)                        /* taille de notre DLL en m
 }
 
 /* Appelée par le gestionnaire d'exceptions, dans le thread du jeu : copie seulement, rien d'écrit sur disque. */
+/* TestPlacard=1 (recherche, 22/11/2026) : la porte de la salle des costumes (11C) refuse la clé du placard dans une
+ * partie normale. On surveille avec DR3 (lecture/écriture) l'indicateur « jeu terminé » ([partie]+0x5124 : bits 8/9
+ * Chris, 11/12 Jill) et on note dans le journal chaque nouvel endroit du jeu qui le lit (adresse de l'instruction
+ * suivante, pièce, valeur). L'endroit qui apparaît quand on essaie la porte est la vérification à contourner. */
+static int   g_test_placard;
+static DWORD g_adr_fini;                       /* [partie]+0x5124 une fois la partie connue */
+#define MAX_LECTEURS 128
+static DWORD g_lecteurs[MAX_LECTEURS];
+static volatile LONG g_nb_lecteurs;
+
+static void noter_lecture_fini(const CONTEXT *c)
+{
+    DWORD piece = 0, rva = c->Eip - BASE_JEU;
+    LONG i, n = g_nb_lecteurs;
+    for (i = 0; i < n; i++) if (g_lecteurs[i] == c->Eip) return;
+    if (n >= MAX_LECTEURS) return;
+    g_lecteurs[n] = c->Eip;
+    InterlockedIncrement(&g_nb_lecteurs);
+    piece_actuelle(&piece);
+    journal("TestPlacard\tlecteur %ld\tbhd.exe+%lX\tpiece=%lX\tvaleur=%08lX\teax=%08lX ecx=%08lX",
+            n + 1, (unsigned long)rva, (unsigned long)piece, (unsigned long)*(DWORD *)g_adr_fini,
+            (unsigned long)c->Eax, (unsigned long)c->Ecx);
+}
+
 static void noter_ecriture(const CONTEXT *c, int slot)
 {
     Ecriture *e;
@@ -1378,8 +1412,23 @@ static void remplacer_malle_depart(void)
 #define ADR_GET_JOUEUR   (BASE_JEU + 0xEC600u)
 static const BYTE g_get_joueur_attendu[7] = { 0xFF, 0x71, 0x24, 0xFF, 0x71, 0x20, 0xE8 };
 typedef DWORD (__attribute__((thiscall)) *GetJoueur)(void *gestionnaire);
-static int   g_retirer_couteau;            /* 1 : demander « mains nues » dès que le personnage existe */
+static int   g_retirer_couteau;            /* 1 : demander l'arme g_arme_cible dès que le personnage existe */
 static DWORD g_retirer_depuis;
+static DWORD g_arme_cible;                 /* 0 : mains nues (couteau mélangé) ; ARME_COUTEAU : couteau (« + ») */
+
+/* Case 8 de l'inventaire (cachée) = arme équipée : vidée quand on passe le personnage à mains nues. */
+static void vider_case_arme_equipee(void)
+{
+    DWORD partie;
+    int verrou;
+    if (!lisible((void *)ADR_PTR_PARTIE, 4, 0) || !(partie = *(DWORD *)ADR_PTR_PARTIE)) return;
+    if (!lisible((void *)(partie + 0x38), 10 * 8, 1) || !lisible((void *)partie, 0x20, 0)) return;
+    verrou = *(BYTE *)(partie + 0x1C) || (lisible((void *)(BASE_JEU + 0x95978Cu), 1, 0) && *(BYTE *)(BASE_JEU + 0x95978Cu));
+    if (verrou) EnterCriticalSection((CRITICAL_SECTION *)(partie + 0x04));
+    ((DWORD *)(partie + 0x38))[7 * 2] = 0;
+    ((DWORD *)(partie + 0x38))[7 * 2 + 1] = 0;
+    if (verrou) LeaveCriticalSection((CRITICAL_SECTION *)(partie + 0x04));
+}
 
 static void retirer_couteau_en_main(void)
 {
@@ -1400,12 +1449,17 @@ static void retirer_couteau_en_main(void)
     joueur = ((GetJoueur)ADR_GET_JOUEUR)((void *)gest);
     if (!joueur || !lisible((void *)(joueur + 0x1530), 4, 1) || !lisible((void *)(joueur + 0x15D0), 4, 0) ||
         !lisible((void *)(joueur + 0x1D40), 8, 1)) return;           /* pas encore créé : on réessaie */
-    if (*(DWORD *)(joueur + 0x15D0) != ARME_COUTEAU) return;        /* pas (encore) le couteau en main */
-    *(volatile DWORD *)(joueur + 0x1D40) = 0;                       /* mains nues */
+    if (g_arme_cible == 0 && *(DWORD *)(joueur + 0x15D0) == 0) return;   /* pas encore d'arme en main : on attend */
+    if (g_arme_cible != 0 && *(DWORD *)(joueur + 0x15D0) == g_arme_cible) {      /* déjà la bonne arme */
+        g_retirer_couteau = 0;
+        return;
+    }
+    if (g_arme_cible == 0) vider_case_arme_equipee();                /* rien d'équipé dans l'inventaire */
+    *(volatile DWORD *)(joueur + 0x1D40) = g_arme_cible;            /* 0 : mains nues ; 1 : couteau */
     *(volatile DWORD *)(joueur + 0x1D44) = 0;
     InterlockedOr((volatile LONG *)(joueur + 0x1530), 0x10);        /* le jeu fera le changement lui-même */
     g_retirer_couteau = 0;
-    journal("Couteau en main : changement d'arme demande (mains nues).");
+    journal("Arme en main : changement demande (%s).", g_arme_cible ? "couteau" : "mains nues");
 }
 
 static void preparer_inventaire_depart(void)
@@ -1436,7 +1490,7 @@ static void preparer_inventaire_depart(void)
                 (unsigned long)g_inv[k].ancien, (unsigned long)g_inv[k].id, (unsigned long)g_inv[k].qte,
                 change_couteau && g_inv[k].caseno == 0 ? " (arme equipee retiree)" : "");
     if (g_depart_id) donner_objet(g_depart_id, g_depart_qte);
-    if (change_couteau) { g_retirer_couteau = 1; g_retirer_depuis = GetTickCount(); }
+    if (change_couteau) { g_arme_cible = 0; g_retirer_couteau = 1; g_retirer_depuis = GetTickCount(); }
 }
 
 static void test_donner(void)
@@ -1518,7 +1572,7 @@ static int poser_int3(DWORD adr, const BYTE *attendu, DWORD taille, volatile LON
     BYTE voulu = poser ? 0xCC : attendu[0];
     if (!lisible(p, taille, 0)) return 0;
     if (memcmp(p + 1, attendu + 1, taille - 1) != 0 || (p[0] != 0xCC && p[0] != attendu[0])) {
-        if (poser) journal("Objets examines : code inattendu en %s, rien n'est pose.", nom);
+        if (poser) journal("Code inattendu en %s, rien n'est pose.", nom);
         return 0;
     }
     if (p[0] == voulu) { InterlockedExchange(pose, poser); return 1; }
@@ -1530,6 +1584,29 @@ static int poser_int3(DWORD adr, const BYTE *attendu, DWORD taille, volatile LON
     if (!poser) InterlockedExchange(pose, 0);
     return 1;
 }
+
+/* Salle des costumes (22/11/2026, DLL TestPlacard) : en entrant dans la pièce 107, le jeu (bhd.exe+A48EE) n'active
+ * la porte du placard (événement 7 de la pièce, et l'objet 0xCEDCC8 en état 2) que si le personnage a déjà fini le
+ * jeu ([partie]+0x5124 : bit 8 ou 9 pour Chris, 11 ou 12 pour Jill). Avec l'option, on remplace la lecture
+ * (bhd.exe+A48FB : mov ecx,[ecx+0x5124]) par la valeur avec ces bits : la porte s'ouvre avec la clé, comme en
+ * « Une fois de plus ». Rien n'est écrit dans la partie ni dans les données du jeu. */
+#define ADR_PLACARD     (BASE_JEU + 0xA48FBu)
+static const BYTE g_placard_attendu[6] = { 0x8B, 0x89, 0x24, 0x51, 0x00, 0x00 };
+static volatile LONG g_placard_pose;
+
+/* « Une fois de plus » (22/11/2026) : la fonction de nouvelle partie (bhd.exe+EE840) donne à Chris, si elles sont
+ * débloquées ([partie]+0x5124 bit 3 : lance-roquettes infini ; bit 4 : Samurai Edge infini), l'arme infinie en main,
+ * le couteau et le Samurai Edge dans la malle, et note l'arme de départ en [partie]+0xE4714 (7 lance-roquettes,
+ * 0xD Samurai Edge, 1 couteau) : le jeu ne charge que ses animations (arc\wep). Remettre le couteau après coup fait
+ * planter le jeu (« Failed open file … pl00_2w01.lmt »). Avec une seed « ufp = 1 », on fait donc prendre au jeu son
+ * propre chemin « couteau » (bhd.exe+EEBC6) dès bhd.exe+EEAF8 (test $0x14,[edi+0x28] : modes Survie/Invisible) :
+ * départ normal, clé du placard en case 1 de la malle puis le contenu de départ. Chris seulement (Jill : EE861). */
+#define ADR_NP_ARMES    (BASE_JEU + 0xEEAF8u)
+#define ADR_NP_COUTEAU  (BASE_JEU + 0xEEBC6u)
+#define ADR_NP_SUITE    (BASE_JEU + 0xEEB02u)   /* après « test ; jne » quand le mode est normal */
+#define ADR_NP_SAUT     (BASE_JEU + 0xEEBE9u)   /* cible du jne (modes spéciaux) */
+static const BYTE g_np_armes_attendu[10] = { 0xF6, 0x47, 0x28, 0x14, 0x0F, 0x85, 0xE7, 0x00, 0x00, 0x00 };
+static volatile LONG g_np_armes_pose;
 
 static int poser_examen(int poser)
 {
@@ -1621,6 +1698,47 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
         return EXCEPTION_CONTINUE_EXECUTION;
     }
     if (ep->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT &&
+        (DWORD)ep->ExceptionRecord->ExceptionAddress == ADR_NP_ARMES) {
+        DWORD edi = c->Edi;
+        BYTE mode;
+        if (!g_np_armes_pose || !lisible((void *)(edi + 0x28), 1, 0)) {
+            poser_int3(ADR_NP_ARMES, g_np_armes_attendu, sizeof g_np_armes_attendu, &g_np_armes_pose, 0, "");
+            c->Eip = ADR_NP_ARMES;             /* instruction d'origine rendue : on la laisse s'exécuter */
+            return EXCEPTION_CONTINUE_EXECUTION;
+        }
+        mode = *(BYTE *)(edi + 0x28) & 0x14;   /* test $0x14,[edi+0x28] ; jne EEBE9 */
+        if (mode) {
+            c->Eip = ADR_NP_SAUT;
+        } else if (!g_coupe && bonne_difficulte()) {
+            /* le chemin naturel passe par EEB0D (push 1 : 4e argument du premier appel, les trois autres sont
+             * poussés en EEBC6) puis EEB73 (mov ecx,edi) : on fait pareil */
+            c->Esp -= 4;
+            *(DWORD *)c->Esp = 1;
+            c->Ecx = edi;
+            c->Eip = ADR_NP_COUTEAU;
+            journal("Une fois de plus : depart normal (couteau), armes infinies non donnees.");
+        } else {
+            c->Eip = ADR_NP_SUITE;
+        }
+        return EXCEPTION_CONTINUE_EXECUTION;
+    }
+    if (ep->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT &&
+        (DWORD)ep->ExceptionRecord->ExceptionAddress == ADR_PLACARD) {
+        DWORD ecx = c->Ecx;
+        if (!g_placard_pose || !lisible((void *)(ecx + 0x5124), 4, 0)) {
+            poser_int3(ADR_PLACARD, g_placard_attendu, sizeof g_placard_attendu, &g_placard_pose, 0, "");
+            c->Eip = ADR_PLACARD;              /* instruction d'origine rendue : on la laisse s'exécuter */
+            return EXCEPTION_CONTINUE_EXECUTION;
+        }
+        c->Ecx = *(DWORD *)(ecx + 0x5124);     /* l'instruction remplacée : mov ecx,[ecx+0x5124] */
+        if (!g_coupe && bonne_difficulte()) {
+            c->Ecx |= 0x100u | 0x800u;         /* « déjà fini » avec Chris et avec Jill, pour cette pièce seulement */
+            journal("Salle des costumes : porte du placard activee (piece 107).");
+        }
+        c->Eip = ADR_PLACARD + 6;
+        return EXCEPTION_CONTINUE_EXECUTION;
+    }
+    if (ep->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT &&
         (DWORD)ep->ExceptionRecord->ExceptionAddress == ADR_EXAMEN) {
         DWORD esi = c->Esi;
         if (!g_examen_pose || !lisible((void *)(esi + 0x624C), 4, 0)) {
@@ -1653,6 +1771,11 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
         c->Dr6 = 0;
         nouvel_objet_aev(c);
         c->EFlags |= 0x10000;
+        return EXCEPTION_CONTINUE_EXECUTION;
+    }
+    if (g_test_placard && (c->Dr6 & 8u) && g_veille[2] == g_adr_fini) {   /* TestPlacard : lecture de +0x5124 */
+        c->Dr6 = 0;
+        noter_lecture_fini(c);
         return EXCEPTION_CONTINUE_EXECUTION;
     }
     if ((c->Dr6 & 0xCu) && c->Eip != ADR_LECTURE) {     /* piège en écriture DR2/DR3 (diagnostic) */
@@ -1801,12 +1924,22 @@ static DWORD WINAPI surveillance(LPVOID inutile)
     AddVectoredExceptionHandler(1, gestionnaire);
     InterlockedExchange(&g_actif, 1);
     journal("Point d'arret pose en bhd.exe+1512ED.");
+    if (g_ufp && poser_int3(ADR_NP_ARMES, g_np_armes_attendu, sizeof g_np_armes_attendu, &g_np_armes_pose, 1,
+                            "bhd.exe+EEAF8"))
+        journal("Une fois de plus : point d'arret pose en bhd.exe+EEAF8 (armes infinies du depart).");
+    if (g_placard && poser_int3(ADR_PLACARD, g_placard_attendu, sizeof g_placard_attendu, &g_placard_pose, 1,
+                                "bhd.exe+A48FB"))
+        journal("Cle du placard : point d'arret pose en bhd.exe+A48FB (porte de la salle des costumes).");
     if (g_examens_voulus && poser_examen(1))
         journal("Objets examines : point d'arret pose en bhd.exe+151284 (%d remplacement(s) prevu(s)).", g_nb_examens);
 
     for (tour = 0;; tour++) {
         if (g_coupe) {
             if (g_examen_pose) poser_examen(0);
+            if (g_placard_pose)
+                poser_int3(ADR_PLACARD, g_placard_attendu, sizeof g_placard_attendu, &g_placard_pose, 0, "");
+            if (g_np_armes_pose)
+                poser_int3(ADR_NP_ARMES, g_np_armes_attendu, sizeof g_np_armes_attendu, &g_np_armes_pose, 0, "");
             parcourir_threads(0);
             journal("Points d'arret retires de tous les threads.");
             return 0;
@@ -1818,6 +1951,14 @@ static DWORD WINAPI surveillance(LPVOID inutile)
          * pendant son chargement, AVANT l'apparition du joueur (test du 21/11/2026 : après 4 s, Chris tenait déjà le
          * couteau). Les deux ne s'appliquent qu'au contenu exact de départ : jamais deux fois. */
         noter_difficulte();
+        if (g_test_placard && !g_adr_fini && lisible((void *)ADR_PTR_PARTIE, 4, 0) && *(DWORD *)ADR_PTR_PARTIE) {
+            g_adr_fini = *(DWORD *)ADR_PTR_PARTIE + 0x5124u;
+            g_veille[2] = g_adr_fini;
+            g_veille_cond[2] = 0xF;               /* lecture ou écriture, 4 octets */
+            InterlockedExchange(&g_veille_changee, 1);
+            journal("TestPlacard : surveillance de %08lX (valeur %08lX).", (unsigned long)g_adr_fini,
+                    (unsigned long)*(DWORD *)g_adr_fini);
+        }
         if ((g_nb_inv || g_depart_id) && !g_coupe && bonne_difficulte()) preparer_inventaire_depart();
         if (g_retirer_couteau && !g_coupe && bonne_difficulte()) retirer_couteau_en_main();
         if (g_nb_malle && !g_coupe && bonne_difficulte()) remplacer_malle_depart();
@@ -1840,7 +1981,7 @@ static void demarrer(void)
     _snprintf(g_journal, MAX_PATH, "%srandomizer_journal.txt", g_dossier);
     _snprintf(ini, MAX_PATH, "%srandomizer.ini", g_dossier);
 
-    journal("---- Resident Evil HD Remaster Randomizer v0.9.7 : demarrage");
+    journal("---- Resident Evil HD Remaster Randomizer v0.9.7.3 : demarrage");
     {
         /* Les adresses ne valent que pour une version précise de bhd.exe : sur une autre version,
          * on ne pose rien (le jeu tourne normalement, XInput reste transmis). */
@@ -1935,6 +2076,13 @@ static void demarrer(void)
         g_veille[2] = ADR_DECOR;                  /* DR3 : exécution (modèles décoratifs) */
         g_veille_cond[2] = 0;
         journal("Objets visibles : les objets poses sont remplaces avant la creation de leur modele.");
+    }
+    g_test_placard = GetPrivateProfileIntA("Randomizer", "TestPlacard", 0, ini);
+    if (g_test_placard) {                         /* DR3 pris : les modèles décoratifs ne sont plus remplacés */
+        g_pieges = 0;
+        g_veille[2] = 0;
+        journal("TestPlacard actif : chaque nouvel endroit qui lit l'indicateur de fin de jeu ([partie]+0x5124) "
+                "est note ici (modeles decoratifs non remplaces pendant ce test).");
     }
     if (g_pieges) {
         g_veille[0] = ADR_AEV;                    /* DR1 : exécution */
