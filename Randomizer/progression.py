@@ -72,12 +72,12 @@ def calculer(fichier):
 
     if "Pièces relevées" in wb.sheetnames:
         for piece, _, perso, diff, nouvelle, *_ in wb["Pièces relevées"].iter_rows(min_row=2, values_only=True):
-            s = scenarios.get((str(perso or "Chris"), str(diff or "Normal")))
+            s = scenarios.get((str(perso or "Chris"), str(diff or "Facile")))
             if piece and s is not None:
                 (s["completes"] if nouvelle == "oui" else s["visitees"]).add(str(piece).lower())
     for ligne in wb["Emplacements"].iter_rows(min_row=2, values_only=True):
         ligne = tuple(ligne) + (None,) * 14
-        s = scenarios.get((str(ligne[12] or "Chris"), str(ligne[13] or "Normal")))
+        s = scenarios.get((str(ligne[12] or "Chris"), str(ligne[13] or "Facile")))
         if ligne[1] and ligne[4] is not None and s is not None:
             s["objets"] += 1
 

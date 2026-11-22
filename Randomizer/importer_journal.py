@@ -21,7 +21,7 @@ Avant d'écrire, une copie du tableur est faite dans sauvegardes\.
 Utilisation :
     python importer_journal.py journal.txt [autres…]                 (aperçu, rien n'est écrit)
     python importer_journal.py journal.txt --ecrire                  (ajoute au tableur)
-    options : --personnage Chris|Jill   --difficulte Normal|…   --nouvelle-partie
+    options : --personnage Chris|Jill   --difficulte Facile|…   --nouvelle-partie
               --source "testeur Paul"   --fichier donnees.xlsx
 """
 import argparse
@@ -92,8 +92,8 @@ def lire_journal(chemin):
 
 
 def scenario_ligne(valeurs, col_perso, col_diff):
-    """Personnage et difficulté d'une ligne (vide = Chris / Normal, comme les premiers relevés)."""
-    return (str(valeurs[col_perso - 1] or "Chris"), str(valeurs[col_diff - 1] or "Normal"))
+    """Personnage et difficulté d'une ligne (vide = Chris / Facile, comme les premiers relevés)."""
+    return (str(valeurs[col_perso - 1] or "Chris"), str(valeurs[col_diff - 1] or "Facile"))
 
 
 def deja_connus(ws):
@@ -143,7 +143,7 @@ def main():
     ap.add_argument("journaux", nargs="+", help="fichiers journaux à importer")
     ap.add_argument("--fichier", default=str(FICHIER_PAR_DEFAUT), help="tableur de données")
     ap.add_argument("--personnage", default="Chris", choices=PERSONNAGES, help="personnage de la partie relevée")
-    ap.add_argument("--difficulte", default="Normal", choices=DIFFICULTES, help="difficulté de la partie relevée")
+    ap.add_argument("--difficulte", default="Facile", choices=DIFFICULTES, help="difficulté de la partie relevée")
     ap.add_argument("--nouvelle-partie", action="store_true",
                     help="le relevé a été fait en nouvelle partie (rien encore ramassé) : pièces relevées complètes")
     ap.add_argument("--source", default="", help="qui a fait le relevé (noté dans les remarques)")
@@ -211,7 +211,7 @@ def main():
             p = pr.cell(r, PR["piece"]).value
             if p:
                 lignes_pr[(str(p).lower(), str(pr.cell(r, PR["personnage"]).value or "Chris"),
-                           str(pr.cell(r, PR["difficulte"]).value or "Normal"))] = r
+                           str(pr.cell(r, PR["difficulte"]).value or "Facile"))] = r
         for piece in sorted(visites):
             r = lignes_pr.get((piece,) + scenario)
             if r is None:

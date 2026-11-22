@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.6.2"
+VERSION = "0.9.7"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -675,7 +675,7 @@ class Application(tk.Tk):
         self.dll = trouver_ressource("xinput1_4.dll")
 
         self.personnage = tk.StringVar(value="Chris")
-        self.difficulte = tk.StringVar(value="Normal")
+        self.difficulte = tk.StringVar(value="Facile")
         self.armes = tk.BooleanVar(value=False)
         self.visibles = tk.BooleanVar(value=True)              # objets visibles par terre et dans l'aperçu
         self.malle = tk.BooleanVar(value=True)                 # malle de départ mélangée avec les autres objets
@@ -925,11 +925,14 @@ class Application(tk.Tk):
         ttk.Label(p, text=self.t("difficulte"), style="Carte.TLabel").grid(row=0, column=1, sticky="w",
                                                                          padx=(24, 0))
         for i, nom in enumerate(("Très facile", "Facile", "Normal", "Difficile", "Real Survival")):
-            dispo = nom == "Normal"
+            dispo = nom == "Facile"          # nos relevés sont en Facile (réponse « II. Gamer », 22/11/2026)
             libelle = self.t(f"diff_{nom}")
             ttk.Radiobutton(p, text=libelle if dispo else libelle + a_venir, value=nom,
                             variable=self.difficulte, state="normal" if dispo else "disabled"
                             ).grid(row=1 + i, column=1, sticky="w", padx=(24, 0))
+        # comment choisir la bonne difficulté dans le jeu (la DLL n'applique pas la seed sinon)
+        ttk.Label(p, text=self.t("note_difficulte"), style="Alerte.TLabel", wraplength=300,
+                  justify="left").grid(row=6, column=0, columnspan=2, sticky="w", pady=(10, 0))
 
         # --- Fun : options qui rendent la partie plus facile
         fun, f = self.carte(pages["carte_fun"], self.t("carte_fun"))

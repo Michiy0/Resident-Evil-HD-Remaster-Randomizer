@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Générateur de seeds (version 0.2) pour le randomizer Resident Evil HD Remaster (Chris, Normal).
+Générateur de seeds (version 0.2) pour le randomizer Resident Evil HD Remaster (Chris, Facile).
 
 Ce que fait cette version :
   - lit les emplacements relevés dans donnees_randomizer_RE1.xlsx (onglet « Emplacements »),
@@ -83,7 +83,13 @@ DECALAGES = {("50F", 111): 45}
 MOTIF_EMPREINTE = re.compile(r"brut \+0x10\.\.\+0x2C = ((?:[0-9A-Fa-f]{8}\s*){8})")
 
 
-def lire_emplacements(chemin, personnage="Chris", difficulte="Normal"):
+# Difficulté -> valeur dans le jeu ([partie]+0x24, relevé le 22/11/2026). Dans le jeu : nouvelle partie « I. Old school »
+# = Normal, « II. Gamer » = Facile (nos relevés), « III. Casual » = Débutant ; « Une fois de plus » : Débutant, Facile,
+# Normal, Expert ; le mode Survie (Real Survival) vaut 2 comme Expert.
+DIFFICULTE_JEU = {"Facile": 0, "Normal": 1, "Difficile": 2, "Très facile": 3, "Real Survival": 2}
+
+
+def lire_emplacements(chemin, personnage="Chris", difficulte="Facile"):
     wb = load_workbook(chemin, data_only=True)
     # Noms des pièces lus directement dans l'onglet « Pièces » : la colonne « Pièce » d'Emplacements est
     # une formule, dont le résultat peut manquer si le fichier a été enregistré par un autre programme.
@@ -99,8 +105,8 @@ def lire_emplacements(chemin, personnage="Chris", difficulte="Normal"):
          verrou, statut, empreinte, remarque, perso, diff) = (list(ligne) + [None] * 14)[:14]
         if ident is None or not piece:
             continue
-        # seulement les relevés du scénario demandé (colonne vide = Chris / Normal, les premiers relevés)
-        if (str(perso or "Chris"), str(diff or "Normal")) != (personnage, difficulte):
+        # seulement les relevés du scénario demandé (colonne vide = Chris / Facile, les premiers relevés)
+        if (str(perso or "Chris"), str(diff or "Facile")) != (personnage, difficulte):
             continue
         m = MOTIF_EMPREINTE.search(empreinte or "")
         fiche = {
@@ -147,7 +153,7 @@ def emplacement_couteau(personnage):
              "id": ID_COUTEAU, "quantite": 1, "chemin": "inventaire", "empreinte": ["inv0"]}]
 
 
-def lire_malle(chemin, personnage="Chris", difficulte="Normal"):
+def lire_malle(chemin, personnage="Chris", difficulte="Facile"):
     """Contenu de départ de la malle (onglet « Coffre de départ »), dans l'ordre des cases."""
     wb = load_workbook(chemin, data_only=True)
     if "Coffre de départ" not in wb.sheetnames:
@@ -373,7 +379,7 @@ def tirer_graine():
 
 
 def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=False, dossier_jeu=None,
-             dire=print, personnage="Chris", difficulte="Normal", langue="fr", dire_spoiler=None,
+             dire=print, personnage="Chris", difficulte="Facile", langue="fr", dire_spoiler=None,
              armes_choisies=None, objets_visibles=True, arme_depart=False, armes_bonus=False,
              messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
@@ -442,7 +448,9 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     lua = ["-- seed générée par generateur_seed.py : ne pas modifier à la main",
            "return {", f"  graine = {graine},",
            f"  armes_aleatoires = {'true' if armes_aleatoires else 'false'},",
-           f"  objets_visibles = {'true' if objets_visibles else 'false'},", "  remplacements = {"]
+           f"  objets_visibles = {'true' if objets_visibles else 'false'},",
+           # valeur de la difficulté dans le jeu ([partie]+0x24) : la DLL n'applique la seed que dans celle-ci
+           f"  difficulte = {DIFFICULTE_JEU[difficulte]},", "  remplacements = {"]
     posees = [r for r in resultat if r["piece"] not in PIECES_SPECIALES]
     inventaire = sorted((r for r in resultat if r["piece"] == PIECE_INVENTAIRE), key=lambda r: r["case"])
     malle = sorted((r for r in resultat if r["piece"] == PIECE_MALLE), key=lambda r: r["case"])
@@ -512,7 +520,7 @@ def main():
                         help="Samurai Edge et lance-roquettes illimité à la place de deux objets (option Fun)")
     parser.add_argument("--fichier", default=FICHIER_PAR_DEFAUT, help="tableur de données")
     parser.add_argument("--personnage", default="Chris", choices=("Chris", "Jill"))
-    parser.add_argument("--difficulte", default="Normal",
+    parser.add_argument("--difficulte", default="Facile",
                         choices=("Très facile", "Facile", "Normal", "Difficile", "Real Survival"))
     parser.add_argument("--installer", action="store_true",
                         help=f"copie la seed dans le dossier du jeu sous le nom {NOM_SEED_JEU}")

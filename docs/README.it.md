@@ -53,7 +53,7 @@ tempi o strategie.
 
 | Disponibile | In arrivo |
 |---|---|
-| Chris, difficoltà Normale (tutto il gioco rilevato, laboratorio compreso) | Jill, altre difficoltà |
+| Chris, difficoltà Facile (tutto il gioco rilevato, laboratorio compreso) | Jill, altre difficoltà |
 | 164 punti: munizioni (pistola, fucile e magnum), erbe verdi, rosse e blu, nastri, pugnali, granate accecanti, pistola per autodifesa, spray e kit di pronto soccorso | Chiavi e oggetti della missione (con una logica che mantiene la partita completabile) |
 | **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima; opzione **Baule iniziale casuale** | Oggetti della missione visibili e oggetti ottenuti esaminando qualcosa (gemme dei trofei, amo…: già gestiti dalla DLL), con le chiavi |
 | Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'inizio, con le sue munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!) | Altre armi (lanciagranate, lanciafiamme), nemici casuali |
@@ -86,7 +86,7 @@ Percentuale di stanze rilevate in una **nuova partita**, per personaggio e diffi
 2. Avvia `Resident Evil HD Remaster Randomizer.exe`. La cartella del gioco viene trovata da sola (altrimenti: **Sfoglia…**).
 3. Scheda **Installazione**: clicca su **Installa la DLL** (una volta). Si sblocca la scheda **Genera un seed**.
 4. Scegli le opzioni e clicca su **Genera il seed** (lascia spuntata «Installa il seed nel gioco»).
-5. Avvia il gioco da Steam: **nuova partita, Chris, Normale**.
+5. Avvia il gioco da Steam: **nuova partita, Chris, Facile**: alla domanda sul tuo stile di gioco scegli la 2ª risposta, **«II. Gamer»** (è Facile). Da un salvataggio di gioco finito: scegli **Facile**. In un'altra difficoltà il seed non viene applicato.
 
 Per cambiare seed: generane uno nuovo e riavvia il gioco. L'app **si aggiorna da sola**.
 

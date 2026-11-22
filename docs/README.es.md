@@ -53,7 +53,7 @@ o estrategias.
 
 | Disponible | Próximamente |
 |---|---|
-| Chris, dificultad Normal (todo el juego registrado, laboratorio incluido) | Jill, otras dificultades |
+| Chris, dificultad Fácil (todo el juego registrado, laboratorio incluido) | Jill, otras dificultades |
 | 164 ubicaciones: munición (pistola, escopeta y magnum), hierbas verdes, rojas y azules, cintas, puñales, granadas cegadoras, pistola de autodefensa, sprays y botiquines | Llaves y objetos de misión (con una lógica que mantiene la partida terminable) |
 | **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa; opción **Baúl inicial aleatorio** | Objetos de misión visibles y objetos que se obtienen al examinar algo (gemas de los trofeos, anzuelo…: ya admitidos por la DLL), con las llaves |
 | Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!) | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios |
@@ -86,7 +86,7 @@ Porcentaje de salas registradas en una **partida nueva**, por personaje y dificu
 2. Abre `Resident Evil HD Remaster Randomizer.exe`. La carpeta del juego se encuentra sola (si no: **Examinar…**).
 3. Pestaña **Instalación**: haz clic en **Instalar la DLL** (una vez). Se desbloquea la pestaña **Generar una semilla**.
 4. Elige tus opciones y haz clic en **Generar la seed** (deja marcada «Instalar la seed en el juego»).
-5. Inicia el juego desde Steam: **partida nueva, Chris, Normal**.
+5. Inicia el juego desde Steam: **partida nueva, Chris, Fácil**: en la pregunta sobre tu estilo de juego, elige la 2.ª respuesta, **«II. Gamer»** (es Fácil). Desde una partida terminada: elige **Fácil**. En otra dificultad, la semilla no se aplica.
 
 Para cambiar de seed: genera una nueva y reinicia el juego. La aplicación **se actualiza sola**.
 

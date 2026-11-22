@@ -259,11 +259,11 @@ T = {
     "personnage": ("Personnage", "Character", "キャラクター", "Personaje", "Personagem", "Персонаж", "角色"),
     "difficulte": ("Difficulté", "Difficulty", "難易度", "Dificultad", "Dificuldade", "Сложность", "难度"),
     "a_venir": ("à venir", "coming soon", "近日対応", "próximamente", "em breve", "скоро", "即将推出"),
-    "diff_Très facile": ("Très facile", "Very Easy", "ベリーイージー", "Muy fácil", "Muito fácil", "Очень легко",
+    "diff_Très facile": ("Débutant", "Very Easy", "ベリーイージー", "Muy fácil", "Muito fácil", "Очень легко",
                          "非常简单"),
     "diff_Facile": ("Facile", "Easy", "イージー", "Fácil", "Fácil", "Легко", "简单"),
     "diff_Normal": ("Normal", "Normal", "ノーマル", "Normal", "Normal", "Нормально", "普通"),
-    "diff_Difficile": ("Difficile", "Hard", "ハード", "Difícil", "Difícil", "Сложно", "困难"),
+    "diff_Difficile": ("Expert", "Hard", "ハード", "Difícil", "Difícil", "Сложно", "困难"),
     "diff_Real Survival": ("Real Survival", "Real Survival", "リアルサバイバル", "Real Survival", "Real Survival",
                            "Real Survival", "Real Survival"),
 
@@ -395,13 +395,13 @@ T = {
     "ap_fait": ("fait", "done", "完了", "hecho", "feito", "готово", "已完成"),
     "ap_en_cours": ("en cours", "in progress", "進行中", "en curso", "em andamento", "в работе", "进行中"),
     "ap_a_faire": ("à faire", "to do", "未着手", "por hacer", "a fazer", "сделать", "待完成"),
-    "ap_etape_releves": ("Relevé de tous les emplacements d'objets (Chris / Normal en cours)",
-                         "Survey of every item location (Chris / Normal in progress)",
-                         "全アイテム配置の調査（クリス／ノーマルを調査中）",
-                         "Registro de todos los lugares de objetos (Chris / Normal en curso)",
-                         "Levantamento de todos os locais de itens (Chris / Normal em andamento)",
-                         "Сбор всех мест предметов (Крис / Нормальная — в работе)",
-                         "记录所有物品位置（克里斯／普通 进行中）"),
+    "ap_etape_releves": ("Relevé de tous les emplacements d'objets (Chris / Facile en cours)",
+                         "Survey of every item location (Chris / Easy in progress)",
+                         "全アイテム配置の調査（クリス／イージーを調査中）",
+                         "Registro de todos los lugares de objetos (Chris / Fácil en curso)",
+                         "Levantamento de todos os locais de itens (Chris / Fácil em andamento)",
+                         "Сбор всех мест предметов (Крис / Лёгкая — в работе)",
+                         "记录所有物品位置（克里斯／简单 进行中）"),
     "ap_etape_cles": ("Clés et objets de quête avec la logique (pour que la partie reste finissable)",
                       "Keys and quest items with logic (so the game stays beatable)",
                       "ロジック付きの鍵・クエストアイテム（クリア可能を保証）",
@@ -474,6 +474,28 @@ T = {
     "couteau_aleatoire": ("Couteau de départ aléatoire", "Random starting knife", "初期装備のナイフをランダム化",
                           "Cuchillo inicial aleatorio", "Faca inicial aleatória", "Случайный стартовый нож",
                           "随机初始小刀"),
+    "note_difficulte": (
+        "Les seeds sont faites pour la difficulté Facile (la seule difficulté relevée pour l'instant). Nouvelle partie : à la "
+        "question « Quel est votre style de jeu ? », choisis la 2e réponse, « II. Gamer ». Partie lancée depuis une "
+        "sauvegarde de jeu terminé : choisis « Facile ». Si ta partie est dans une autre difficulté, la seed ne "
+        "s'applique pas.",
+        "Seeds are made for the Easy difficulty (the only difficulty surveyed so far). New game: at the question “What is your play "
+        "style?”, pick the 2nd answer, “II. Gamer”. Game started from a cleared save: pick “Easy”. If your game is "
+        "on another difficulty, the seed is not applied.",
+        "シードは難易度イージー用です（現在調査済みの難易度はこれだけです）。ニューゲーム：「プレイスタイル」の質問で2番目の"
+        "答え「II」を選んでください。クリアデータから始める場合：「イージー」を選んでください。別の難易度では"
+        "シードは適用されません。",
+        "Las semillas están hechas para la dificultad Fácil (la única dificultad registrada por ahora). Partida nueva: en la "
+        "pregunta sobre tu estilo de juego, elige la 2.ª respuesta, «II. Gamer». Partida iniciada desde una partida "
+        "terminada: elige «Fácil». Si tu partida está en otra dificultad, la semilla no se aplica.",
+        "As seeds são feitas para a dificuldade Fácil (a única dificuldade levantada por enquanto). Novo jogo: na pergunta sobre o "
+        "seu estilo de jogo, escolha a 2ª resposta, “II. Gamer”. Jogo iniciado a partir de um save zerado: escolha "
+        "“Fácil”. Se o seu jogo estiver em outra dificuldade, a seed não é aplicada.",
+        "Сиды сделаны для сложности «Легко» (пока собрана только она). Новая игра: на вопрос о вашем стиле игры "
+        "выберите 2-й ответ, «II. Gamer». Игра с сохранения пройденной игры: выберите «Легко». Если игра на другой "
+        "сложности, сид не применяется.",
+        "种子是为“简单”难度制作的（目前只记录了这一难度）。新游戏：在询问游戏风格的问题中选择第 2 个答案“II”。从通关存档"
+        "开始的游戏：选择“简单”。如果游戏是其他难度，种子不会生效。"),
     "note_couteau_aleatoire": (
         "Le couteau du début est remplacé par un objet au hasard et se retrouve ailleurs. Sans « Arme garantie au "
         "départ », tu risques de commencer la partie sans aucune arme ! Nouvelle partie seulement.",
@@ -1125,8 +1147,8 @@ ALLEMAND_ITALIEN = {
                     'in corso'),
     'ap_a_faire': ('offen',
                    'da fare'),
-    'ap_etape_releves': ('Erfassung aller Fundorte (Chris / Normal in Arbeit)',
-                         'Rilevamento di tutti i punti degli oggetti (Chris / Normale in corso)'),
+    'ap_etape_releves': ('Erfassung aller Fundorte (Chris / Leicht in Arbeit)',
+                         'Rilevamento di tutti i punti degli oggetti (Chris / Facile in corso)'),
     'ap_etape_cles': ('Schlüssel und Questgegenstände mit Logik (damit das Spiel schaffbar bleibt)',
                       'Chiavi e oggetti della missione con logica (perché il gioco resti completabile)'),
     'ap_etape_envoyer': ('Jeden aufgehobenen Fundort an den Server melden',
@@ -1326,6 +1348,13 @@ ALLEMAND_ITALIEN = {
 }
 ALLEMAND_ITALIEN.update({
     "couteau_aleatoire": ("Zufälliges Startmesser", "Coltello iniziale casuale"),
+    "note_difficulte": (
+        "Die Seeds sind für den Schwierigkeitsgrad Leicht gemacht (bisher der einzige erfasste Schwierigkeitsgrad). Neues Spiel: Wähle bei der "
+        "Frage nach deinem Spielstil die 2. Antwort, „II. Gamer“. Spiel aus einem abgeschlossenen Spielstand: Wähle "
+        "„Leicht“. Bei einem anderen Schwierigkeitsgrad wird der Seed nicht angewendet.",
+        "I seed sono fatti per la difficoltà Facile (l'unica difficoltà rilevata per ora). Nuova partita: alla domanda sul tuo stile "
+        "di gioco scegli la 2ª risposta, «II. Gamer». Partita avviata da un salvataggio di gioco finito: scegli "
+        "«Facile». Se la partita è in un'altra difficoltà, il seed non viene applicato."),
     "note_couteau_aleatoire": (
         "Das Messer vom Anfang wird durch einen zufälligen Gegenstand ersetzt und landet woanders. Ohne „Garantierte "
         "Startwaffe“ beginnst du das Spiel eventuell ganz ohne Waffe! Nur bei einem neuen Spiel.",

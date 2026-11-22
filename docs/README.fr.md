@@ -47,11 +47,11 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.6.2 (test)
+## État : version 0.9.7 (test)
 
 | Pris en charge | À venir |
 |---|---|
-| Chris, difficulté Normal (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
+| Chris, difficulté Facile (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
 | 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | Clés et objets de quête (avec une logique qui garantit que la partie reste finissable) |
 | **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
 | Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires |
@@ -91,8 +91,8 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 | Personnage | Difficulté | Pièces complètes | Visitées (partie commencée) | Objets relevés |
 |---|---|---|---|---|
 | Chris | Très facile | 0/118 (0 %) | 0 | 0 |
-| Chris | Facile | 0/118 (0 %) | 0 | 0 |
-| Chris | Normal | 118/118 (100 %) | 0 | 260 |
+| Chris | Facile | 118/118 (100 %) | 0 | 260 |
+| Chris | Normal | 0/118 (0 %) | 0 | 0 |
 | Chris | Difficile | 0/118 (0 %) | 0 | 0 |
 | Chris | Real Survival | 0/118 (0 %) | 0 | 0 |
 | Jill | Très facile | 0/118 (0 %) | 0 | 0 |
@@ -117,7 +117,7 @@ Armes bonus : 2/2 identifiées. Mis à jour le 22/11/2026.
 3. Onglet **Installation** : clique **Installer la DLL** (une seule fois). L'onglet **Générer une seed**
    se débloque.
 4. Choisis tes options, puis **Générer la seed** (laisse cochée « Installer la seed dans le jeu »).
-5. Lance le jeu depuis Steam : **nouvelle partie, Chris, Normal**.
+5. Lance le jeu depuis Steam : **nouvelle partie, Chris, Facile**. À la question « Quel est votre style de jeu ? », choisis la 2e réponse, **« II. Gamer »** (c'est le Facile). Depuis une sauvegarde de jeu terminé (« Une fois de plus »), choisis **Facile**. Dans une autre difficulté, la seed ne s'applique pas.
 
 Pour changer de seed : en générer une nouvelle, puis relancer le jeu.
 
@@ -292,7 +292,7 @@ preparer_publication.py       prépare le dépôt, le zip Windows et l'archive L
 - **Sans compiler** : `python Randomizer/application.py`, ou en ligne de commande
   `python Randomizer/generateur_seed.py 12345 --armes-aleatoires --installer`.
 - **Importer des relevés** :
-  `python Randomizer/importer_journal.py journal.txt --personnage Chris --difficulte Normal --nouvelle-partie --ecrire`
+  `python Randomizer/importer_journal.py journal.txt --personnage Chris --difficulte Facile --nouvelle-partie --ecrire`
   (sans `--nouvelle-partie` si la partie était déjà commencée : les pièces comptent alors comme visitées).
 
 ## Crédits

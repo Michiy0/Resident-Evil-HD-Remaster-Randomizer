@@ -53,7 +53,7 @@ oder Strategien zu vergleichen.
 
 | Unterstützt | Demnächst |
 |---|---|
-| Chris, Schwierigkeit Normal (ganzes Spiel erfasst, Labor inklusive) | Jill, weitere Schwierigkeitsgrade |
+| Chris, Schwierigkeit Leicht (ganzes Spiel erfasst, Labor inklusive) | Jill, weitere Schwierigkeitsgrade |
 | 164 Fundorte: Munition (Pistole, Gewehr, Magnum), grüne, rote und blaue Kräuter, Farbbänder, Dolche, Blendgranaten, Selbstverteidigungswaffe, Erste-Hilfe-Sprays und -Kästen | Schlüssel und Questgegenstände (mit einer Logik, die das Spiel schaffbar hält) |
 | **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau; Option **Zufällige Kiste am Start** | Sichtbare Questgegenstände und Gegenstände, die man durch Untersuchen erhält (Edelsteine der Trophäen, Angelhaken…: von der DLL bereits unterstützt), mit den Schlüsseln |
 | Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!) | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner |
@@ -87,7 +87,7 @@ Anteil der in einem **neuen Spiel** erfassten Räume, je Charakter und Schwierig
 2. Starte `Resident Evil HD Remaster Randomizer.exe`. Der Spielordner wird automatisch gefunden (sonst: **Durchsuchen…**).
 3. Tab **Installation**: Klicke einmal auf **DLL installieren**. Der Tab **Seed erstellen** wird freigeschaltet.
 4. Wähle deine Optionen und klicke auf **Seed erstellen** (lass „Seed im Spiel installieren“ angehakt).
-5. Starte das Spiel über Steam: **neues Spiel, Chris, Normal**.
+5. Starte das Spiel über Steam: **neues Spiel, Chris, Leicht**: Wähle bei der Frage nach deinem Spielstil die 2. Antwort, **„II. Gamer“** (das ist Leicht). Aus einem abgeschlossenen Spielstand: wähle **Leicht**. Bei einem anderen Schwierigkeitsgrad wird der Seed nicht angewendet.
 
 Für einen anderen Seed: einen neuen erstellen und das Spiel neu starten. Die App **aktualisiert sich selbst**.
 

@@ -13,15 +13,15 @@
 <text x="28" y="122" font-size="14" font-weight="700" fill="#e7e9ee"></text>
 <text x="80" y="122" font-size="14" fill="#e7e9ee">Easy</text>
 <rect x="200" y="111" width="300" height="12" rx="6" fill="#262a33"/>
-<text x="520" y="122" font-size="14" font-weight="700" fill="#e7e9ee">0%</text>
-<text x="566" y="122" font-size="12" fill="#8a909c">0/118</text>
+<rect x="200" y="111" width="300" height="12" rx="6" fill="#5a2a2e"/>
+<rect x="200" y="111" width="300" height="12" rx="6" fill="#b3262e"/>
+<text x="520" y="122" font-size="14" font-weight="700" fill="#e7e9ee">100%</text>
+<text x="566" y="122" font-size="12" fill="#8a909c">118/118 · 260 items</text>
 <text x="28" y="152" font-size="14" font-weight="700" fill="#e7e9ee"></text>
 <text x="80" y="152" font-size="14" fill="#e7e9ee">Normal</text>
 <rect x="200" y="141" width="300" height="12" rx="6" fill="#262a33"/>
-<rect x="200" y="141" width="300" height="12" rx="6" fill="#5a2a2e"/>
-<rect x="200" y="141" width="300" height="12" rx="6" fill="#b3262e"/>
-<text x="520" y="152" font-size="14" font-weight="700" fill="#e7e9ee">100%</text>
-<text x="566" y="152" font-size="12" fill="#8a909c">118/118 · 260 items</text>
+<text x="520" y="152" font-size="14" font-weight="700" fill="#e7e9ee">0%</text>
+<text x="566" y="152" font-size="12" fill="#8a909c">0/118</text>
 <text x="28" y="182" font-size="14" font-weight="700" fill="#e7e9ee"></text>
 <text x="80" y="182" font-size="14" fill="#e7e9ee">Hard</text>
 <rect x="200" y="171" width="300" height="12" rx="6" fill="#262a33"/>

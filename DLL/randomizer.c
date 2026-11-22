@@ -82,6 +82,9 @@ typedef struct { DWORD caseno, ancien, id, qte; } CaseInv;
 static CaseInv g_inv[MAX_INV];
 static int     g_nb_inv;
 static DWORD   g_depart_id, g_depart_qte;
+/* Difficulté de la partie pour laquelle la seed est faite ([partie]+0x24 : 0 Facile, 1 Normal, 2 Expert,
+ * 3 Débutant ; relevé le 22/11/2026). -1 : seed d'avant la v0.9.7, aucune vérification. */
+static LONG    g_difficulte = -1;
 
 #define MAX_MALLE 32
 typedef struct { DWORD caseno, ancien, id, qte; } CaseMalle;
@@ -161,7 +164,11 @@ static int charger_seed(const char *chemin)
     if (!f) return 0;
     g_nb = 0;
     while (fgets(ligne, sizeof ligne, f)) {
-        if (strstr(ligne, "inv =")) {
+        if (strstr(ligne, "difficulte =")) {
+            DWORD v[2];
+            if (lire_nombres(ligne, v, 2) == 1 && v[0] <= 3) g_difficulte = (LONG)v[0];
+            else journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
+        } else if (strstr(ligne, "inv =")) {
             DWORD v[5];
             if (lire_nombres(ligne, v, 5) == 4 && g_nb_inv < MAX_INV && v[0] < 10) {
                 g_inv[g_nb_inv].caseno = v[0];
@@ -262,6 +269,46 @@ static int piece_actuelle(DWORD *piece)
     if (!p || !lisible((void *)(p + OFF_ZONE), 8, 0)) return 0;
     *piece = (*(DWORD *)(p + OFF_ZONE)) * 256u + *(DWORD *)(p + OFF_PIECE);
     return 1;
+}
+
+/* ------------------------------------------------- difficulté de la partie (v0.9.7)
+ *
+ * Les objets ne sont pas les mêmes selon la difficulté : une seed n'est appliquée que si la partie est dans la
+ * difficulté de ses relevés. [partie]+0x24 (relevé le 22/11/2026, nouvelle partie et « Une fois de plus ») :
+ * 0 Facile (« II. Gamer »), 1 Normal (« I. Old school », et l'écran titre), 2 Expert (et le mode Survie),
+ * 3 Débutant (« III. Casual »). [partie]+0x20 : 0 partie normale, 1 Survie, 2 Invisible. */
+#define OFF_DIFFICULTE 0x24u
+static const char *const g_noms_difficulte[4] = { "Facile", "Normal", "Expert", "Debutant" };
+
+static LONG difficulte_jeu(void)
+{
+    DWORD p;
+    if (!lisible((void *)ADR_PTR_PARTIE, 4, 0)) return -1;
+    p = *(DWORD *)ADR_PTR_PARTIE;
+    if (!p || !lisible((void *)(p + OFF_DIFFICULTE), 4, 0)) return -1;
+    return (LONG)*(DWORD *)(p + OFF_DIFFICULTE);
+}
+
+/* 1 si la seed peut s'appliquer à la partie en cours (même difficulté, ou seed sans difficulté). */
+static int bonne_difficulte(void)
+{
+    return g_difficulte < 0 || difficulte_jeu() == g_difficulte;
+}
+
+/* Une ligne dans le journal à chaque changement de difficulté, pour que le joueur sache pourquoi rien ne bouge. */
+static void noter_difficulte(void)
+{
+    static LONG derniere = -2;
+    LONG d = difficulte_jeu();
+    if (g_difficulte < 0 || d < 0 || d == derniere) return;
+    derniere = d;
+    if (d == g_difficulte)
+        journal("Difficulte du jeu : %s (%ld), celle de la seed : la seed s'applique.",
+                d <= 3 ? g_noms_difficulte[d] : "?", d);
+    else
+        journal("Difficulte du jeu : %s (%ld), la seed est faite pour %s (%ld) : rien n'est melange tant que la "
+                "difficulte differe (l'ecran titre compte comme Normal).", d <= 3 ? g_noms_difficulte[d] : "?", d,
+                g_noms_difficulte[g_difficulte], g_difficulte);
 }
 
 /* ------------------------------------------------- traitement du ramassage */
@@ -1568,7 +1615,7 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
             c->Eip = ADR_APERCU;               /* instruction d'origine rendue : on la laisse s'exécuter */
             return EXCEPTION_CONTINUE_EXECUTION;
         }
-        if (!g_coupe && *(DWORD *)(esi + 0x6864) == 0xFFFFFFFFu) remplacer_avant_apercu(esi);
+        if (!g_coupe && *(DWORD *)(esi + 0x6864) == 0xFFFFFFFFu && bonne_difficulte()) remplacer_avant_apercu(esi);
         c->Eax = *(DWORD *)(esi + 0x6864);     /* l'instruction remplacée : mov eax,[esi+0x6864] */
         c->Eip = ADR_APERCU + 6;
         return EXCEPTION_CONTINUE_EXECUTION;
@@ -1581,7 +1628,7 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
             c->Eip = ADR_EXAMEN;               /* instruction d'origine rendue : on la laisse s'exécuter */
             return EXCEPTION_CONTINUE_EXECUTION;
         }
-        if (!g_coupe) traiter_examen(esi);
+        if (!g_coupe && bonne_difficulte()) traiter_examen(esi);
         c->Eax = *(DWORD *)(esi + 0x624C);     /* l'instruction remplacée : mov eax,[esi+0x624C] */
         c->Eip = ADR_EXAMEN + 6;
         if (g_coupe) poser_examen(0);
@@ -1591,14 +1638,14 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
         return EXCEPTION_CONTINUE_SEARCH;
     if (c->Eip == ADR_DECOR && g_veille[2] == ADR_DECOR) {   /* modèle décoratif (Visible=1) */
         c->Dr6 = 0;
-        if (!g_coupe) remplacer_decor(c);
+        if (!g_coupe && bonne_difficulte()) remplacer_decor(c);
         c->EFlags |= 0x10000;
         return EXCEPTION_CONTINUE_EXECUTION;
     }
     if ((c->Eip == ADR_SPAWN && g_veille[0] == ADR_SPAWN)    /* placement d'un objet (Visible=1) */
         || (c->Eip == ADR_SPAWN2 && g_veille[1] == ADR_SPAWN2)) {
         c->Dr6 = 0;
-        if (!g_coupe) remplacer_au_placement(c);
+        if (!g_coupe && bonne_difficulte()) remplacer_au_placement(c);
         c->EFlags |= 0x10000;
         return EXCEPTION_CONTINUE_EXECUTION;
     }
@@ -1621,7 +1668,7 @@ static LONG CALLBACK gestionnaire(EXCEPTION_POINTERS *ep)
         diagnostiquer(c);
         noter_ramassage(c);                            /* recherche faite plus tard, hors du jeu */
     }
-    if (!g_coupe) traiter_objet(c->Eax);
+    if (!g_coupe && bonne_difficulte()) traiter_objet(c->Eax);
     if (g_coupe) {                         /* on retire le point d'arrêt de ce thread tout de suite */
         c->Dr0 = 0;
         c->Dr7 &= ~3u;
@@ -1770,12 +1817,13 @@ static DWORD WINAPI surveillance(LPVOID inutile)
         /* Inventaire et malle de départ : vérifiés à chaque tour (4 fois par seconde), pour modifier la nouvelle partie
          * pendant son chargement, AVANT l'apparition du joueur (test du 21/11/2026 : après 4 s, Chris tenait déjà le
          * couteau). Les deux ne s'appliquent qu'au contenu exact de départ : jamais deux fois. */
-        if ((g_nb_inv || g_depart_id) && !g_coupe) preparer_inventaire_depart();
-        if (g_retirer_couteau && !g_coupe) retirer_couteau_en_main();
-        if (g_nb_malle && !g_coupe) remplacer_malle_depart();
+        noter_difficulte();
+        if ((g_nb_inv || g_depart_id) && !g_coupe && bonne_difficulte()) preparer_inventaire_depart();
+        if (g_retirer_couteau && !g_coupe && bonne_difficulte()) retirer_couteau_en_main();
+        if (g_nb_malle && !g_coupe && bonne_difficulte()) remplacer_malle_depart();
         if ((g_test_donner_id || g_test_malle || g_test_malle_id) && !g_coupe)
             test_donner();
-        if (g_visible && !g_coupe) mettre_a_jour_evenements();
+        if (g_visible && !g_coupe && bonne_difficulte()) mettre_a_jour_evenements();
         Sleep(250);
     }
 }
@@ -1792,7 +1840,7 @@ static void demarrer(void)
     _snprintf(g_journal, MAX_PATH, "%srandomizer_journal.txt", g_dossier);
     _snprintf(ini, MAX_PATH, "%srandomizer.ini", g_dossier);
 
-    journal("---- Resident Evil HD Remaster Randomizer v0.9.6 : demarrage");
+    journal("---- Resident Evil HD Remaster Randomizer v0.9.7 : demarrage");
     {
         /* Les adresses ne valent que pour une version précise de bhd.exe : sur une autre version,
          * on ne pose rien (le jeu tourne normalement, XInput reste transmis). */
@@ -1858,6 +1906,9 @@ static void demarrer(void)
         journal("Seed %ld chargee : %d emplacements, %d objet(s) examine(s), %d case(s) de malle, armes aleatoires : %s. "
                 "Fichier : %s", g_graine, g_nb, g_nb_examens, g_nb_malle,
                 g_armes == 1 ? "OUI" : g_armes == 0 ? "non" : "inconnu", chemin_seed);
+        if (g_difficulte >= 0)
+            journal("Seed faite pour la difficulte %s (%ld) : elle ne s'applique que dans cette difficulte.",
+                    g_noms_difficulte[g_difficulte], g_difficulte);
     }
     if (g_nb == 0 && g_nb_examens == 0 && g_nb_malle == 0 && g_nb_inv == 0 && g_depart_id == 0 &&
         !g_diagnostic && !g_releve) return;

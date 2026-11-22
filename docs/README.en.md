@@ -45,11 +45,11 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.6.2 (test)
+## Status: version 0.9.7 (test)
 
 | Supported | Coming |
 |---|---|
-| Chris, Normal difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
+| Chris, Easy difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
 | 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | Keys and quest items (with logic that keeps the game completable) |
 | **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
 | **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies |
@@ -88,8 +88,8 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 | Character | Difficulty | Complete rooms | Visited (game in progress) | Items surveyed |
 |---|---|---|---|---|
 | Chris | Very Easy | 0/118 (0%) | 0 | 0 |
-| Chris | Easy | 0/118 (0%) | 0 | 0 |
-| Chris | Normal | 118/118 (100%) | 0 | 260 |
+| Chris | Easy | 118/118 (100%) | 0 | 260 |
+| Chris | Normal | 0/118 (0%) | 0 | 0 |
 | Chris | Hard | 0/118 (0%) | 0 | 0 |
 | Chris | Real Survival | 0/118 (0%) | 0 | 0 |
 | Jill | Very Easy | 0/118 (0%) | 0 | 0 |
@@ -113,7 +113,7 @@ Bonus weapons: 2/2 identified. Updated 2026-11-22.
 2. Run `Resident Evil HD Remaster Randomizer.exe`. The game folder is found automatically (otherwise: **Browse…**).
 3. **Installation** tab: click **Install the DLL** (once). The **Generate a seed** tab unlocks.
 4. Choose your options, then **Generate seed** (keep “Install the seed in the game” ticked).
-5. Start the game from Steam: **new game, Chris, Normal**.
+5. Start the game from Steam: **new game, Chris, Easy**. At the question “What is your play style?”, pick the 2nd answer, **“II. Gamer”** (that is Easy). From a cleared save (“Once Again”), pick **Easy**. On any other difficulty the seed is not applied.
 
 To change seeds: generate a new one, then restart the game.
 
@@ -275,7 +275,7 @@ preparer_publication.py       prepares the repository, the Windows zip and the L
 - **Without building**: `python Randomizer/application.py`, or from the command line
   `python Randomizer/generateur_seed.py 12345 --armes-aleatoires --installer`.
 - **Importing surveys**:
-  `python Randomizer/importer_journal.py journal.txt --personnage Chris --difficulte Normal --nouvelle-partie --ecrire`
+  `python Randomizer/importer_journal.py journal.txt --personnage Chris --difficulte Facile --nouvelle-partie --ecrire`
   (without `--nouvelle-partie` if the game was already in progress: rooms then only count as visited).
 
 The code, file names and command-line options are in French (the project's working language).
