@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.6.1"
+VERSION = "0.9.6.2"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -384,6 +384,15 @@ def creer_onglets(racine, style):
                          ("selected", im["actif"]), ("active", im["survol"]),
                          border=(10, 8, 13, 2), sticky="nsew")
     style.element_create("Intercalaire.client", "image", im["ligne"], border=(0, 3, 0, 0), sticky="nsew")
+    # sous-onglets (« Générer une seed ») : même dessin, image plus basse (ttk ne rétrécit pas une image sous sa
+    # taille : avec l'image de 48 px, les sous-onglets avaient du vide sous le texte)
+    for cle, couleur in (("normal", c["carte"]), ("survol", c["survol"]), ("actif", c["accent"]),
+                         ("actif_survol", c["accent_survol"]), ("grise", "#191b20")):
+        im["sous_" + cle] = tk.PhotoImage(master=racine, data=dessiner_onglet(couleur, hauteur=24, rayon=6))
+    style.element_create("SousIntercalaire.tab", "image", im["sous_normal"],
+                         ("disabled", im["sous_grise"]), ("selected", "active", im["sous_actif_survol"]),
+                         ("selected", im["sous_actif"]), ("active", im["sous_survol"]),
+                         border=(10, 6, 13, 2), sticky="nsew")
 
 
 def appliquer_style(racine):
@@ -470,11 +479,13 @@ def appliquer_style(racine):
     # sous-onglets de « Générer une seed » : mêmes intercalaires, plus petits
     s.configure("Sous.TNotebook", background=c["fond"], borderwidth=0, tabmargins=(0, 0, 0, 0))
     s.layout("Sous.TNotebook", [("Intercalaire.client", {"sticky": "nswe"})])
-    s.layout("Sous.TNotebook.Tab", s.layout("TNotebook.Tab"))
-    s.configure("Sous.TNotebook.Tab", background=c["fond"], foreground=c["discret"], padding=(12, 6, 10, 4),
+    s.layout("Sous.TNotebook.Tab", [("SousIntercalaire.tab", {"sticky": "nswe", "children": [
+        ("Notebook.padding", {"side": "top", "sticky": "nswe", "children": [
+            ("Notebook.label", {"side": "top", "sticky": ""})]})]})])
+    s.configure("Sous.TNotebook.Tab", background=c["fond"], foreground=c["discret"], padding=(12, 4, 10, 3),
                 font=(POLICE, 9, "bold"))
     s.map("Sous.TNotebook.Tab", foreground=[("disabled", c["grise"]), ("selected", "#ffffff"), ("active", c["texte"])],
-          expand=[("selected", (0, 0, 0, 0))], padding=[("selected", (12, 6, 10, 4))])
+          expand=[("selected", (0, 0, 0, 0))], padding=[("selected", (12, 4, 10, 3))])
     # liste déroulante (sélecteur de langue)
     s.configure("TCombobox", fieldbackground=c["champ"], background=c["champ"], foreground=c["texte"],
                 arrowcolor=c["texte"], bordercolor=c["bord"], lightcolor=c["champ"], darkcolor=c["champ"],
