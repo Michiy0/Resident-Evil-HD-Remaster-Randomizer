@@ -1,11 +1,11 @@
-RANDOMIZER RESIDENT EVIL HD REMASTER — version Linux / Steam Deck
-================================================================
+RESIDENT EVIL HD REMASTER RANDOMIZER — Linux / Steam Deck
+========================================================
 
 L'application tourne nativement sous Linux (sans Proton). Le jeu, lui, tourne avec Proton
-comme d'habitude.
+comme d'habitude. (English: see README.txt)
 
-SUR STEAM DECK
-1. Passe en mode Bureau (bouton Steam → Alimentation → Passer au Bureau).
+INSTALLER (une seule fois)
+1. Sur Steam Deck, passe en mode Bureau (bouton Steam → Alimentation → Passer au Bureau).
 2. Extrais cette archive où tu veux, par exemple dans ton dossier personnel.
 3. Si besoin, rends le fichier exécutable : clic droit sur Resident Evil HD Remaster Randomizer →
    Propriétés → Permissions → coche « Est exécutable ».
@@ -15,16 +15,25 @@ SUR STEAM DECK
 6. Clique « Copier » à côté de l'option de lancement, puis dans Steam :
    Resident Evil → Propriétés → Options de lancement → colle :
        WINEDLLOVERRIDES="xinput1_4=n,b" %command%
-   (à faire une seule fois)
    Avec BhdTool (ou un autre mod en dinput8.dll) : coche « Ajouter dinput8.dll » avant de
    copier (elle est cochée d'office si le fichier est détecté). La ligne devient :
        WINEDLLOVERRIDES="xinput1_4=n,b;dinput8=n,b" %command%
-7. Clique « Générer la seed », puis lance le jeu : NOUVELLE PARTIE, CHRIS, NORMAL.
+
+JOUER
+1. Onglet « Générer une seed » : choisis tes options, puis « Générer la seed ».
+2. Lance le jeu : NOUVELLE PARTIE avec CHRIS, en difficulté FACILE.
+   À la question « Quel est votre style de jeu ? », choisis la 2e réponse : « II. Gamer ».
+   Depuis une sauvegarde de jeu terminé (« Une fois de plus ») : choisis « Facile ».
+   Dans une autre difficulté, la seed ne s'applique pas.
+3. L'onglet « Spoiler » montre la liste complète des changements.
+
+MISES À JOUR
+L'application se met à jour toute seule : elle propose la nouvelle version au démarrage.
 
 VÉRIFIER QUE ÇA MARCHE
 Après avoir ramassé un objet, le bouton « Journal du jeu » (onglet « Aider le projet »)
 doit montrer « Point d'arret pose » puis « objet remplace ». (Testé et confirmé sur Steam Deck.)
 En cas de problème, envoie ce journal en ouvrant une « issue » sur la page GitHub du projet.
 
-REVENIR AU JEU NORMAL
+REVENIR AU JEU D'ORIGINE
 « Désinstaller la DLL » dans l'application, et retire l'option de lancement dans Steam.

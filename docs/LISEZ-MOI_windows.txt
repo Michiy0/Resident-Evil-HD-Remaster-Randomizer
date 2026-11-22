@@ -1,34 +1,36 @@
-﻿RANDOMIZER RESIDENT EVIL HD REMASTER — version 0.6.2 (test)
-==========================================================
+﻿RESIDENT EVIL HD REMASTER RANDOMIZER — Windows
+=============================================
 
-Merci de tester ! Il faut le jeu sur Steam, à jour.
+Il faut le jeu sur Steam, à jour. (English: see README.txt)
 
-INSTALLER
+INSTALLER (une seule fois)
 1. Lance Resident Evil HD Remaster Randomizer.exe.
    Si Windows affiche « Windows a protégé votre ordinateur » : clique
    « Informations complémentaires » puis « Exécuter quand même » (l'exe n'est pas signé).
 2. Vérifie que le dossier du jeu est le bon (sinon « Parcourir… »).
-   Si un message orange parle de « version non prise en charge », arrête-toi là
-   et préviens-moi : ton jeu n'est pas la même version que le mien.
+   Si un message orange parle de « version non prise en charge », ton jeu n'est pas la
+   version Steam actuelle : le randomizer reste inactif.
 3. Clique « Installer la DLL ».
-4. Clique « Générer la seed » (laisse cochée « Installer la seed dans le jeu »).
-   Note le numéro de graine affiché.
-5. Lance le jeu depuis Steam : NOUVELLE PARTIE, CHRIS, difficulté NORMAL.
 
-QUOI TESTER
-- Ramasse des objets (munitions, herbes, rubans encreurs, poignards…) :
-  certains doivent être différents de d'habitude.
-- Le jeu ne doit ni planter ni ralentir.
+JOUER
+1. Onglet « Générer une seed » : choisis tes options, puis « Générer la seed »
+   (laisse cochée « Installer la seed dans le jeu »).
+2. Lance le jeu depuis Steam : NOUVELLE PARTIE avec CHRIS, en difficulté FACILE.
+   À la question « Quel est votre style de jeu ? », choisis la 2e réponse : « II. Gamer ».
+   Depuis une sauvegarde de jeu terminé (« Une fois de plus ») : choisis « Facile ».
+   Dans une autre difficulté, la seed ne s'applique pas.
+3. L'onglet « Spoiler » montre la liste complète des changements.
 
-ME RENVOYER
-- Le fichier ouvert par le bouton « Journal du jeu » (randomizer_journal.txt),
-- le numéro de graine et les options cochées,
-- ce que tu as remarqué (plantage, objet bizarre, rien de changé…).
+MISES À JOUR
+L'application se met à jour toute seule : elle propose la nouvelle version au démarrage.
+
+EN CAS DE PROBLÈME
+Ouvre une « issue » sur la page GitHub du projet, avec le fichier du bouton « Journal du jeu »
+(randomizer_journal.txt), le numéro de graine et les options cochées.
 
 AIDER LE PROJET (FACULTATIF)
-Dans l'onglet « Aider le projet », coche « Mode relevé », lance une nouvelle partie et visite
-les pièces sans rien ramasser (reste 2 secondes dans chacune). Les objets
-présents sont notés dans le journal du jeu : envoie-le-moi.
+Onglet « Aider le projet » : coche « Mode relevé », lance une nouvelle partie et visite les pièces
+sans rien ramasser. Les objets présents sont notés dans le journal du jeu.
 
-REVENIR AU JEU NORMAL
+REVENIR AU JEU D'ORIGINE
 Dans l'application : « Désinstaller la DLL ». C'est tout.

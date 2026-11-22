@@ -3,7 +3,7 @@ Prépare une version publiable du projet dans le dossier publication/ :
 
   publication/depot/                  les fichiers à mettre sur GitHub (et seulement eux)
   publication/ResidentEvilHDRemasterRandomizer-v<x>-windows.zip à joindre à une « Release » GitHub ou à envoyer aux testeurs
-                                      (Resident Evil HD Remaster Randomizer.exe + LISEZ-MOI.txt)
+                                      (Resident Evil HD Remaster Randomizer.exe + LISEZ-MOI.txt + README.txt)
 
 Seuls les fichiers de la liste FICHIERS sont copiés : sauvegardes, fichiers du jeu, outils de tiers et
 seeds générées ne peuvent pas partir par erreur. Le tableur publié n'a pas l'onglet « Vocabulaire Benn ».
@@ -47,6 +47,8 @@ FICHIERS = {
     "docs/README.zh.md": "docs/README.zh.md",
     "docs/LISEZ-MOI_windows.txt": "docs/LISEZ-MOI_windows.txt",
     "docs/LISEZ-MOI_linux.txt": "docs/LISEZ-MOI_linux.txt",
+    "docs/README_windows.txt": "docs/README_windows.txt",
+    "docs/README_linux.txt": "docs/README_linux.txt",
     "preparer_publication.py": "preparer_publication.py",
     "donnees_randomizer_RE1.xlsx": "donnees_randomizer_RE1.xlsx",
     "DLL/randomizer.c": "DLL/randomizer.c",
@@ -202,6 +204,7 @@ def main():
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(exe, "Resident Evil HD Remaster Randomizer.exe")
         z.write(ICI / "docs" / "LISEZ-MOI_windows.txt", "LISEZ-MOI.txt")
+        z.write(ICI / "docs" / "README_windows.txt", "README.txt")
     exe.unlink()
     print(f"Archive prête : {archive} ({archive.stat().st_size // 1024} Ko)")
 
@@ -211,6 +214,7 @@ def main():
         with tarfile.open(archive_linux, "w:gz") as tar:          # tar.gz : garde le droit d'exécution
             ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/Resident Evil HD Remaster Randomizer", binaire.read_bytes(), 0o755)
             ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/LISEZ-MOI.txt", (ICI / "docs" / "LISEZ-MOI_linux.txt").read_bytes(), 0o644)
+            ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/README.txt", (ICI / "docs" / "README_linux.txt").read_bytes(), 0o644)
         binaire.unlink()
         print(f"Archive Linux prête : {archive_linux} ({archive_linux.stat().st_size // 1024} Ko)")
 
