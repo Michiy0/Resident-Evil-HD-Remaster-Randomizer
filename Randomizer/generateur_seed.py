@@ -237,6 +237,35 @@ def placer_armes_bonus(resultat, graine, ids_bonus=None):
     return places
 
 
+# Serre (10C) : si on ouvre le mauvais tuyau (le vert au lieu du rouge), les plantes meurent, et les objets mélangés à
+# la place des plantes (les 5 herbes vertes d'origine) peuvent être détruits ; le masque (126, jamais mélangé) ne
+# risque rien (découvert en partie test, 22/11/2026). Par défaut, aucun objet important n'y est placé : armes, armes bonus (et plus tard les clés).
+# Option « Pour les fous » serre_dangereuse : on laisse le hasard faire.
+PIECE_SERRE = "10c"
+IDS_SANS_RISQUE_SERRE = {126}
+
+
+def proteger_serre(resultat, graine, importants):
+    """Échange chaque objet important tombé sur une plante de la serre avec un objet ordinaire d'ailleurs (tiré au
+    sort selon la graine). Renvoie le nombre d'échanges."""
+    def en_serre(r):
+        return r["piece"].lower() == PIECE_SERRE and r["ancien"]["id"] not in IDS_SANS_RISQUE_SERRE
+    a_deplacer = [r for r in resultat if en_serre(r) and r["nouveau"]["id"] in importants]
+    if not a_deplacer:
+        return 0
+    rng = random.Random(graine ^ 0x5E44E)
+    places = sorted((r for r in resultat if not en_serre(r) and r["piece"] not in PIECES_SPECIALES
+                     and r["nouveau"]["id"] not in importants
+                     and not (r["piece"].lower() == PIECE_DEPART and r["ancien"]["id"] == ID_DEPART)),
+                    key=lambda r: (r["piece"], r["empreinte"]))
+    for r in sorted(a_deplacer, key=lambda r: (r["piece"], r["empreinte"])):
+        if not places:
+            break
+        autre = places.pop(rng.randrange(len(places)))
+        r["nouveau"], autre["nouveau"] = autre["nouveau"], r["nouveau"]
+    return len(a_deplacer)
+
+
 def nom_objet(ident, langue="fr"):
     """Nom officiel de l'objet dans le jeu (anglais si le jeu n'a pas la langue) ; armes bonus : textes.py."""
     if ident in IDS_ARMES_BONUS:
@@ -384,7 +413,8 @@ def tirer_graine():
 def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=False, dossier_jeu=None,
              dire=print, personnage="Chris", difficulte="Facile", langue="fr", dire_spoiler=None,
              armes_choisies=None, objets_visibles=True, arme_depart=False, armes_bonus=False,
-             messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False, cle_placard=False, une_fois_de_plus=False):
+             messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False, cle_placard=False, une_fois_de_plus=False,
+             serre_dangereuse=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -397,6 +427,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     malle_aleatoire : les objets de la malle de départ sont mélangés avec les autres (nouvelle partie seulement).
     couteau_aleatoire : le couteau de départ (Chris) est mélangé avec les autres objets (nouvelle partie seulement).
     cle_placard : la clé du placard (salle des costumes) est ajoutée à la malle de départ (nouvelle partie seulement).
+    serre_dangereuse : option « Pour les fous » : des objets importants peuvent tomber sur les plantes de la serre
+    (détruits si on ouvre le mauvais tuyau) ; sinon ils en sont écartés.
     une_fois_de_plus : partie « Une fois de plus » (jeu déjà terminé) : le jeu met la clé du placard en case 1 de la
     malle, le contenu de départ est donc décalé d'une case (hypothèse du 22/11/2026, à confirmer en jeu)."""
     dire_brut = dire
@@ -430,6 +462,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     depart = garantir_arme_depart(resultat, graine, ids_armes) if arme_depart and armes_aleatoires else None
     if armes_bonus:
         placer_armes_bonus(resultat, graine, armes_bonus)
+    if not serre_dangereuse:                 # après les armes bonus : elles aussi
+        proteger_serre(resultat, graine, IDS_ARMES | IDS_ARMES_BONUS)
 
     sortie = {
         "version_jeu": {"taille_bhd_exe": 9640360,
@@ -441,7 +475,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
                                       "malle_aleatoire": bool(malle_aleatoire),
                                       "couteau_aleatoire": bool(couteau_aleatoire),
                                       "cle_placard": bool(cle_placard and not une_fois_de_plus),
-                                      "une_fois_de_plus": bool(une_fois_de_plus)},
+                                      "une_fois_de_plus": bool(une_fois_de_plus),
+                                      "serre_dangereuse": bool(serre_dangereuse)},
         "depart": depart,
         "remplacements": resultat,
         "laisses": len(emplacements) - len(resultat),

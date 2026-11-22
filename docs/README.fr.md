@@ -48,7 +48,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.7.3 (test)
+## État : version 0.9.7.4 (test)
 
 | Pris en charge | À venir |
 |---|---|
@@ -194,7 +194,9 @@ système, anglais sinon).
     ramassage), malle de départ aléatoire (cochée d'office ; nouvelle partie seulement), armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent
     rester à leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement
     reçoit un objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
-    on peut commencer sans arme) ; en dessous, dans sa propre carte, *Pour les fous* (sans logique, à venir) ;
+    on peut commencer sans arme) ; en dessous, dans sa propre carte, *Pour les fous* : sans logique (à venir) et objets importants dans la serre (y ouvrir
+    le mauvais tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets
+    ordinaires remplacent les plantes) ;
   - *Ennemis* : ennemis aléatoires (à venir) ;
   - *Portes* : portes aléatoires, chaque porte mène vers une autre pièce (à venir) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) ;

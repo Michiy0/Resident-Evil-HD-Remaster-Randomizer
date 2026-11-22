@@ -46,7 +46,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.7.3 (test)
+## Status: version 0.9.7.4 (test)
 
 | Supported | Coming |
 |---|---|
@@ -183,7 +183,9 @@ otherwise).
     pickup), random starting item box (ticked by default; new game only), random weapons (ticking it shows the weapon list; untick those that should stay in place) and
     guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and random
     starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon); below,
-    in its own card, *For the crazy ones* (no logic, coming soon);
+    in its own card, *For the crazy ones*: no logic (coming soon) and important items in the greenhouse (opening
+    the wrong pipe there kills the plants and can destroy the items placed instead of them; unticked, only ordinary
+    items replace the plants);
   - *Enemies*: random enemies (coming soon);
   - *Doors*: random doors, each door leads to a different room (coming soon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both);

@@ -293,6 +293,31 @@ T = {
                         "Случайные ключи", "随机钥匙"),
     "ennemis_aleatoires": ("Ennemis aléatoires", "Random enemies", "敵もランダム", "Enemigos aleatorios",
                            "Inimigos aleatórios", "Случайные враги", "随机敌人"),
+    "serre_dangereuse": ("Objets importants dans la serre", "Important items in the greenhouse",
+                         "温室に重要なアイテム", "Objetos importantes en el invernadero",
+                         "Itens importantes na estufa", "Важные предметы в оранжерее", "温室里的重要物品"),
+    "note_serre_dangereuse": (
+        "Dans la serre, si on ouvre le mauvais tuyau, les plantes meurent : les objets mélangés à la place des "
+        "plantes peuvent alors être détruits. Coché : n'importe quel objet peut remplacer une plante, armes "
+        "comprises (et plus tard les clés). Décoché : seuls des objets ordinaires (herbes, munitions…) remplacent "
+        "les plantes.",
+        "In the greenhouse, opening the wrong pipe kills the plants: the shuffled items placed instead of the plants "
+        "can then be destroyed. Ticked: any item can replace a plant, weapons included (and later keys). Unticked: "
+        "only ordinary items (herbs, ammo…) replace the plants.",
+        "温室で間違ったパイプを開けると植物が枯れ、植物の代わりに置かれたアイテムが失われることがあります。オン："
+        "武器を含むどのアイテムも植物の代わりになります（今後は鍵も）。オフ：植物の代わりになるのは普通のアイテム"
+        "（ハーブ、弾薬など）だけです。",
+        "En el invernadero, si abres la tubería equivocada, las plantas mueren: los objetos mezclados que sustituyen a "
+        "las plantas pueden destruirse. Marcada: cualquier objeto puede sustituir a una planta, armas incluidas (y más "
+        "adelante las llaves). Sin marcar: solo objetos normales (hierbas, munición…) sustituyen a las plantas.",
+        "Na estufa, abrir o cano errado mata as plantas: os itens embaralhados colocados no lugar das plantas podem "
+        "então ser destruídos. Marcada: qualquer item pode substituir uma planta, armas incluídas (e mais tarde as "
+        "chaves). Desmarcada: só itens comuns (ervas, munição…) substituem as plantas.",
+        "Если в оранжерее открыть не ту трубу, растения погибнут, и предметы, поставленные вместо растений, могут "
+        "исчезнуть. Включено: растение может заменить любой предмет, включая оружие (а позже и ключи). Выключено: "
+        "растения заменяют только обычные предметы (травы, патроны…).",
+        "在温室里打开错误的管道会让植物枯死，取代植物的随机物品可能因此被毁。勾选：任何物品都可能取代植物，包括武器"
+        "（以后还有钥匙）。不勾选：只有普通物品（草药、弹药等）会取代植物。"),
     "partie_nouvelle": ("Nouvelle partie", "New game", "ニューゲーム", "Partida nueva", "Novo jogo", "Новая игра",
                         "新游戏"),
     "note_partie_nouvelle": ("Réponse à « Quel est votre style de jeu ? »",
@@ -1042,6 +1067,15 @@ ALLEMAND_ITALIEN = {
     'carte_ennemis': ('Gegner',
                       'Nemici'),
     'carte_portes': ('Türen', 'Porte'),
+    'serre_dangereuse': ('Wichtige Gegenstände im Gewächshaus', 'Oggetti importanti nella serra'),
+    'note_serre_dangereuse': ('Öffnet man im Gewächshaus das falsche Rohr, sterben die Pflanzen: Die gemischten '
+                              'Gegenstände an Stelle der Pflanzen können dann zerstört werden. Aktiviert: Jeder '
+                              'Gegenstand kann eine Pflanze ersetzen, Waffen inklusive (und später Schlüssel). '
+                              'Deaktiviert: Nur gewöhnliche Gegenstände (Kräuter, Munition…) ersetzen die Pflanzen.',
+                              'Nella serra, aprendo il tubo sbagliato le piante muoiono: gli oggetti mescolati al '
+                              'posto delle piante possono quindi essere distrutti. Attivata: qualsiasi oggetto può '
+                              'sostituire una pianta, armi comprese (e più avanti le chiavi). Disattivata: solo '
+                              'oggetti comuni (erbe, munizioni…) sostituiscono le piante.'),
     'partie_nouvelle': ('Neues Spiel', 'Nuova partita'),
     'note_partie_nouvelle': ('Antwort auf die Frage nach deinem Spielstil', 'Risposta alla domanda sul tuo stile di gioco'),
     'partie_ufp': ('Neues Spiel+', 'Nuova partita+'),

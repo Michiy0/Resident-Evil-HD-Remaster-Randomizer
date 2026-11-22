@@ -26,7 +26,7 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.7.3"
+VERSION = "0.9.7.4"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -690,6 +690,7 @@ class Application(tk.Tk):
         self.armes_cochees = {cle: tk.BooleanVar(value=id_arme is not None) for cle, id_arme, _ in gen.ARMES}
         self.cles = tk.BooleanVar(value=False)
         self.sans_logique = tk.BooleanVar(value=False)         # option à venir (grisée) : clés sans logique
+        self.serre_dangereuse = tk.BooleanVar(value=False)     # « Pour les fous » : objets importants dans la serre
         self.ennemis = tk.BooleanVar(value=False)              # option à venir (grisée)
         self.portes = tk.BooleanVar(value=False)               # option à venir (grisée)
         self.armes_bonus = tk.BooleanVar(value=False)          # option « Fun » : Samurai Edge + lance-roquettes
@@ -1017,6 +1018,11 @@ class Application(tk.Tk):
         ttk.Checkbutton(fo, text=self.t("sans_logique") + a_venir, variable=self.sans_logique,
                         state="disabled").pack(anchor="w")
         ttk.Label(fo, text=self.t("note_sans_logique"), style="Note.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+        # serre (10C) : le mauvais tuyau détruit les objets posés sur les plantes
+        ttk.Checkbutton(fo, text=self.t("serre_dangereuse"), variable=self.serre_dangereuse).pack(
+            anchor="w", pady=(8, 0))
+        ttk.Label(fo, text=self.t("note_serre_dangereuse"), style="Alerte.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
 
         # --- Ennemis
@@ -1774,7 +1780,7 @@ class Application(tk.Tk):
                                   langue=langue, dire_spoiler=spoiler.append, armes_choisies=armes,
                                   objets_visibles=self.visibles.get(), arme_depart=self.arme_depart.get(),
                                   malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(), cle_placard=self.cle_placard.get() and not self.ufp.get(),
-                                  une_fois_de_plus=self.ufp.get(),
+                                  une_fois_de_plus=self.ufp.get(), serre_dangereuse=self.serre_dangereuse.get(),
                                   armes_bonus=self.armes_bonus_choisies(), messages_differes=True)
             except Exception as e:  # on affiche l'erreur plutôt que de fermer l'application
                 messages.append(textes.Msg("erreur", e=e))
