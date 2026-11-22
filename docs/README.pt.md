@@ -3,7 +3,7 @@
 [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · **Português** · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
 > ⚠️ **Esta tradução ainda não foi revisada por um falante nativo.** A versão em inglês
-> ([README.md](README.md)) é a referência e pode estar mais atualizada. Se encontrar um erro, avise em um
+> ([README.en.md](README.en.md)) é a referência e pode estar mais atualizada. Se encontrar um erro, avise em um
 > [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues).
 
 **[⬇ Baixar a versão mais recente](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
@@ -36,15 +36,15 @@ estratégias.
 
 ## Imagens
 
-<p align="center"><img src="images/avant_apres.gif" alt="A mesma sala no jogo original e com o randomizer" width="640"><br><sub>A mesma sala, jogo original e depois randomizer: a adaga sobre a mesa agora é uma erva verde, e a espingarda pendurada na parede foi trocada por um carregador de pistola — visível na hora, sem pegar nada</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="A mesma sala no jogo original e com o randomizer" width="640"><br><sub>A mesma sala, jogo original e depois randomizer: a adaga sobre a mesa agora é uma erva verde, e a espingarda pendurada na parede foi trocada por um carregador de pistola — visível na hora, sem pegar nada</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="Gerar uma semente" width="420"><br><sub>Gerar uma semente: opções e escolha de armas</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="Instalação" width="420"><br><sub>Instalação: a DLL em um clique</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Gerar uma semente" width="420"><br><sub>Gerar uma semente: opções e escolha de armas</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="Instalação" width="420"><br><sub>Instalação: a DLL em um clique</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
 </tr>
 </table>
 
@@ -72,9 +72,9 @@ falta fazer. Primeiro é preciso misturar as chaves com lógica.
 ## Progresso do levantamento
 
 Porcentagem de salas levantadas em um **novo jogo**, por personagem e dificuldade (veja
-[Ajudar o projeto](#ajudar-o-projeto)). Detalhes na [versão em inglês](README.md#survey-progress).
+[Ajudar o projeto](#ajudar-o-projeto)). Detalhes na [versão em inglês](README.en.md#survey-progress).
 
-<img src="images/progression_en.svg" alt="Progresso do levantamento" width="800">
+<img src="../images/progression_en.svg" alt="Progresso do levantamento" width="800">
 
 ## Instalação
 
@@ -172,7 +172,7 @@ Abra um [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/
 
 ## Para desenvolvedores
 
-Veja a [versão em inglês](README.md#for-developers) (funcionamento, conteúdo do repositório, compilação).
+Veja a [versão em inglês](README.en.md#for-developers) (funcionamento, conteúdo do repositório, compilação).
 
 ## Créditos
 
@@ -183,4 +183,4 @@ Veja a [versão em inglês](README.md#for-developers) (funcionamento, conteúdo 
 
 ## Licença
 
-GPLv3 — veja [LICENSE](LICENSE).
+GPLv3 — veja [LICENSE](../LICENSE).

@@ -2,7 +2,7 @@
 
 [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · **Русский** · [日本語](README.ja.md) · [中文](README.zh.md)
 
-> ⚠️ **Этот перевод ещё не проверен носителем языка.** Английская версия ([README.md](README.md)) является
+> ⚠️ **Этот перевод ещё не проверен носителем языка.** Английская версия ([README.en.md](README.en.md)) является
 > основной и может быть новее. Если вы заметили ошибку, сообщите о ней в
 > [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues).
 
@@ -37,15 +37,15 @@
 
 ## Скриншоты
 
-<p align="center"><img src="images/avant_apres.gif" alt="Одна и та же комната в оригинальной игре и с рандомайзером" width="640"><br><sub>Одна и та же комната: сначала оригинальная игра, затем рандомайзер — кинжал на столе стал зелёной травой, а дробовик на стене заменён магазином для пистолета; это видно сразу, ничего не подбирая</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="Одна и та же комната в оригинальной игре и с рандомайзером" width="640"><br><sub>Одна и та же комната: сначала оригинальная игра, затем рандомайзер — кинжал на столе стал зелёной травой, а дробовик на стене заменён магазином для пистолета; это видно сразу, ничего не подбирая</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="Создать сид" width="420"><br><sub>Создать сид: параметры и выбор оружия</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="Установка" width="420"><br><sub>Установка: DLL в один щелчок</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Создать сид" width="420"><br><sub>Создать сид: параметры и выбор оружия</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="Установка" width="420"><br><sub>Установка: DLL в один щелчок</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="Спойлер" width="420"><br><sub>Спойлер: полный список изменений</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Спойлер" width="420"><br><sub>Спойлер: полный список изменений</sub></td>
 </tr>
 </table>
 
@@ -73,9 +73,9 @@
 ## Ход сбора данных
 
 Доля комнат, собранных в **новой игре**, для каждого персонажа и сложности (см.
-[Помочь проекту](#помочь-проекту)). Подробности — в [английской версии](README.md#survey-progress).
+[Помочь проекту](#помочь-проекту)). Подробности — в [английской версии](README.en.md#survey-progress).
 
-<img src="images/progression_en.svg" alt="Ход сбора данных" width="800">
+<img src="../images/progression_en.svg" alt="Ход сбора данных" width="800">
 
 ## Установка
 
@@ -173,7 +173,7 @@
 
 ## Для разработчиков
 
-См. [английскую версию](README.md#for-developers) (как это работает, содержимое репозитория, сборка).
+См. [английскую версию](README.en.md#for-developers) (как это работает, содержимое репозитория, сборка).
 
 ## Благодарности
 
@@ -184,4 +184,4 @@
 
 ## Лицензия
 
-GPLv3 — см. [LICENSE](LICENSE).
+GPLv3 — см. [LICENSE](../LICENSE).

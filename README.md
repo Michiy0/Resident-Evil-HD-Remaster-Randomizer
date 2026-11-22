@@ -1,6 +1,6 @@
 # Resident Evil HD Remaster Randomizer (PC / Steam)
 
-🌐 **English** · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
+🌐 **English** · [Français](docs/README.fr.md) · [Deutsch](docs/README.de.md) · [Español](docs/README.es.md) · [Italiano](docs/README.it.md) · [Português](docs/README.pt.md) · [Русский](docs/README.ru.md) · [日本語](docs/README.ja.md) · [中文](docs/README.zh.md)
 
 **[⬇ Download the latest version](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
 [Report a problem](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
@@ -98,7 +98,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 | Jill | Hard | 0/118 (0%) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0%) | 0 | 0 |
 
-Bonus weapons: 2/2 identified. Updated 2026-11-21.
+Bonus weapons: 2/2 identified. Updated 2026-11-22.
 
 </details>
 
@@ -178,7 +178,6 @@ Options marked “coming soon” (keys, enemies, other weapons, Archipelago…) 
 
 - **BhdTool**: compatible (it uses `dinput8.dll`, the randomizer uses `xinput1_4.dll`).
 - **Another mod that installs an `xinput1_4.dll`**: incompatible. The app detects it and never touches it.
-- **Cheat Engine**: do not run `appliquer_seed.lua` at the same time (same breakpoint).
 
 ## Recommended mods
 
@@ -255,7 +254,7 @@ Randomizer/
   progression.py              progress bars of this README
   textes.py                   all translations
   construire_exe.bat / construire_linux.sh, creer_icone.py, icons
-outils/cheat_engine/          older Cheat Engine scripts (manual surveys)
+docs/                         the README in other languages and the archives' read-me files
 preparer_publication.py       prepares the repository, the Windows zip and the Linux archive
 ```
 
@@ -297,7 +296,7 @@ GPLv3 — see [LICENSE](LICENSE).
 
 # Français
 
-🌐 [English](#resident-evil-hd-remaster-randomizer-pc--steam) · **Français** · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
+🌐 [English](#resident-evil-hd-remaster-randomizer-pc--steam) · **Français** · [Deutsch](docs/README.de.md) · [Español](docs/README.es.md) · [Italiano](docs/README.it.md) · [Português](docs/README.pt.md) · [Русский](docs/README.ru.md) · [日本語](docs/README.ja.md) · [中文](docs/README.zh.md)
 
 **[⬇ Télécharger la dernière version](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
 [Signaler un problème](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
@@ -398,7 +397,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 | Jill | Difficile | 0/118 (0 %) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0 %) | 0 | 0 |
 
-Armes bonus : 2/2 identifiées. Mis à jour le 21/11/2026.
+Armes bonus : 2/2 identifiées. Mis à jour le 22/11/2026.
 
 </details>
 
@@ -487,7 +486,6 @@ Les options marquées « à venir » (clés, ennemis, autres armes, Archipelago�
 - **BhdTool** : compatible (il utilise `dinput8.dll`, le randomizer `xinput1_4.dll`).
 - **Autre mod qui installe un `xinput1_4.dll`** : incompatible. L'application le détecte et n'y touche
   jamais.
-- **Cheat Engine** : ne pas lancer `appliquer_seed.lua` en même temps (même point d'arrêt).
 
 ## Mods recommandés
 
@@ -569,7 +567,7 @@ Randomizer/
   progression.py              barres d'avancement de ce README
   textes.py                   toutes les traductions
   construire_exe.bat / construire_linux.sh, creer_icone.py, icônes
-outils/cheat_engine/          anciens scripts Cheat Engine (relevés manuels)
+docs/                         le README dans les autres langues et les lisez-moi des archives
 preparer_publication.py       prépare le dépôt, le zip Windows et l'archive Linux
 ```
 

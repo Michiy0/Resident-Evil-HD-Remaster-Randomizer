@@ -35,15 +35,15 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 
 ## Aperçu
 
-<p align="center"><img src="images/avant_apres.gif" alt="La même pièce dans le jeu d'origine et avec le randomizer : le poignard sur la table devient une herbe verte et le fusil du mur devient un chargeur de pistolet" width="640"><br><sub>La même pièce, jeu d'origine puis randomizer : le poignard sur la table est devenu une herbe verte, et le fusil à pompe accroché au mur est remplacé par un chargeur de pistolet — visibles tout de suite, sans avoir à les ramasser</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="La même pièce dans le jeu d'origine et avec le randomizer : le poignard sur la table devient une herbe verte et le fusil du mur devient un chargeur de pistolet" width="640"><br><sub>La même pièce, jeu d'origine puis randomizer : le poignard sur la table est devenu une herbe verte, et le fusil à pompe accroché au mur est remplacé par un chargeur de pistolet — visibles tout de suite, sans avoir à les ramasser</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_fr.png" alt="Générer une seed : options et choix des armes" width="420"><br><sub>Générer une seed : options et choix des armes</sub></td>
-<td align="center"><img src="images/appli_installation_fr.png" alt="Installation : la DLL en un clic" width="420"><br><sub>Installation : la DLL en un clic</sub></td>
+<td align="center"><img src="../images/appli_generer_fr.png" alt="Générer une seed : options et choix des armes" width="420"><br><sub>Générer une seed : options et choix des armes</sub></td>
+<td align="center"><img src="../images/appli_installation_fr.png" alt="Installation : la DLL en un clic" width="420"><br><sub>Installation : la DLL en un clic</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
 </tr>
 </table>
 
@@ -84,7 +84,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 
 <!-- progression:debut -->
 
-<img src="images/progression.svg" alt="Avancement des relevés" width="800">
+<img src="../images/progression.svg" alt="Avancement des relevés" width="800">
 
 <details><summary>Détail (texte)</summary>
 
@@ -101,7 +101,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 | Jill | Difficile | 0/118 (0 %) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0 %) | 0 | 0 |
 
-Armes bonus : 2/2 identifiées. Mis à jour le 21/11/2026.
+Armes bonus : 2/2 identifiées. Mis à jour le 22/11/2026.
 
 </details>
 
@@ -190,7 +190,6 @@ Les options marquées « à venir » (clés, ennemis, autres armes, Archipelago�
 - **BhdTool** : compatible (il utilise `dinput8.dll`, le randomizer `xinput1_4.dll`).
 - **Autre mod qui installe un `xinput1_4.dll`** : incompatible. L'application le détecte et n'y touche
   jamais.
-- **Cheat Engine** : ne pas lancer `appliquer_seed.lua` en même temps (même point d'arrêt).
 
 ## Mods recommandés
 
@@ -272,7 +271,7 @@ Randomizer/
   progression.py              barres d'avancement de ce README
   textes.py                   toutes les traductions
   construire_exe.bat / construire_linux.sh, creer_icone.py, icônes
-outils/cheat_engine/          anciens scripts Cheat Engine (relevés manuels)
+docs/                         le README dans les autres langues et les lisez-moi des archives
 preparer_publication.py       prépare le dépôt, le zip Windows et l'archive Linux
 ```
 
@@ -306,4 +305,4 @@ preparer_publication.py       prépare le dépôt, le zip Windows et l'archive L
 
 ## Licence
 
-GPLv3 — voir [LICENSE](LICENSE).
+GPLv3 — voir [LICENSE](../LICENSE).

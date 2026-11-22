@@ -33,15 +33,15 @@ or strategies.
 
 ## Screenshots
 
-<p align="center"><img src="images/avant_apres.gif" alt="Same room in the original game and with the randomizer: the dagger on the table becomes a green herb and the shotgun on the wall becomes a handgun magazine" width="640"><br><sub>Same room, original game then randomizer: the dagger on the table is now a green herb, and the shotgun hanging on the wall is replaced by a handgun magazine — visible right away, no need to pick them up</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="Same room in the original game and with the randomizer: the dagger on the table becomes a green herb and the shotgun on the wall becomes a handgun magazine" width="640"><br><sub>Same room, original game then randomizer: the dagger on the table is now a green herb, and the shotgun hanging on the wall is replaced by a handgun magazine — visible right away, no need to pick them up</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="Generate a seed: options and weapon choice" width="420"><br><sub>Generate a seed: options and weapon choice</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="Installation: the DLL in one click" width="420"><br><sub>Installation: the DLL in one click</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Generate a seed: options and weapon choice" width="420"><br><sub>Generate a seed: options and weapon choice</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="Installation: the DLL in one click" width="420"><br><sub>Installation: the DLL in one click</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
 </tr>
 </table>
 
@@ -81,7 +81,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 
 <!-- progression-en:debut -->
 
-<img src="images/progression_en.svg" alt="Survey progress" width="800">
+<img src="../images/progression_en.svg" alt="Survey progress" width="800">
 
 <details><summary>Details (text)</summary>
 
@@ -98,7 +98,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 | Jill | Hard | 0/118 (0%) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0%) | 0 | 0 |
 
-Bonus weapons: 2/2 identified. Updated 2026-11-21.
+Bonus weapons: 2/2 identified. Updated 2026-11-22.
 
 </details>
 
@@ -178,7 +178,6 @@ Options marked “coming soon” (keys, enemies, other weapons, Archipelago…) 
 
 - **BhdTool**: compatible (it uses `dinput8.dll`, the randomizer uses `xinput1_4.dll`).
 - **Another mod that installs an `xinput1_4.dll`**: incompatible. The app detects it and never touches it.
-- **Cheat Engine**: do not run `appliquer_seed.lua` at the same time (same breakpoint).
 
 ## Recommended mods
 
@@ -255,7 +254,7 @@ Randomizer/
   progression.py              progress bars of this README
   textes.py                   all translations
   construire_exe.bat / construire_linux.sh, creer_icone.py, icons
-outils/cheat_engine/          older Cheat Engine scripts (manual surveys)
+docs/                         the README in other languages and the archives' read-me files
 preparer_publication.py       prepares the repository, the Windows zip and the Linux archive
 ```
 
@@ -291,4 +290,4 @@ The code, file names and command-line options are in French (the project's worki
 
 ## License
 
-GPLv3 — see [LICENSE](LICENSE).
+GPLv3 — see [LICENSE](../LICENSE).

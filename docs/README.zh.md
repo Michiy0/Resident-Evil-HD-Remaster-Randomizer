@@ -2,7 +2,7 @@
 
 [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · **中文**
 
-> ⚠️ **本翻译尚未经过母语人士校对。** 英文版（[README.md](README.md)）为准，内容可能更新。如发现错误，请在
+> ⚠️ **本翻译尚未经过母语人士校对。** 英文版（[README.en.md](README.en.md)）为准，内容可能更新。如发现错误，请在
 > [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues) 中告诉我们。
 
 **[⬇ 下载最新版本](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
@@ -29,15 +29,15 @@ Steam Deck 上玩同一局游戏，比较用时或打法。
 
 ## 截图
 
-<p align="center"><img src="images/avant_apres.gif" alt="原版游戏与随机器中的同一个房间" width="640"><br><sub>同一个房间，先是原版游戏，然后是随机器：桌上的匕首变成了绿色草药，挂在墙上的霰弹枪换成了手枪弹匣——无需拾取，一眼就能看到</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="原版游戏与随机器中的同一个房间" width="640"><br><sub>同一个房间，先是原版游戏，然后是随机器：桌上的匕首变成了绿色草药，挂在墙上的霰弹枪换成了手枪弹匣——无需拾取，一眼就能看到</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="生成种子" width="420"><br><sub>生成种子：选项与武器选择</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="安装" width="420"><br><sub>安装：一键安装 DLL</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="生成种子" width="420"><br><sub>生成种子：选项与武器选择</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="安装" width="420"><br><sub>安装：一键安装 DLL</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="剧透" width="420"><br><sub>剧透：完整的变动列表</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="剧透" width="420"><br><sub>剧透：完整的变动列表</sub></td>
 </tr>
 </table>
 
@@ -62,9 +62,9 @@ Steam Deck 上玩同一局游戏，比较用时或打法。
 
 ## 记录进度
 
-在**新游戏**中已记录房间的比例，按角色和难度划分（见 [协助项目](#协助项目)）。详情见[英文版](README.md#survey-progress)。
+在**新游戏**中已记录房间的比例，按角色和难度划分（见 [协助项目](#协助项目)）。详情见[英文版](README.en.md#survey-progress)。
 
-<img src="images/progression_en.svg" alt="记录进度" width="800">
+<img src="../images/progression_en.svg" alt="记录进度" width="800">
 
 ## 安装
 
@@ -153,7 +153,7 @@ Steam Deck 上玩同一局游戏，比较用时或打法。
 
 ## 开发者
 
-请参阅[英文版](README.md#for-developers)（工作原理、仓库内容、构建方法）。
+请参阅[英文版](README.en.md#for-developers)（工作原理、仓库内容、构建方法）。
 
 ## 致谢
 
@@ -164,4 +164,4 @@ Steam Deck 上玩同一局游戏，比较用时或打法。
 
 ## 许可证
 
-GPLv3 — 见 [LICENSE](LICENSE)。
+GPLv3 — 见 [LICENSE](../LICENSE)。

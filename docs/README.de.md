@@ -3,7 +3,7 @@
 [English](README.en.md) · [Français](README.fr.md) · **Deutsch** · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
 > ⚠️ **Diese Übersetzung wurde noch nicht von einem Muttersprachler geprüft.** Die englische Fassung
-> ([README.md](README.md)) ist die Referenz und kann aktueller sein. Fehler bitte in einem
+> ([README.en.md](README.en.md)) ist die Referenz und kann aktueller sein. Fehler bitte in einem
 > [Issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues) melden.
 
 **[⬇ Neueste Version herunterladen](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
@@ -37,15 +37,15 @@ oder Strategien zu vergleichen.
 
 ## Bilder
 
-<p align="center"><img src="images/avant_apres.gif" alt="Derselbe Raum im Originalspiel und mit dem Randomizer" width="640"><br><sub>Derselbe Raum, erst Originalspiel, dann Randomizer: Der Dolch auf dem Tisch ist jetzt ein grünes Kraut, und das Gewehr an der Wand wurde durch ein Pistolenmagazin ersetzt — sofort sichtbar, ohne etwas aufzuheben</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="Derselbe Raum im Originalspiel und mit dem Randomizer" width="640"><br><sub>Derselbe Raum, erst Originalspiel, dann Randomizer: Der Dolch auf dem Tisch ist jetzt ein grünes Kraut, und das Gewehr an der Wand wurde durch ein Pistolenmagazin ersetzt — sofort sichtbar, ohne etwas aufzuheben</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="Seed erstellen" width="420"><br><sub>Seed erstellen: Optionen und Waffenwahl</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="Installation" width="420"><br><sub>Installation: die DLL mit einem Klick</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Seed erstellen" width="420"><br><sub>Seed erstellen: Optionen und Waffenwahl</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="Installation" width="420"><br><sub>Installation: die DLL mit einem Klick</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
 </tr>
 </table>
 
@@ -74,9 +74,9 @@ gemischt werden.
 ## Fortschritt der Erfassung
 
 Anteil der in einem **neuen Spiel** erfassten Räume, je Charakter und Schwierigkeit (siehe
-[Projekt unterstützen](#projekt-unterstützen)). Details in der [englischen Fassung](README.md#survey-progress).
+[Projekt unterstützen](#projekt-unterstützen)). Details in der [englischen Fassung](README.en.md#survey-progress).
 
-<img src="images/progression_en.svg" alt="Fortschritt der Erfassung" width="800">
+<img src="../images/progression_en.svg" alt="Fortschritt der Erfassung" width="800">
 
 ## Installation
 
@@ -176,7 +176,7 @@ Der Randomizer mischt nur bereits **erfasste** Gegenstände. Jeder kann durch Sp
 
 ## Für Entwickler
 
-Siehe die [englische Fassung](README.md#for-developers) (Funktionsweise, Inhalt des Repositorys, Bauen).
+Siehe die [englische Fassung](README.en.md#for-developers) (Funktionsweise, Inhalt des Repositorys, Bauen).
 
 ## Mitwirkende
 
@@ -187,4 +187,4 @@ Siehe die [englische Fassung](README.md#for-developers) (Funktionsweise, Inhalt 
 
 ## Lizenz
 
-GPLv3 — siehe [LICENSE](LICENSE).
+GPLv3 — siehe [LICENSE](../LICENSE).

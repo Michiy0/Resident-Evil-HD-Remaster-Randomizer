@@ -2,7 +2,7 @@
 
 [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · **日本語** · [中文](README.zh.md)
 
-> ⚠️ **この翻訳はまだネイティブスピーカーによる確認を受けていません。** 英語版（[README.md](README.md)）が
+> ⚠️ **この翻訳はまだネイティブスピーカーによる確認を受けていません。** 英語版（[README.en.md](README.en.md)）が
 > 正式な内容で、より新しい場合があります。誤りを見つけたら
 > [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues) でお知らせください。
 
@@ -34,15 +34,15 @@
 
 ## スクリーンショット
 
-<p align="center"><img src="images/avant_apres.gif" alt="元のゲームとランダマイザーでの同じ部屋" width="640"><br><sub>同じ部屋を元のゲーム、続いてランダマイザーで表示：テーブルのダガーナイフがグリーンハーブに、壁に掛かったショットガンがハンドガンのマガジンに変わっています。拾わなくてもすぐに分かります</sub></p>
+<p align="center"><img src="../images/avant_apres.gif" alt="元のゲームとランダマイザーでの同じ部屋" width="640"><br><sub>同じ部屋を元のゲーム、続いてランダマイザーで表示：テーブルのダガーナイフがグリーンハーブに、壁に掛かったショットガンがハンドガンのマガジンに変わっています。拾わなくてもすぐに分かります</sub></p>
 
 <table>
 <tr>
-<td align="center"><img src="images/appli_generer_en.png" alt="シード生成" width="420"><br><sub>シード生成：オプションと武器の選択</sub></td>
-<td align="center"><img src="images/appli_installation_en.png" alt="インストール" width="420"><br><sub>インストール：DLL をワンクリックで</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="シード生成" width="420"><br><sub>シード生成：オプションと武器の選択</sub></td>
+<td align="center"><img src="../images/appli_installation_en.png" alt="インストール" width="420"><br><sub>インストール：DLL をワンクリックで</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><img src="images/appli_spoiler_en.png" alt="ネタバレ" width="420"><br><sub>ネタバレ：変更点の一覧</sub></td>
+<td align="center" colspan="2"><img src="../images/appli_spoiler_en.png" alt="ネタバレ" width="420"><br><sub>ネタバレ：変更点の一覧</sub></td>
 </tr>
 </table>
 
@@ -70,9 +70,9 @@ Remaster への対応を準備中です。アプリの *Archipelago* タブに�
 ## 調査の進み具合
 
 **ニューゲーム**で調査済みの部屋の割合（キャラクター・難易度別。[プロジェクトに協力](#プロジェクトに協力) を参照）。
-詳細は[英語版](README.md#survey-progress)をご覧ください。
+詳細は[英語版](README.en.md#survey-progress)をご覧ください。
 
-<img src="images/progression_en.svg" alt="調査の進み具合" width="800">
+<img src="../images/progression_en.svg" alt="調査の進み具合" width="800">
 
 ## インストール
 
@@ -168,7 +168,7 @@ Remaster への対応を準備中です。アプリの *Archipelago* タブに�
 
 ## 開発者向け
 
-[英語版](README.md#for-developers) をご覧ください（仕組み、リポジトリの内容、ビルド方法）。
+[英語版](README.en.md#for-developers) をご覧ください（仕組み、リポジトリの内容、ビルド方法）。
 
 ## クレジット
 
@@ -179,4 +179,4 @@ Remaster への対応を準備中です。アプリの *Archipelago* タブに�
 
 ## ライセンス
 
-GPLv3 — [LICENSE](LICENSE) を参照。
+GPLv3 — [LICENSE](../LICENSE) を参照。

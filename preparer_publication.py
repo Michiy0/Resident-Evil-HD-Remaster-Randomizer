@@ -32,19 +32,21 @@ DEPOT = SORTIE / "depot"
 # source (dans ce dossier)  ->  destination (dans le dépôt)
 FICHIERS = {
     "README.md": "README.md",
-    "README.en.md": "README.en.md",          # tirés de README.md par readmes_separes()
-    "README.fr.md": "README.fr.md",
-    "README.de.md": "README.de.md",
-    "README.es.md": "README.es.md",
-    "README.it.md": "README.it.md",
-    "README.pt.md": "README.pt.md",
-    "README.ru.md": "README.ru.md",
-    "README.ja.md": "README.ja.md",
-    "README.zh.md": "README.zh.md",
     "LICENSE": "LICENSE",
     ".gitignore": ".gitignore",
-    "LISEZ-MOI_testeur.txt": "LISEZ-MOI_testeur.txt",
-    "LISEZ-MOI_linux.txt": "LISEZ-MOI_linux.txt",
+    # le README dans les autres langues (en et fr tirés de README.md par readmes_separes()) et les lisez-moi
+    # mis dans les archives
+    "docs/README.en.md": "docs/README.en.md",
+    "docs/README.fr.md": "docs/README.fr.md",
+    "docs/README.de.md": "docs/README.de.md",
+    "docs/README.es.md": "docs/README.es.md",
+    "docs/README.it.md": "docs/README.it.md",
+    "docs/README.pt.md": "docs/README.pt.md",
+    "docs/README.ru.md": "docs/README.ru.md",
+    "docs/README.ja.md": "docs/README.ja.md",
+    "docs/README.zh.md": "docs/README.zh.md",
+    "docs/LISEZ-MOI_windows.txt": "docs/LISEZ-MOI_windows.txt",
+    "docs/LISEZ-MOI_linux.txt": "docs/LISEZ-MOI_linux.txt",
     "preparer_publication.py": "preparer_publication.py",
     "donnees_randomizer_RE1.xlsx": "donnees_randomizer_RE1.xlsx",
     "DLL/randomizer.c": "DLL/randomizer.c",
@@ -77,9 +79,6 @@ FICHIERS = {
     "Randomizer/creer_logo.py": "Randomizer/creer_logo.py",
     "Randomizer/logo.png": "Randomizer/logo.png",
     "Randomizer/logo_entete.png": "Randomizer/logo_entete.png",
-    "outils/cheat_engine/appliquer_seed.lua": "outils/cheat_engine/appliquer_seed.lua",
-    "outils/cheat_engine/journal_objets.lua": "outils/cheat_engine/journal_objets.lua",
-    "outils/cheat_engine/test_remplacement.lua": "outils/cheat_engine/test_remplacement.lua",
 }
 ONGLETS_RETIRES = ["Vocabulaire Benn"]
 
@@ -165,7 +164,7 @@ def ajouter_tar(tar, nom, donnees, mode):
 
 
 def readmes_separes():
-    """README.en.md et README.fr.md : les deux moitiés du README principal (bilingue), refaites à chaque publication
+    """docs/README.en.md et docs/README.fr.md : les deux moitiés du README principal (bilingue), refaites à chaque publication
     pour rester à jour (avancement des relevés compris). Le README principal reste la source à modifier."""
     texte = (ICI / "README.md").read_text(encoding="utf-8")
     coupe = "\n---\n\n# Français\n"
@@ -173,8 +172,13 @@ def readmes_separes():
     anglais = texte[:i].rstrip() + "\n"
     francais = "# Resident Evil HD Remaster Randomizer (PC / Steam)\n" + texte[i + len(coupe):]
     francais = francais.replace("(#resident-evil-hd-remaster-randomizer-pc--steam)", "(README.en.md)")
-    (ICI / "README.en.md").write_text(anglais, encoding="utf-8", newline="\n")
-    (ICI / "README.fr.md").write_text(francais, encoding="utf-8", newline="\n")
+
+    def depuis_docs(texte):              # les fichiers sont dans docs/ : chemins vers la racine et entre README
+        texte = texte.replace("](docs/", "](").replace('src="images/', 'src="../images/')
+        return texte.replace("](LICENSE)", "](../LICENSE)").replace("](images/", "](../images/")
+    (ICI / "docs").mkdir(exist_ok=True)
+    (ICI / "docs" / "README.en.md").write_text(depuis_docs(anglais), encoding="utf-8", newline="\n")
+    (ICI / "docs" / "README.fr.md").write_text(depuis_docs(francais), encoding="utf-8", newline="\n")
 
 
 def main():
@@ -202,7 +206,7 @@ def main():
     archive = SORTIE / f"ResidentEvilHDRemasterRandomizer-v{VERSION}-windows.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(exe, "Resident Evil HD Remaster Randomizer.exe")
-        z.write(ICI / "LISEZ-MOI_testeur.txt", "LISEZ-MOI.txt")
+        z.write(ICI / "docs" / "LISEZ-MOI_windows.txt", "LISEZ-MOI.txt")
     exe.unlink()
     print(f"Archive prête : {archive} ({archive.stat().st_size // 1024} Ko)")
 
@@ -211,7 +215,7 @@ def main():
         archive_linux = SORTIE / f"ResidentEvilHDRemasterRandomizer-v{VERSION}-linux.tar.gz"
         with tarfile.open(archive_linux, "w:gz") as tar:          # tar.gz : garde le droit d'exécution
             ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/Resident Evil HD Remaster Randomizer", binaire.read_bytes(), 0o755)
-            ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/LISEZ-MOI.txt", (ICI / "LISEZ-MOI_linux.txt").read_bytes(), 0o644)
+            ajouter_tar(tar, "ResidentEvilHDRemasterRandomizer/LISEZ-MOI.txt", (ICI / "docs" / "LISEZ-MOI_linux.txt").read_bytes(), 0o644)
         binaire.unlink()
         print(f"Archive Linux prête : {archive_linux} ({archive_linux.stat().st_size // 1024} Ko)")
 
