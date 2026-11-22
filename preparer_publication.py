@@ -32,6 +32,13 @@ DEPOT = SORTIE / "depot"
 # source (dans ce dossier)  ->  destination (dans le dépôt)
 FICHIERS = {
     "README.md": "README.md",
+    "README.de.md": "README.de.md",
+    "README.es.md": "README.es.md",
+    "README.it.md": "README.it.md",
+    "README.pt.md": "README.pt.md",
+    "README.ru.md": "README.ru.md",
+    "README.ja.md": "README.ja.md",
+    "README.zh.md": "README.zh.md",
     "LICENSE": "LICENSE",
     ".gitignore": ".gitignore",
     "LISEZ-MOI_testeur.txt": "LISEZ-MOI_testeur.txt",

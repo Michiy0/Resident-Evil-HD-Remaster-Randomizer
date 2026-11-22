@@ -1,7 +1,9 @@
 # Resident Evil HD Remaster Randomizer (PC / Steam)
 
+🌐 **English** · [Français](#français) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
+
 **[⬇ Download the latest version](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
-[Français](#français) · [Report a problem](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
+[Report a problem](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
 
 The randomizer **moves the game's items around**: ammo, herbs, ink ribbons… are no longer where you
 expect them, and every new game plays differently. The new item shows up directly on the floor and in the
@@ -295,8 +297,10 @@ GPLv3 — see [LICENSE](LICENSE).
 
 # Français
 
+🌐 [English](#resident-evil-hd-remaster-randomizer-pc--steam) · **Français** · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
+
 **[⬇ Télécharger la dernière version](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/releases)** ·
-[English](#resident-evil-hd-remaster-randomizer-pc--steam) · [Signaler un problème](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
+[Signaler un problème](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/issues)
 
 Le randomizer **change la place des objets** du jeu : munitions, herbes, rubans encreurs… ne sont plus là
 où tu les attends, et chaque nouvelle partie se joue différemment.
