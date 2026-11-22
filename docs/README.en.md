@@ -46,7 +46,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.7.4 (test)
+## Status: version 0.9.7.5 (test)
 
 | Supported | Coming |
 |---|---|
@@ -309,6 +309,7 @@ The code, file names and command-line options are in French (the project's worki
 
 - **Author**: **Jojo / Michiyo** (Delage Jordan) — [GitHub profile](https://github.com/Michiy0).
 - **Testing and item surveys**: **Nico** (De Oliveira Gomes Nicolas) — “Number One Chris Fan” 👊
+- **Beta testing**: **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3): its `rooms.json` provides the room names and connections, and
   the tool is a great help for surveys (see [Help the project](#help-the-project)).
 - Inspired by community randomizers (BioRand, Benn Powell's former randomizer).

@@ -193,6 +193,7 @@
 
 - **Автор**: **Jojo / Michiyo** (Delage Jordan) — [профиль GitHub](https://github.com/Michiy0).
 - **Тестирование и сбор данных о предметах**: **Nico** (De Oliveira Gomes Nicolas) — «Number One Chris Fan» 👊
+- **Бета-тестирование**: **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3): названия и связи комнат, большая помощь в сборе данных.
 - Вдохновлено рандомайзерами сообщества (BioRand, прежний рандомайзер Benn Powell).
 

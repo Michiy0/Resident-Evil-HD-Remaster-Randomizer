@@ -48,7 +48,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.7.4 (test)
+## État : version 0.9.7.5 (test)
 
 | Pris en charge | À venir |
 |---|---|
@@ -325,6 +325,7 @@ preparer_publication.py       prépare le dépôt, le zip Windows et l'archive L
 
 - **Auteur** : **Jojo / Michiyo** (Delage Jordan) — [profil GitHub](https://github.com/Michiy0).
 - **Tests et relevés des objets** : **Nico** (De Oliveira Gomes Nicolas) — « Number One Chris Fan » 👊
+- **Bêta-test** : **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3) : son `rooms.json` fournit les noms et liaisons des pièces, et
   l'outil aide beaucoup pour les relevés (voir [Aider le projet](#aider-le-projet)).
 - Inspiré des randomizers de la communauté (BioRand, ancien randomizer de Benn Powell).

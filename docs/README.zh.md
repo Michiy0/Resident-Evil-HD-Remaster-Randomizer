@@ -173,6 +173,7 @@ Steam Deck 上玩同一局游戏，比较用时或打法。
 
 - **作者**：**Jojo / Michiyo**（Delage Jordan）— [GitHub 主页](https://github.com/Michiy0)
 - **测试与物品记录**：**Nico**（De Oliveira Gomes Nicolas）— “Number One Chris Fan” 👊
+- **测试游玩**：**Nefer**（Quentin B）
 - **[BhdTool](https://github.com/eleval/BhdTool)**（eleval，GPLv3）：房间名称与连接，对记录工作帮助很大。
 - 灵感来自社区随机器（BioRand、Benn Powell 的旧版随机器）。
 

@@ -194,6 +194,7 @@ Ver la [versión en inglés](README.en.md#for-developers) (funcionamiento, conte
 
 - **Autor**: **Jojo / Michiyo** (Delage Jordan) — [perfil de GitHub](https://github.com/Michiy0).
 - **Pruebas y registro de objetos**: **Nico** (De Oliveira Gomes Nicolas) — «Number One Chris Fan» 👊
+- **Beta testing**: **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3): nombres y conexiones de las salas, gran ayuda para los registros.
 - Inspirado en randomizers de la comunidad (BioRand, el antiguo randomizer de Benn Powell).
 

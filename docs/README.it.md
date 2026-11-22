@@ -192,6 +192,7 @@ Vedi la [versione inglese](README.en.md#for-developers) (funzionamento, contenut
 
 - **Autore**: **Jojo / Michiyo** (Delage Jordan) — [profilo GitHub](https://github.com/Michiy0).
 - **Test e rilevamento degli oggetti**: **Nico** (De Oliveira Gomes Nicolas) — «Number One Chris Fan» 👊
+- **Beta test**: **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3): nomi e collegamenti delle stanze, un grande aiuto per i rilevamenti.
 - Ispirato ai randomizer della community (BioRand, il precedente randomizer di Benn Powell).
 

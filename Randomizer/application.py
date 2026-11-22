@@ -26,13 +26,15 @@ import mise_a_jour
 import progression
 import textes
 
-VERSION = "0.9.7.4"
+VERSION = "0.9.7.5"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
 AUTEURS = [("Jojo / Michiyo", "Delage Jordan", "https://github.com/Michiy0")]
 # (pseudo, nom complet, petit mot à côté du pseudo — non traduit)
-TESTEURS = [("Nico", "De Oliveira Gomes Nicolas", "Number One Chris Fan")]
+# (pseudo, nom, petit mot, rôle : clé de textes.py ou None)
+TESTEURS = [("Nico", "De Oliveira Gomes Nicolas", "Number One Chris Fan", "role_releves"),
+            ("Nefer", "Quentin B", None, "role_beta")]
 SHA256_BHD_EXE = "39B840663E4B1A6835C60CBD176E4EE6C21B9197FC2C2DD733F2A7C36A0B429A"
 NOM_APPLI = "Resident Evil HD Remaster Randomizer"
 TITRE = f"{NOM_APPLI} v{VERSION}"
@@ -1309,10 +1311,12 @@ class Application(tk.Tk):
 
         tests, te = self.carte(cadre, self.t("carte_tests"))
         tests.grid(row=2, column=0, sticky="nsew", pady=(16, 0))
-        for nom, nom_complet, mot in TESTEURS:
+        for nom, nom_complet, mot, role in TESTEURS:
             ligne = ttk.Frame(te, style="Carte.TFrame", borderwidth=0)
             ligne.pack(anchor="w")
             ttk.Label(ligne, text=nom, style="Nom.TLabel").pack(side="left")
+            if role:
+                ttk.Label(ligne, text=self.t(role), style="Mot.TLabel").pack(side="left", padx=(10, 0), pady=(1, 0))
             if mot:
                 ttk.Label(ligne, text=f"« {mot} »", style="Mot.TLabel").pack(side="left", padx=(10, 0), pady=(1, 0))
                 if SOUS_WINDOWS:                      # sous Linux, pas toujours de police d'emoji

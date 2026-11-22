@@ -188,6 +188,7 @@ Remaster への対応を準備中です。アプリの *Archipelago* タブに�
 
 - **作者**：**Jojo / Michiyo**（Delage Jordan）— [GitHub プロフィール](https://github.com/Michiy0)
 - **テストとアイテム調査**：**Nico**（De Oliveira Gomes Nicolas）— “Number One Chris Fan” 👊
+- **ベータテスト**：**Nefer**（Quentin B）
 - **[BhdTool](https://github.com/eleval/BhdTool)**（eleval、GPLv3）：部屋の名前とつながり、調査の大きな助け。
 - コミュニティのランダマイザー（BioRand、Benn Powell 氏の以前のランダマイザー）から着想を得ています。
 

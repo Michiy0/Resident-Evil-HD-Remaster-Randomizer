@@ -293,6 +293,11 @@ T = {
                         "Случайные ключи", "随机钥匙"),
     "ennemis_aleatoires": ("Ennemis aléatoires", "Random enemies", "敵もランダム", "Enemigos aleatorios",
                            "Inimigos aleatórios", "Случайные враги", "随机敌人"),
+    "role_releves": ("Tests et relevés des objets", "Testing and item surveys", "テストとアイテム調査",
+                     "Pruebas y registro de objetos", "Testes e levantamento dos itens",
+                     "Тестирование и сбор предметов", "测试与物品记录"),
+    "role_beta": ("Bêta-testeur", "Beta tester", "ベータテスター", "Beta tester", "Beta tester",
+                  "Бета-тестер", "测试玩家"),
     "serre_dangereuse": ("Objets importants dans la serre", "Important items in the greenhouse",
                          "温室に重要なアイテム", "Objetos importantes en el invernadero",
                          "Itens importantes na estufa", "Важные предметы в оранжерее", "温室里的重要物品"),
@@ -1067,6 +1072,8 @@ ALLEMAND_ITALIEN = {
     'carte_ennemis': ('Gegner',
                       'Nemici'),
     'carte_portes': ('Türen', 'Porte'),
+    'role_beta': ('Betatester', 'Beta tester'),
+    'role_releves': ('Tests und Erfassung der Gegenstände', 'Test e rilevamento degli oggetti'),
     'serre_dangereuse': ('Wichtige Gegenstände im Gewächshaus', 'Oggetti importanti nella serra'),
     'note_serre_dangereuse': ('Öffnet man im Gewächshaus das falsche Rohr, sterben die Pflanzen: Die gemischten '
                               'Gegenstände an Stelle der Pflanzen können dann zerstört werden. Aktiviert: Jeder '

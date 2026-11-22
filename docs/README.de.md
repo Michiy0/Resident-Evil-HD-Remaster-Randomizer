@@ -196,6 +196,7 @@ Siehe die [englische Fassung](README.en.md#for-developers) (Funktionsweise, Inha
 
 - **Autor**: **Jojo / Michiyo** (Delage Jordan) — [GitHub-Profil](https://github.com/Michiy0).
 - **Tests und Erfassung der Gegenstände**: **Nico** (De Oliveira Gomes Nicolas) — „Number One Chris Fan“ 👊
+- **Betatest**: **Nefer** (Quentin B)
 - **[BhdTool](https://github.com/eleval/BhdTool)** (eleval, GPLv3): Raumnamen und -verbindungen, große Hilfe bei der Erfassung.
 - Inspiriert von Community-Randomizern (BioRand, der frühere Randomizer von Benn Powell).
 
