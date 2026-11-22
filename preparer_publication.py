@@ -32,6 +32,8 @@ DEPOT = SORTIE / "depot"
 # source (dans ce dossier)  ->  destination (dans le dépôt)
 FICHIERS = {
     "README.md": "README.md",
+    "README.en.md": "README.en.md",          # tirés de README.md par readmes_separes()
+    "README.fr.md": "README.fr.md",
     "README.de.md": "README.de.md",
     "README.es.md": "README.es.md",
     "README.it.md": "README.it.md",
@@ -162,11 +164,25 @@ def ajouter_tar(tar, nom, donnees, mode):
     tar.addfile(info, io.BytesIO(donnees))
 
 
+def readmes_separes():
+    """README.en.md et README.fr.md : les deux moitiés du README principal (bilingue), refaites à chaque publication
+    pour rester à jour (avancement des relevés compris). Le README principal reste la source à modifier."""
+    texte = (ICI / "README.md").read_text(encoding="utf-8")
+    coupe = "\n---\n\n# Français\n"
+    i = texte.index(coupe)
+    anglais = texte[:i].rstrip() + "\n"
+    francais = "# Resident Evil HD Remaster Randomizer (PC / Steam)\n" + texte[i + len(coupe):]
+    francais = francais.replace("(#resident-evil-hd-remaster-randomizer-pc--steam)", "(README.en.md)")
+    (ICI / "README.en.md").write_text(anglais, encoding="utf-8", newline="\n")
+    (ICI / "README.fr.md").write_text(francais, encoding="utf-8", newline="\n")
+
+
 def main():
     # Barres d'avancement (images/progression.svg et section du README) à jour avant la copie
     progression.mettre_a_jour(ICI / "donnees_randomizer_RE1.xlsx", ICI / "README.md",
                               ICI / "images" / "progression.svg")
     print("Barres d'avancement mises à jour.")
+    readmes_separes()
 
     # On vide le dépôt sauf son historique git (.git), pour que les fichiers retirés de la liste
     # disparaissent aussi du dépôt.

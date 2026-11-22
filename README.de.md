@@ -1,6 +1,6 @@
 # Resident Evil HD Remaster Randomizer (PC / Steam)
 
-[English](README.md) · [Français](README.md#français) · **Deutsch** · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
+[English](README.en.md) · [Français](README.fr.md) · **Deutsch** · [Español](README.es.md) · [Italiano](README.it.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
 > ⚠️ **Diese Übersetzung wurde noch nicht von einem Muttersprachler geprüft.** Die englische Fassung
 > ([README.md](README.md)) ist die Referenz und kann aktueller sein. Fehler bitte in einem
