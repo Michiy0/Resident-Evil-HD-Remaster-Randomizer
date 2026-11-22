@@ -63,6 +63,24 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 `39B840663E4B1A6835C60CBD176E4EE6C21B9197FC2C2DD733F2A7C36A0B429A`). L'application le vérifie ; sur une
 autre version, le randomizer se met en veille et le jeu reste intact.
 
+## Ce qu'il reste à faire
+
+Le randomizer est déjà jouable, mais il reste beaucoup de choses prévues. À peu près dans l'ordre :
+
+1. **Clés aléatoires avec logique** : les clés et objets de quête mélangés aussi, en gardant une partie toujours
+   finissable (une clé ne se retrouve jamais derrière la porte qu'elle ouvre). C'est la prochaine grosse étape :
+   elle débloque aussi l'option *Sans logique* et Archipelago.
+2. **Jill** : relever tous ses emplacements d'objets (inventaire plus grand, ses propres armes et quelques objets
+   différents).
+3. **Les autres difficultés** : relever Débutant, Normal et Expert (les objets changent selon la difficulté), et
+   peut-être régler la difficulté automatiquement au début de la partie.
+4. **Les autres armes** : lance-grenades et lance-flammes (chacune n'est utilisable que par un personnage).
+5. **Ennemis aléatoires** : mélanger les ennemis de chaque pièce.
+6. **Portes aléatoires** : chaque porte mène vers une autre pièce que d'habitude.
+7. **[Archipelago](#archipelago-à-venir)** : jouer en multi-mondes avec d'autres jeux.
+
+Tu peux aider dès maintenant en relevant les emplacements d'objets : voir [Aider le projet](#aider-le-projet).
+
 ## Archipelago (à venir)
 
 [Archipelago](https://archipelago.gg) est un randomizer multi-jeux : les objets de ta partie peuvent se
@@ -72,7 +90,7 @@ de Resident Evil HD Remaster est en préparation.
 - **Déjà dans l'application** : un onglet *Archipelago* avec le formulaire de connexion (serveur, nom du
   joueur, mot de passe, DeathLink), grisé pour l'instant, et la liste de ce qu'il reste à faire.
 - **Reste à faire** : le mélange des clés et objets de quête avec la logique (en premier), l'envoi au serveur
-  de chaque emplacement ramassé, la réception dans l'inventaire des objets des autres joueurs, le « monde »
+  de chaque emplacement ramassé, la réception des objets des autres joueurs (dans la malle, puis une file d'attente quand elle est pleine), le « monde »
   Archipelago du jeu (fichier `.apworld` : objets, emplacements, règles) et l'envoi de l'objectif (fin du jeu)
   au serveur.
 

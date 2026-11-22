@@ -15,6 +15,7 @@ du README comprises entre <!-- progression:debut --> et <!-- progression:fin -->
     python Randomizer\progression.py            (appelé aussi par preparer_publication.py)
 """
 import argparse
+import os
 import re
 from datetime import datetime
 from pathlib import Path
@@ -179,38 +180,47 @@ def bloc_readme(res, date, chemin_image, langue="fr"):
     return "\n".join(lignes)
 
 
-def mettre_a_jour(fichier, readme, image, chemin_image_readme="images/progression.svg"):
-    """image : le graphique français ; l'anglais est écrit à côté, avec le suffixe _en (progression_en.svg)."""
+def mettre_a_jour(fichier, readmes, image):
+    """image : le graphique français ; l'anglais est écrit à côté, avec le suffixe _en (progression_en.svg).
+    readmes : un ou plusieurs README ; chaque langue va dans celui qui contient ses balises (depuis le 22/11/2026 :
+    README.md en anglais, docs/README.fr.md en français). Le lien vers l'image est relatif à chaque README."""
+    if isinstance(readmes, (str, Path)):
+        readmes = [readmes]
     res = calculer(fichier)
     maintenant = datetime.now()
-    brut = readme.read_bytes()
-    crlf = b"\r\n" in brut
-    texte = brut.decode("utf-8").replace("\r\n", "\n")
     image.parent.mkdir(parents=True, exist_ok=True)
+    trouvees = set()
+    for readme in map(Path, readmes):
+        brut = readme.read_bytes()
+        crlf = b"\r\n" in brut
+        texte = brut.decode("utf-8").replace("\r\n", "\n")
+        for langue in ("fr", "en"):
+            suffixe = "" if langue == "fr" else "_" + langue
+            date = maintenant.strftime(TEXTES[langue]["date"])
+            fichier_image = image.with_name(image.stem + suffixe + image.suffix)
+            fichier_image.write_text(dessiner_svg(res, date, langue), encoding="utf-8", newline="\n")
+            debut, fin = BALISES[langue]
+            motif = re.compile(re.escape(debut) + r".*?" + re.escape(fin), re.S)
+            if not motif.search(texte):
+                continue
+            trouvees.add(langue)
+            chemin = Path(os.path.relpath(fichier_image, readme.parent)).as_posix()
+            bloc = bloc_readme(res, date, chemin, langue)
+            texte = motif.sub(lambda _: bloc, texte)
+        readme.write_bytes((texte.replace("\n", "\r\n") if crlf else texte).encode("utf-8"))
     for langue in ("fr", "en"):
-        suffixe = "" if langue == "fr" else "_" + langue
-        date = maintenant.strftime(TEXTES[langue]["date"])
-        fichier_image = image.with_name(image.stem + suffixe + image.suffix)
-        fichier_image.write_text(dessiner_svg(res, date, langue), encoding="utf-8", newline="\n")
-        chemin = Path(chemin_image_readme)
-        chemin = chemin.with_name(chemin.stem + suffixe + chemin.suffix).as_posix()
-        debut, fin = BALISES[langue]
-        motif = re.compile(re.escape(debut) + r".*?" + re.escape(fin), re.S)
-        if not motif.search(texte):
-            raise SystemExit(f"Balises {debut} … {fin} absentes de {readme}")
-        bloc = bloc_readme(res, date, chemin, langue)
-        texte = motif.sub(lambda _: bloc, texte)
-    readme.write_bytes((texte.replace("\n", "\r\n") if crlf else texte).encode("utf-8"))
+        if langue not in trouvees:
+            raise SystemExit(f"Balises {BALISES[langue][0]} … absentes des README")
     return res
 
 
 def main():
     ap = argparse.ArgumentParser(description="Met à jour les barres d'avancement du README")
     ap.add_argument("--fichier", default=str(RACINE / "donnees_randomizer_RE1.xlsx"))
-    ap.add_argument("--readme", default=str(RACINE / "README.md"))
+    ap.add_argument("--readme", nargs="+", default=[str(RACINE / "README.md"), str(RACINE / "docs" / "README.fr.md")])
     ap.add_argument("--image", default=str(RACINE / "images" / "progression.svg"))
     args = ap.parse_args()
-    res = mettre_a_jour(Path(args.fichier), Path(args.readme), Path(args.image))
+    res = mettre_a_jour(Path(args.fichier), args.readme, Path(args.image))
     for (p, d), s in res["scenarios"].items():
         if s["completes"] or s["visitees"] or s["objets"]:
             print(f"{p} / {d} : {s['completes']}/{res['total_pieces']} complètes, +{s['visitees']} visitées, "

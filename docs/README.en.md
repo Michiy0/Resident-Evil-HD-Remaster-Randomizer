@@ -61,6 +61,24 @@ or strategies.
 `39B840663E4B1A6835C60CBD176E4EE6C21B9197FC2C2DD733F2A7C36A0B429A`). The app checks it; on any other
 version the randomizer stays inactive and the game is untouched.
 
+## What's left to do
+
+The randomizer is already playable, but a lot is still planned. Roughly in order:
+
+1. **Random keys with logic**: keys and quest items shuffled too, while the game always stays finishable (a key
+   never ends up behind the door it opens). This is the big next step: it also unlocks the *No logic* option and
+   Archipelago.
+2. **Jill**: survey all of her item locations (she has a bigger inventory, her own weapons and some different
+   items).
+3. **Other difficulties**: survey Very Easy, Normal and Hard (items change with the difficulty), and maybe set the
+   difficulty automatically at the start of the game.
+4. **The other weapons**: grenade launcher and flamethrower (each one can only be used by one character).
+5. **Random enemies**: shuffle which enemies appear in each room.
+6. **Random doors**: each door leads to a different room than usual.
+7. **[Archipelago](#archipelago-coming-soon)**: play in a multiworld with other games.
+
+You can help right now by surveying item locations: see [Help the project](#help-the-project).
+
 ## Archipelago (coming soon)
 
 [Archipelago](https://archipelago.gg) is a multi-game randomizer: the items of your game can end up in other
@@ -70,7 +88,7 @@ HD Remaster is being prepared.
 - **Already in the app**: an *Archipelago* tab with the connection form (server, player name, password,
   DeathLink), greyed out for now, and the list of what is left to do.
 - **Still to do**: keys and quest items shuffled with logic (this comes first), reporting each picked-up
-  location to the server, receiving other players' items into the inventory, the game's Archipelago "world"
+  location to the server, receiving other players' items (into the item box, then a waiting list when it is full), the game's Archipelago "world"
   (`.apworld` file: items, locations, rules) and sending the goal (ending) to the server.
 
 No date yet: the keys-with-logic step has to be finished first.

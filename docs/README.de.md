@@ -64,6 +64,18 @@ oder Strategien zu vergleichen.
 **Benötigte Spielversion**: die aktuelle Steam-`bhd.exe` (9.640.360 Bytes). Die App prüft das; bei jeder
 anderen Version bleibt der Randomizer inaktiv und das Spiel unverändert.
 
+## Was noch zu tun ist
+
+Der Randomizer ist schon spielbar, aber vieles ist noch geplant, ungefähr in dieser Reihenfolge:
+
+1. **Zufällige Schlüssel mit Logik**: Schlüssel und Questgegenstände werden mitgemischt, das Spiel bleibt immer schaffbar. Das ist der nächste große Schritt (auch für *Ohne Logik* und Archipelago).
+2. **Jill**: alle ihre Fundorte erfassen.
+3. **Weitere Schwierigkeitsgrade**: die Gegenstände ändern sich mit dem Schwierigkeitsgrad.
+4. **Die übrigen Waffen**: Granatwerfer und Flammenwerfer.
+5. **Zufällige Gegner**.
+6. **Zufällige Türen**: jede Tür führt in einen anderen Raum.
+7. **Archipelago**: Multiworld mit anderen Spielen.
+
 ## Archipelago (demnächst)
 
 [Archipelago](https://archipelago.gg) ist ein Multi-Game-Randomizer: Die Gegenstände deines Spiels können in

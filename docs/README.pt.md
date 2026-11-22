@@ -63,6 +63,18 @@ estratégias.
 **Versão do jogo necessária**: o `bhd.exe` atual da Steam (9.640.360 bytes). O app verifica isso; com qualquer
 outra versão o randomizer fica inativo e o jogo não é alterado.
 
+## O que ainda falta fazer
+
+O randomizer já é jogável, mas ainda há muito planejado, mais ou menos nesta ordem:
+
+1. **Chaves aleatórias com lógica**: chaves e itens de missão também embaralhados, com o jogo sempre concluível. É o próximo grande passo (também para *Sem lógica* e Archipelago).
+2. **Jill**: levantar todos os locais de itens dela.
+3. **Outras dificuldades**: os itens mudam conforme a dificuldade.
+4. **As outras armas**: lança-granadas e lança-chamas.
+5. **Inimigos aleatórios**.
+6. **Portas aleatórias**: cada porta leva a outra sala.
+7. **Archipelago**: multiworld com outros jogos.
+
 ## Archipelago (em breve)
 
 [Archipelago](https://archipelago.gg) é um randomizer multijogos: os itens do seu jogo podem ir parar nos jogos

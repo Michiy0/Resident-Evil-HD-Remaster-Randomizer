@@ -166,26 +166,19 @@ def ajouter_tar(tar, nom, donnees, mode):
 
 
 def readmes_separes():
-    """docs/README.en.md et docs/README.fr.md : les deux moitiés du README principal (bilingue), refaites à chaque publication
-    pour rester à jour (avancement des relevés compris). Le README principal reste la source à modifier."""
-    texte = (ICI / "README.md").read_text(encoding="utf-8")
-    coupe = "\n---\n\n# Français\n"
-    i = texte.index(coupe)
-    anglais = texte[:i].rstrip() + "\n"
-    francais = "# Resident Evil HD Remaster Randomizer (PC / Steam)\n" + texte[i + len(coupe):]
-    francais = francais.replace("(#resident-evil-hd-remaster-randomizer-pc--steam)", "(README.en.md)")
-
-    def depuis_docs(texte):              # les fichiers sont dans docs/ : chemins vers la racine et entre README
-        texte = texte.replace("](docs/", "](").replace('src="images/', 'src="../images/')
-        return texte.replace("](LICENSE)", "](../LICENSE)").replace("](images/", "](../images/")
+    """docs/README.en.md : copie du README principal (anglais) vue depuis docs/, refaite à chaque publication.
+    Depuis le 22/11/2026, le README principal est en anglais seulement et docs/README.fr.md est la source française
+    (modifiée à la main ; avancement des relevés mis à jour par progression.py)."""
+    anglais = (ICI / "README.md").read_text(encoding="utf-8")
+    anglais = anglais.replace("](docs/", "](").replace('src="images/', 'src="../images/')
+    anglais = anglais.replace("](LICENSE)", "](../LICENSE)").replace("](images/", "](../images/")
     (ICI / "docs").mkdir(exist_ok=True)
-    (ICI / "docs" / "README.en.md").write_text(depuis_docs(anglais), encoding="utf-8", newline="\n")
-    (ICI / "docs" / "README.fr.md").write_text(depuis_docs(francais), encoding="utf-8", newline="\n")
+    (ICI / "docs" / "README.en.md").write_text(anglais, encoding="utf-8", newline="\n")
 
 
 def main():
     # Barres d'avancement (images/progression.svg et section du README) à jour avant la copie
-    progression.mettre_a_jour(ICI / "donnees_randomizer_RE1.xlsx", ICI / "README.md",
+    progression.mettre_a_jour(ICI / "donnees_randomizer_RE1.xlsx", [ICI / "README.md", ICI / "docs" / "README.fr.md"],
                               ICI / "images" / "progression.svg")
     print("Barres d'avancement mises à jour.")
     readmes_separes()
