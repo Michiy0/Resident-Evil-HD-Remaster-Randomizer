@@ -89,7 +89,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 |---|---|---|---|---|
 | Chris | Very Easy | 0/118 (0%) | 0 | 0 |
 | Chris | Easy | 0/118 (0%) | 0 | 0 |
-| Chris | Normal | 117/118 (99%) | 1 | 260 |
+| Chris | Normal | 118/118 (100%) | 0 | 260 |
 | Chris | Hard | 0/118 (0%) | 0 | 0 |
 | Chris | Real Survival | 0/118 (0%) | 0 | 0 |
 | Jill | Very Easy | 0/118 (0%) | 0 | 0 |
@@ -388,7 +388,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 |---|---|---|---|---|
 | Chris | Très facile | 0/118 (0 %) | 0 | 0 |
 | Chris | Facile | 0/118 (0 %) | 0 | 0 |
-| Chris | Normal | 117/118 (99 %) | 1 | 260 |
+| Chris | Normal | 118/118 (100 %) | 0 | 260 |
 | Chris | Difficile | 0/118 (0 %) | 0 | 0 |
 | Chris | Real Survival | 0/118 (0 %) | 0 | 0 |
 | Jill | Très facile | 0/118 (0 %) | 0 | 0 |
