@@ -285,7 +285,24 @@ def _aretes():
     liste = [(a, b, c) for (a, b), c in sens.items() if c not in ("autre_cote", "impossible")]
     for a, b, c in ARETES_EN_PLUS:
         liste = [x for x in liste if (x[0], x[1]) != (a, b)] + [(a, b, c)]
+    # Couloir nord 103 (joueur, 27/11/2026, seed 551645 bloquée) : deux couloirs séparés par une fausse porte de
+    # chargement, qui ne s'ouvre que depuis le côté nord (« verrouillée depuis l'autre côté » vu de la salle à manger),
+    # puis reste ouverte. Côté salle à manger (103) : bar, escalier extérieur ouest, cuisine. Côté nord (103b) :
+    # chambre du chercheur, statue du tigre, serre, escalier intérieur ouest.
+    liste = [(COTE_103B.get(a, a) if b in COTE_103B_PIECES else a,
+              COTE_103B.get(b, b) if a in COTE_103B_PIECES else b, c) for a, b, c in liste]
+    liste.append(("103b", "103", None))       # la fausse porte : seulement de 103b vers 103
     return liste
+
+
+COTE_103B_PIECES = {"10e", "10d", "10c", "101"}
+COTE_103B = {"103": "103b"}
+# emplacements de la pièce 103 situés côté nord (103b) : (pièce, objet d'origine) -> pièce logique
+EMPLACEMENTS_103B = {("103", 113), ("103", 112)}   # grenade aveuglante et poignard (joueur, 27/11/2026)
+
+
+def piece_logique(piece, origine):
+    return "103b" if (piece, origine) in EMPLACEMENTS_103B else piece
 
 
 ARETES = _aretes()
@@ -341,7 +358,7 @@ def parcourir(emplacements, contenu, depart_possede=(), sans_vieilles=False):
                 break
         # emplacements
         for i, (piece, origine) in enumerate(emplacements):
-            if i in ramasses or piece not in pieces:
+            if i in ramasses or piece_logique(piece, origine) not in pieces:
                 continue
             besoin = CONDITIONS_EMPLACEMENT.get((piece, origine), ())
             if all(possede[x] >= 1 for x in besoin):

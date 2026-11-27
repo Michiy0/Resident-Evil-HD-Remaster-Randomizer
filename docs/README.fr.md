@@ -55,7 +55,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.8.1 (test)
+## État : version 0.9.8.2 (test)
 
 | Pris en charge | À venir |
 |---|---|

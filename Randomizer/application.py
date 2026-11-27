@@ -27,7 +27,7 @@ import progression
 import textes
 import modeles_sol
 
-VERSION = "0.9.8.1"
+VERSION = "0.9.8.2"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
