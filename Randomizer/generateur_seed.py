@@ -43,6 +43,7 @@ from openpyxl import load_workbook
 sys.path.insert(0, str(Path(__file__).resolve().parent))   # textes.py, même avec python -I
 from textes import tr, Msg, rendre  # noqa: E402
 from noms_objets import nom_officiel  # noqa: E402
+import logique_cles  # noqa: E402
 
 FICHIER_PAR_DEFAUT = "donnees_randomizer_RE1.xlsx"
 
@@ -119,7 +120,9 @@ def lire_emplacements(chemin, personnage="Chris", difficulte="Facile"):
             "empreinte": m.group(1).split() if m else None,
         }
         zone = (fiche["piece"], tuple(fiche["empreinte"] or ()))
-        if fiche["chemin"] != "posé" or not fiche["empreinte"]:
+        # « événement (énigme) » : objet qui apparaît après une énigme puis se ramasse comme un objet posé (lance-flammes
+        # cassé du compacteur, disque MO de la statue du tigre) ; la logique sait ce qu'il faut pour l'obtenir
+        if fiche["chemin"] not in ("posé", "événement (énigme)") or not fiche["empreinte"]:
             ignores.append((fiche, "pas de valeurs fixes complètes ou pas un objet posé"))
         elif zone in zones_vues:
             # plusieurs objets dans la même zone (ex. les symboles d'une tombe) : la DLL reconnaît un emplacement
@@ -147,6 +150,47 @@ ID_CLE_PLACARD = 62
 PIECE_INVENTAIRE = "inventaire"
 ID_COUTEAU = 2
 PIECES_SPECIALES = (PIECE_MALLE, PIECE_INVENTAIRE)
+
+
+# Objets « examinés » (donnés sans objet posé, DLL v0.9.3+ : point d'arrêt bhd.exe+151284) qu'on peut mélanger :
+# (pièce, id, quantité). L'emplacement reçoit un autre objet (ligne « examen » de la seed), l'objet va ailleurs.
+EXAMENS_SPECIAUX = [("105", 69, 1),         # emblème au-dessus de la cheminée de la salle à manger
+                    # aquarium (20A, joueur, 27/11/2026) : l'hameçon seulement. Le leurre sans hameçon (116) et le
+                    # spécimen d'abeille (115) sont sur les tableaux de l'énigme : remplacés, l'emplacement du leurre
+                    # restait occupé (objet impossible à prendre) et on ne pouvait plus y poser le spécimen ni valider
+                    # l'énigme (test du 27/11/2026, seed 271127). Ils restent à leur place.
+                    ("20a", 117, 1)]
+# Objets posés qu'on prend par une petite scène (« objet examiné » dans le journal) : le modèle posé est bien remplacé,
+# mais la scène donne l'objet d'origine (test du 27/11/2026, seed 261126 : grenade posée à la machine du labyrinthe
+# électrique A, capsule vide reçue). La ligne « examen » donne le même objet que l'emplacement posé. (pièce, id)
+EXAMENS_LIES = [("50f", 111),                # capsule de carburant dans la machine du labyrinthe électrique A
+                ("30a", 61)]                 # manivelle hexagonale de la salle d'Enrico (test du 27/11/2026)
+# Modèles décoratifs à ne jamais remplacer : ils montrent l'objet une fois installé (test du 27/11/2026 : l'unité de
+# fusibles posée dans la machine du passage vers l'héliport avait le modèle des munitions de fusil de la seed).
+DECORS_EXCLUS = {("501", 97), ("50f", 111), ("50f", 31)}                # capsule de carburant dans la machine du labyrinthe électrique A
+
+
+def emplacements_examens(personnage):
+    if personnage != "Chris":
+        return []
+    return [{"piece": piece, "nom_piece": "", "description": "Objet examiné", "id": ident, "quantite": qte,
+             "chemin": "examen", "empreinte": [f"examen{ident}"], "examen": True}
+            for piece, ident, qte in EXAMENS_SPECIAUX]
+
+
+# Objets « mobiles » : leur position change (le collier du balcon suit un corps), la DLL (v0.9.8+) les repère par
+# leur identifiant d'objet ([objet+0x30] >> 16, relevé 0xD7 deux fois pour le collier). (pièce, identifiant, id, qté)
+MOBILES = [("203", 0xD7, 24, 1),
+           # symboles de la tombe de droite (312) : même position, identifiants différents (relevés du 19/11/2026)
+           ("312", 0x6F, 59, 1), ("312", 0x6E, 56, 1), ("312", 0x70, 58, 1)]
+
+
+def emplacements_mobiles(personnage):
+    if personnage != "Chris":
+        return []
+    return [{"piece": piece, "nom_piece": "", "description": "Objet mobile", "id": ident, "quantite": qte,
+             "chemin": "mobile", "empreinte": [f"obj{obj:X}"], "mobile": obj}
+            for piece, obj, ident, qte in MOBILES]
 
 
 def emplacement_couteau(personnage):
@@ -188,6 +232,10 @@ def generer(emplacements, graine, ids_libres):
         })
         if "case" in e:
             resultat[-1]["case"] = e["case"]
+        if e.get("examen"):
+            resultat[-1]["examen"] = True
+        if e.get("mobile"):
+            resultat[-1]["mobile"] = e["mobile"]
     return resultat
 
 
@@ -226,6 +274,9 @@ def placer_armes_bonus(resultat, graine, ids_bonus=None):
     objet ordinaire choisi selon la graine (jamais une arme, ni l'emplacement de départ du hall). ids_bonus : ids
     à placer (None = toutes). Chaque arme garde sa place, qu'on coche l'autre ou non. Renvoie les pièces."""
     candidats = [r for r in resultat if r["nouveau"]["id"] not in IDS_ARMES
+                 # jamais perdus : clés, objets d'énigme, gourde et fusées (placées par la logique)
+                 and r["nouveau"]["id"] not in (logique_cles.IDS_CLES | logique_cles.IDS_ENIGMES
+                                                | {ID_GOURDE, logique_cles.ID_FUSEES})
                  and not (r["piece"].lower() == PIECE_DEPART and r["ancien"]["id"] == ID_DEPART)]
     candidats.sort(key=lambda r: (r["piece"], r["empreinte"]))
     choix = random.Random(graine ^ 0xB0B05).sample(candidats, min(len(ARMES_BONUS), len(candidats)))
@@ -245,11 +296,24 @@ PIECE_SERRE = "10c"
 IDS_SANS_RISQUE_SERRE = {126}
 
 
-def proteger_serre(resultat, graine, importants):
-    """Échange chaque objet important tombé sur une plante de la serre avec un objet ordinaire d'ailleurs (tiré au
-    sort selon la graine). Renvoie le nombre d'échanges."""
+# Emplacements où l'objet peut ne jamais être obtenu (joueur, 26/11/2026) : le fusil d'assaut du bassin de l'Aqua
+# Ring (412) dépend d'une quête déclenchée par des déplacements précis. Toujours protégés (pas d'option) : seul un
+# objet ordinaire y va, jamais une arme, une clé ou un objet d'énigme.
+EMPLACEMENTS_RISQUES = {("412", 13)}
+
+
+def emplacement_risque(piece, ancien, serre_dangereuse=False):
+    if (piece.lower(), ancien) in EMPLACEMENTS_RISQUES:
+        return True
+    return not serre_dangereuse and piece.lower() == PIECE_SERRE and ancien not in IDS_SANS_RISQUE_SERRE
+
+
+def proteger_serre(resultat, graine, importants, serre_dangereuse=False):
+    """Échange chaque objet important tombé sur un emplacement risqué (plantes de la serre, sauf option « Pour les
+    fous », et EMPLACEMENTS_RISQUES) avec un objet ordinaire d'ailleurs (tiré au sort selon la graine). Renvoie le
+    nombre d'échanges."""
     def en_serre(r):
-        return r["piece"].lower() == PIECE_SERRE and r["ancien"]["id"] not in IDS_SANS_RISQUE_SERRE
+        return emplacement_risque(r["piece"], r["ancien"]["id"], serre_dangereuse)
     a_deplacer = [r for r in resultat if en_serre(r) and r["nouveau"]["id"] in importants]
     if not a_deplacer:
         return 0
@@ -264,6 +328,74 @@ def proteger_serre(resultat, graine, importants):
         autre = places.pop(rng.randrange(len(places)))
         r["nouveau"], autre["nouveau"] = autre["nouveau"], r["nouveau"]
     return len(a_deplacer)
+
+
+# Gourde (joueur, 26/11/2026) : catégorie à part. Vide au ramassage (quantité 0), 2 charges de kérosène une fois
+# remplie. Mélangée, elle est placée par la logique à un endroit toujours atteignable ; option pour la recevoir pleine.
+ID_GOURDE, GOURDE_PLEINE = 27, 2
+
+
+def remplir_gourde(resultat, emplacements):
+    """La gourde (où qu'elle soit) est donnée pleine. Si elle n'est pas mélangée, son emplacement d'origine est ajouté
+    au résultat (gourde -> gourde pleine)."""
+    trouvee = False
+    for r in resultat:
+        if r["nouveau"]["id"] == ID_GOURDE:
+            r["nouveau"] = {"id": ID_GOURDE, "quantite": GOURDE_PLEINE}
+            trouvee = True
+    if not trouvee:
+        for e in emplacements:
+            if e["id"] == ID_GOURDE:
+                resultat.append({"piece": e["piece"], "empreinte": e["empreinte"],
+                                 "ancien": {"id": e["id"], "quantite": e["quantite"]},
+                                 "nouveau": {"id": ID_GOURDE, "quantite": GOURDE_PLEINE},
+                                 "description": e["description"], "nom_piece": e["nom_piece"]})
+                break
+
+
+# Capsule de carburant (joueur, 26/11/2026 ; ids d'après le trainer de Benn) : vide 111, pleine 31. Option « Fun » :
+# elle est déjà pleine quand on la ramasse (comme l'option de Benn) : courir, être attaqué ou tirer la fait exploser.
+CAPSULE_VIDE, CAPSULE_PLEINE = 111, 31
+
+
+def remplir_capsule(resultat, emplacements):
+    """La capsule (où qu'elle soit) est donnée pleine. Si elle n'est pas mélangée, son emplacement d'origine est
+    ajouté au résultat (capsule vide -> capsule pleine)."""
+    trouvee = False
+    for r in resultat:
+        if r["nouveau"]["id"] == CAPSULE_VIDE:
+            r["nouveau"] = {"id": CAPSULE_PLEINE, "quantite": 1}
+            trouvee = True
+    if not trouvee:
+        for e in emplacements:
+            if e["id"] == CAPSULE_VIDE:
+                resultat.append({"piece": e["piece"], "empreinte": e["empreinte"],
+                                 "ancien": {"id": e["id"], "quantite": e["quantite"]},
+                                 "nouveau": {"id": CAPSULE_PLEINE, "quantite": 1},
+                                 "description": e["description"], "nom_piece": e["nom_piece"]})
+                break
+
+
+def melanger_cles(resultat, emplacements, graine, serre_dangereuse=False, ids=None):
+    """Option « Clés aléatoires » (25/11/2026) : place les clés (logique_cles.IDS_CLES) pour que la partie reste
+    finissable. emplacements : tous les emplacements relevés (ceux qui ne sont pas mélangés gardent leur objet et
+    comptent pour la logique). Les clés ne vont que sur des emplacements mélangés, jamais sur les plantes de la serre
+    (sauf option « Pour les fous »), ni dans les pièces de la fin (labo principal, cellule, héliport…). Renvoie True si réussi."""
+    index = {(r["piece"].lower(), tuple(r["empreinte"])): r for r in resultat}
+    emp, contenu, refs = [], [], []
+    for e in emplacements:
+        r = index.get((e["piece"].lower(), tuple(e["empreinte"])))
+        emp.append((e["piece"].lower(), e["id"]))
+        contenu.append((r["nouveau"]["id"], r["nouveau"]["quantite"]) if r else (e["id"], e["quantite"]))
+        refs.append(r)
+    interdits = {i for i, r in enumerate(refs) if r is None}
+    interdits |= {i for i, (p, o) in enumerate(emp) if emplacement_risque(p, o, serre_dangereuse)}
+    if not logique_cles.placer_cles(emp, contenu, graine, interdits, ids=ids):
+        return False
+    for r, (ident, qte) in zip(refs, contenu):
+        if r is not None:
+            r["nouveau"] = {"id": ident, "quantite": qte}
+    return True
 
 
 def nom_objet(ident, langue="fr"):
@@ -414,7 +546,9 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
              dire=print, personnage="Chris", difficulte="Facile", langue="fr", dire_spoiler=None,
              armes_choisies=None, objets_visibles=True, arme_depart=False, armes_bonus=False,
              messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False, cle_placard=False, une_fois_de_plus=False,
-             serre_dangereuse=False):
+             serre_dangereuse=False, cles_aleatoires=False, cles_choisies=None,
+             enigmes_aleatoires=False, enigmes_choisies=None, gourde_aleatoire=False,
+             gourde_remplie=False, fusees_aleatoires=False, capsule_pleine=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -427,6 +561,12 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     malle_aleatoire : les objets de la malle de départ sont mélangés avec les autres (nouvelle partie seulement).
     couteau_aleatoire : le couteau de départ (Chris) est mélangé avec les autres objets (nouvelle partie seulement).
     cle_placard : la clé du placard (salle des costumes) est ajoutée à la malle de départ (nouvelle partie seulement).
+    cles_aleatoires / enigmes_aleatoires : les clés / objets d'énigme cochés (cles_choisies / enigmes_choisies,
+    None = tous) sont mélangés, la partie reste finissable (logique_cles).
+    gourde_aleatoire / gourde_remplie : gourde mélangée avec les objets ; gourde reçue déjà pleine.
+    capsule_pleine : option « Fun » : la capsule de carburant est déjà pleine au ramassage (dangereuse).
+    fusees_aleatoires : option « Pour les fous » (à tester en jeu) : les fusées de signalisation sont placées par la
+    logique, n'importe où avant l'héliport.
     serre_dangereuse : option « Pour les fous » : des objets importants peuvent tomber sur les plantes de la serre
     (détruits si on ouvre le mauvais tuyau) ; sinon ils en sont écartés.
     une_fois_de_plus : partie « Une fois de plus » (jeu déjà terminé) : le jeu met la clé du placard en case 1 de la
@@ -442,6 +582,17 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     ids_libres = set(IDS_LIBRES_DE_BASE) | (ids_armes if armes_aleatoires else set())
     if couteau_aleatoire:
         ids_libres.add(ID_COUTEAU)
+    ids_logique = set()                      # clés et objets d'énigme placés par la logique
+    if cles_aleatoires:
+        ids_logique |= logique_cles.IDS_CLES if cles_choisies is None else set(cles_choisies) & logique_cles.IDS_CLES
+    if enigmes_aleatoires:
+        ids_logique |= (logique_cles.IDS_ENIGMES if enigmes_choisies is None
+                        else set(enigmes_choisies) & logique_cles.IDS_ENIGMES)
+    if gourde_aleatoire:                     # placée par la logique : toujours atteignable (joueur, 26/11/2026)
+        ids_logique.add(ID_GOURDE)
+    if fusees_aleatoires:
+        ids_logique.add(logique_cles.ID_FUSEES)
+    ids_libres |= ids_logique
     if armes_bonus is True:
         armes_bonus = set(IDS_ARMES_BONUS)
     armes_bonus = set(armes_bonus or ()) & IDS_ARMES_BONUS
@@ -457,13 +608,31 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
         emplacements = emplacements + lire_malle(fichier, personnage, difficulte)
     if couteau_aleatoire:
         emplacements = emplacements + emplacement_couteau(personnage)
+    mobiles = emplacements_mobiles(personnage)
+    # un objet repéré par son identifiant ne l'est plus par sa position (symboles : même zone pour les trois)
+    deja = {(m["piece"], m["id"]) for m in mobiles}
+    emplacements = [x for x in emplacements if (x["piece"], x["id"]) not in deja]
+    emplacements = emplacements + emplacements_examens(personnage) + mobiles
     resultat = generer(emplacements, graine, ids_libres)
+    # objets examinés et mobiles : pas de nom de pièce dans leur ligne, on reprend celui d'un autre emplacement de la
+    # pièce (le spoiler affichait « 105 » tout seul)
+    noms = {e["piece"].lower(): e["nom_piece"] for e in emplacements if e.get("nom_piece")}
+    for r in resultat:
+        if not r.get("nom_piece"):
+            r["nom_piece"] = noms.get(r["piece"].lower(), "")
     verifier(resultat)       # avant l'arme de départ et les armes bonus : elles changent des objets (voulu)
     depart = garantir_arme_depart(resultat, graine, ids_armes) if arme_depart and armes_aleatoires else None
     if armes_bonus:
         placer_armes_bonus(resultat, graine, armes_bonus)
-    if not serre_dangereuse:                 # après les armes bonus : elles aussi
-        proteger_serre(resultat, graine, IDS_ARMES | IDS_ARMES_BONUS)
+    # après les armes bonus (elles aussi) : plantes de la serre (sauf option) et emplacements risqués
+    proteger_serre(resultat, graine, IDS_ARMES | IDS_ARMES_BONUS, serre_dangereuse)
+    if ids_logique and not melanger_cles(resultat, emplacements, graine, serre_dangereuse, ids_logique):
+        dire(Msg("gen_cles_echec"))          # en dernier : les clés gardent la place que la logique leur donne
+        return False
+    if gourde_remplie:
+        remplir_gourde(resultat, emplacements)
+    if capsule_pleine:
+        remplir_capsule(resultat, emplacements)
 
     sortie = {
         "version_jeu": {"taille_bhd_exe": 9640360,
@@ -476,14 +645,23 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
                                       "couteau_aleatoire": bool(couteau_aleatoire),
                                       "cle_placard": bool(cle_placard and not une_fois_de_plus),
                                       "une_fois_de_plus": bool(une_fois_de_plus),
-                                      "serre_dangereuse": bool(serre_dangereuse)},
+                                      "serre_dangereuse": bool(serre_dangereuse),
+                                      "fusees_aleatoires": bool(fusees_aleatoires),
+                                      "capsule_pleine": bool(capsule_pleine),
+                                      "cles_aleatoires": bool(cles_aleatoires),
+                                      "enigmes_aleatoires": bool(enigmes_aleatoires),
+                                      "gourde_aleatoire": bool(gourde_aleatoire),
+                                      "gourde_remplie": bool(gourde_remplie),
+                                      "objets_logique": sorted(ids_logique)},
         "depart": depart,
         "remplacements": resultat,
         "laisses": len(emplacements) - len(resultat),
         "non_utilises": [[f["piece"].upper(), f["description"]] for f, _ in ignores],
         # objets examinés (joyaux des trophées…) : [pièce, id d'origine, nouvel id, quantité]. Lus par la DLL v0.9.3+
         # (point d'arrêt en bhd.exe+151284). Vide tant que ces objets (surtout des objets de quête) ne sont pas mélangés.
-        "examens": [],
+        "examens": [[r["piece"], r["ancien"]["id"], r["nouveau"]["id"], r["nouveau"]["quantite"]]
+                    for r in resultat if (r.get("examen") or (r["piece"].lower(), r["ancien"]["id"]) in EXAMENS_LIES)
+                    and r["nouveau"]["id"] != r["ancien"]["id"]],
     }
     (sortie_dir / f"{nom}.json").write_text(json.dumps(sortie, indent=1, ensure_ascii=False), encoding="utf-8")
 
@@ -498,27 +676,36 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
            f"  placard = {1 if cle_placard and not une_fois_de_plus else 0},",
            # « Une fois de plus » : la DLL (v0.9.7.3+) retire les armes infinies et remet un départ normal
            f"  ufp = {1 if une_fois_de_plus else 0},", "  remplacements = {"]
-    posees = [r for r in resultat if r["piece"] not in PIECES_SPECIALES]
+    posees = [r for r in resultat if r["piece"] not in PIECES_SPECIALES and not r.get("examen")
+              and not r.get("mobile")]
     inventaire = sorted((r for r in resultat if r["piece"] == PIECE_INVENTAIRE), key=lambda r: r["case"])
     malle = sorted((r for r in resultat if r["piece"] == PIECE_MALLE), key=lambda r: r["case"])
     for r in posees:
         emp = ", ".join("0x" + v.upper() for v in r["empreinte"])
         lua.append(f"    {{ piece = 0x{r['piece'].upper()}, empreinte = {{ {emp} }}, "
-                   f"id = {r['nouveau']['id']}, qte = {r['nouveau']['quantite']} }},")
+                   f"id = {r['nouveau']['id']}, qte = {r['nouveau']['quantite']}, "
+                   f"ancien = {r['ancien']['id']} }},")   # DLL v0.9.8+ : ne remplace que l'objet d'origine
     lua.append("  },")
     # Modèles décoratifs (ex. fusil accroché au mur du salon) : le jeu les crée à part, à partir de l'id d'origine.
     # La DLL (v0.8.7+) remplace le modèle « ancien » de la pièce par le « nouveau ». Clé « salle » (et non
     # « piece ») : les DLL plus anciennes ignorent ces lignes. Une pièce où le même objet d'origine devient deux
     # objets différents est laissée de côté (on ne saurait pas quel modèle remplacer).
     decors = {}
-    for r in posees:
+    # objets examinés aussi (aquarium, 27/11/2026) : le leurre, l'hameçon et le spécimen montrés dans la pièce sont
+    # peut-être des modèles décoratifs (à vérifier en jeu)
+    for r in posees + [r for r in resultat if r.get("examen")]:
         cle = (r["piece"].upper(), r["ancien"]["id"])
-        if r["ancien"]["id"] != r["nouveau"]["id"]:
+        if r["ancien"]["id"] != r["nouveau"]["id"] and (r["piece"].lower(), r["ancien"]["id"]) not in DECORS_EXCLUS:
             decors.setdefault(cle, set()).add(r["nouveau"]["id"])
     lua.append("  decors = {")
     for (piece, ancien), nouveaux in sorted(decors.items()):
         if len(nouveaux) == 1:
             lua.append(f"    {{ salle = 0x{piece}, ancien = {ancien}, nouveau = {next(iter(nouveaux))} }},")
+    lua += ["  },", "  mobiles = {"]
+    for r in resultat:
+        if r.get("mobile"):
+            lua.append(f"    {{ mobile = 0x{r['piece'].upper()}, obj = 0x{r['mobile']:X}, ancien = {r['ancien']['id']}, "
+                       f"id = {r['nouveau']['id']}, qte = {r['nouveau']['quantite']} }},")
     lua += ["  },", "  examens = {"]
     for piece, ancien, nouvel_id, qte in sortie["examens"]:
         lua.append(f"    {{ examen = 0x{piece.upper()}, ancien = {ancien}, id = {nouvel_id}, qte = {qte} }},")

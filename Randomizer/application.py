@@ -25,8 +25,9 @@ import generateur_seed as gen
 import mise_a_jour
 import progression
 import textes
+import modeles_sol
 
-VERSION = "0.9.7.5"
+VERSION = "0.9.8"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -163,7 +164,8 @@ COULEURS = {
     "accent_survol": "#cf3540",
     "accent_presse": "#8f1d24",
     "ok": "#3fb97a",
-    "alerte": "#e0a43a",
+    "alerte": "#ff5a5f",      # rouge vif (était orange #e0a43a ; joueur, 27/11/2026 : toutes les alertes en rouge)
+    "danger": "#ff5a5f",      # rouge vif, lisible sur fond sombre (messages à ne pas manquer)
     "journal": "#101216",
 }
 POLICE = "Segoe UI"
@@ -420,7 +422,7 @@ def appliquer_style(racine):
     s.configure("Mot.TLabel", background=c["carte"], font=(POLICE, 10), foreground=c["discret"])
     s.configure("Emoji.TLabel", background=c["carte"], font=("Segoe UI Emoji", 13), foreground=c["texte"])
     s.configure("Lien.TLabel", background=c["carte"], font=(POLICE, 10, "underline"), foreground=c["lien"])
-    for nom, couleur in (("Ok", c["ok"]), ("Neutre", c["discret"]), ("Alerte", c["alerte"])):
+    for nom, couleur in (("Ok", c["ok"]), ("Neutre", c["discret"]), ("Alerte", c["alerte"]), ("Danger", c["danger"])):
         s.configure(f"{nom}.TLabel", background=c["carte"], foreground=couleur, font=(POLICE, 10))
 
     for nom in ("TCheckbutton", "TRadiobutton"):
@@ -691,8 +693,18 @@ class Application(tk.Tk):
         self.arme_depart = tk.BooleanVar(value=True)           # une arme toujours au pistolet du hall
         self.armes_cochees = {cle: tk.BooleanVar(value=id_arme is not None) for cle, id_arme, _ in gen.ARMES}
         self.cles = tk.BooleanVar(value=False)
+        self.enigmes = tk.BooleanVar(value=False)              # objets d'énigme mélangés (logique)
+        self.gourde = tk.BooleanVar(value=False)               # gourde mélangée (catégorie à part)
+        self.gourde_remplie = tk.BooleanVar(value=False)       # gourde reçue déjà pleine (2 charges)
+        # une case par clé / objet d'énigme (cochés par défaut) ; visibles seulement quand l'option est cochée
+        self.cles_cochees = {i: tk.BooleanVar(value=True) for i, _ in gen.logique_cles.CLES_CHOIX}
+        self.enigmes_cochees = {i: tk.BooleanVar(value=True) for i, _ in gen.logique_cles.ENIGMES_CHOIX}
+        # disques MO (joueur, 26/11/2026) : une case « Disque MO » qui déplie le choix des 3 disques
+        self.disques_mo = tk.BooleanVar(value=True)
         self.sans_logique = tk.BooleanVar(value=False)         # option à venir (grisée) : clés sans logique
         self.serre_dangereuse = tk.BooleanVar(value=False)     # « Pour les fous » : objets importants dans la serre
+        self.fusees = tk.BooleanVar(value=False)               # « Pour les fous » : fusées de signalisation mélangées
+        self.capsule = tk.BooleanVar(value=False)              # « Fun » : capsule de carburant pleine au ramassage
         self.ennemis = tk.BooleanVar(value=False)              # option à venir (grisée)
         self.portes = tk.BooleanVar(value=False)               # option à venir (grisée)
         self.armes_bonus = tk.BooleanVar(value=False)          # option « Fun » : Samurai Edge + lance-roquettes
@@ -914,7 +926,9 @@ class Application(tk.Tk):
         self.sous_onglets = ttk.Notebook(page, style="Sous.TNotebook")
         self.sous_onglets.grid(row=0, column=0, sticky="nsew")
         pages = {}
-        for cle in ("carte_partie", "carte_options", "carte_ennemis", "carte_portes", "carte_fun"):
+        # sous-onglets (26/11/2026, demande du joueur : armes et clés à part pour alléger « Options »)
+        for cle in ("carte_partie", "carte_options", "carte_armes", "carte_cles", "carte_ennemis", "carte_portes",
+                    "carte_fun"):
             conteneur = ttk.Frame(self.sous_onglets, padding=(0, 12, 0, 0))
             self.sous_onglets.add(conteneur, text=self.t(cle))
             defile = Defilable(conteneur)
@@ -978,6 +992,10 @@ class Application(tk.Tk):
         self.afficher_liste_bonus()
         ttk.Label(f, text=self.t("note_armes_bonus"), style="Note.TLabel", wraplength=300,
                   justify="left").pack(anchor="w", padx=(27, 0), pady=(4, 0))
+        # capsule de carburant pleine dès le ramassage (joueur, 26/11/2026, comme l'option de Benn)
+        ttk.Checkbutton(f, text=self.t("capsule_pleine"), variable=self.capsule).pack(anchor="w", pady=(10, 0))
+        ttk.Label(f, text=self.t("note_capsule_pleine"), style="Alerte.TLabel", wraplength=300,
+                  justify="left").pack(anchor="w", padx=(27, 0))
 
         # --- Options
         options, o = self.carte(pages["carte_options"], self.t("carte_options"))
@@ -988,8 +1006,12 @@ class Application(tk.Tk):
         ttk.Checkbutton(o, text=self.t("malle_aleatoire"), variable=self.malle).pack(anchor="w", pady=(6, 0))
         ttk.Label(o, text=self.t("note_malle_aleatoire"), style="Note.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
+
+        # --- Armes (sous-onglet à part) : armes aléatoires, arme garantie, couteau de départ, puis la gourde
+        armes, o = self.carte(pages["carte_armes"], self.t("carte_armes"))
+        armes.pack(fill="x")
         ttk.Checkbutton(o, text=self.t("armes_aleatoires"), variable=self.armes,
-                        command=self.afficher_liste_armes).pack(anchor="w", pady=(6, 0))
+                        command=self.afficher_liste_armes).pack(anchor="w")
         self.note_armes = ttk.Label(o, text=self.t("note_armes"), style="Note.TLabel", wraplength=280,
                                     justify="left")
         self.note_armes.pack(anchor="w", padx=(27, 0))
@@ -1011,10 +1033,55 @@ class Application(tk.Tk):
         ttk.Label(o, text=self.t("note_couteau_aleatoire"), style="Alerte.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
         self.afficher_liste_armes()
-        ttk.Checkbutton(o, text=self.t("cles_aleatoires") + a_venir, variable=self.cles,
-                        state="disabled").pack(anchor="w", pady=(6, 0))
 
-        # --- Pour les fous : options qui peuvent rendre la partie impossible à finir
+        # --- Gourde : catégorie à part (facultative, pour brûler les corps), sous les armes
+        gourde, go = self.carte(pages["carte_armes"], self.t("carte_gourde"))
+        gourde.pack(fill="x", pady=(16, 0))
+        ttk.Checkbutton(go, text=self.t("gourde_aleatoire"), variable=self.gourde).pack(anchor="w")
+        ttk.Label(go, text=self.t("note_gourde_aleatoire"), style="Note.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+        ttk.Checkbutton(go, text=self.t("gourde_remplie"), variable=self.gourde_remplie).pack(anchor="w", pady=(6, 0))
+        ttk.Label(go, text=self.t("note_gourde_remplie"), style="Note.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+
+        # --- Clés et objets d'énigme (sous-onglet à part) : chacun son option, avec la liste des objets
+        # (décocher = reste à sa place)
+        cles, o = self.carte(pages["carte_cles"], self.t("carte_cles"))
+        cles.pack(fill="x")
+        self.listes_logique = {}
+        for var, cle_texte, cle_note, choix, cochees in (
+                (self.cles, "cles_aleatoires", "note_cles_aleatoires", gen.logique_cles.CLES_CHOIX, self.cles_cochees),
+                (self.enigmes, "enigmes_aleatoires", "note_enigmes_aleatoires", gen.logique_cles.ENIGMES_CHOIX,
+                 self.enigmes_cochees)):
+            ttk.Checkbutton(o, text=self.t(cle_texte), variable=var,
+                            command=self.afficher_listes_logique).pack(anchor="w", pady=(6, 0))
+            note = ttk.Label(o, text=self.t(cle_note), style="Note.TLabel", wraplength=280, justify="left")
+            note.pack(anchor="w", padx=(27, 0))
+            liste = ttk.Frame(o, style="Carte.TFrame", borderwidth=0)
+            sous_mo = None
+            for ident, suffixe in choix:
+                if suffixe == "mo":                # disques MO : regroupés sous une case qui se déplie
+                    if sous_mo is None:
+                        ttk.Checkbutton(liste, text=gen.nom_objet(93, self.langue.get()), variable=self.disques_mo,
+                                        command=self.afficher_disques_mo).pack(anchor="w")
+                        sous_mo = self.liste_disques_mo = ttk.Frame(liste, style="Carte.TFrame", borderwidth=0)
+                        self.place_disques_mo = ttk.Frame(liste, style="Carte.TFrame", borderwidth=0, height=1)
+                        self.place_disques_mo.pack(anchor="w")
+                    ttk.Checkbutton(sous_mo, text=self.t(f"disque_mo_{ident}"), variable=cochees[ident]).pack(anchor="w")
+                    continue
+                nom = gen.nom_objet(ident, self.langue.get())
+                if suffixe == "epee":              # le Grimoire mélangé : c'est lui qui donne la clé de l'épée
+                    nom, suffixe = f"{gen.nom_objet(45, self.langue.get())} ({nom})", None
+                if ident == 44:
+                    nom += " ×5"
+                if suffixe:
+                    nom += f" {suffixe}"
+                ttk.Checkbutton(liste, text=nom, variable=cochees[ident]).pack(anchor="w")
+            self.listes_logique[cle_texte] = (var, note, liste)
+        self.afficher_listes_logique()
+        self.afficher_disques_mo()
+
+        # --- Pour les fous : options qui peuvent rendre la partie impossible à finir (sous « Options »)
         fous, fo = self.carte(pages["carte_options"], self.t("carte_fous"))
         fous.pack(fill="x", pady=(16, 0))
         ttk.Checkbutton(fo, text=self.t("sans_logique") + a_venir, variable=self.sans_logique,
@@ -1025,6 +1092,10 @@ class Application(tk.Tk):
         ttk.Checkbutton(fo, text=self.t("serre_dangereuse"), variable=self.serre_dangereuse).pack(
             anchor="w", pady=(8, 0))
         ttk.Label(fo, text=self.t("note_serre_dangereuse"), style="Alerte.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+        # fusées de signalisation (joueur, 26/11/2026) : à tester en jeu
+        ttk.Checkbutton(fo, text=self.t("fusees_aleatoires"), variable=self.fusees).pack(anchor="w", pady=(8, 0))
+        ttk.Label(fo, text=self.t("note_fusees_aleatoires"), style="Danger.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
 
         # --- Ennemis
@@ -1207,7 +1278,8 @@ class Application(tk.Tk):
         moitié droite des cartes vide) : chaque note se recalcule quand sa carte change de taille."""
         def parcourir(w):
             for enfant in w.winfo_children():
-                if isinstance(enfant, ttk.Label) and str(enfant.cget("style")) in ("Note.TLabel", "Alerte.TLabel"):
+                if isinstance(enfant, ttk.Label) and str(enfant.cget("style")) in ("Note.TLabel", "Alerte.TLabel",
+                                                                                    "Danger.TLabel"):
                     try:
                         retrait = enfant.pack_info().get("padx", 0)
                     except tk.TclError:
@@ -1250,6 +1322,28 @@ class Application(tk.Tk):
                 case.state(["!disabled"] if id_arme is not None else ["disabled"])
         if hasattr(self, "case_arme_depart"):
             self.case_arme_depart.state(["!disabled"] if self.armes.get() else ["disabled"])
+
+    def afficher_listes_logique(self):
+        """Listes des clés / objets d'énigme, seulement quand leur option est cochée."""
+        for var, note, liste in self.listes_logique.values():
+            if var.get():
+                liste.pack(anchor="w", padx=(27, 0), pady=(4, 0), after=note)
+            else:
+                liste.pack_forget()
+
+    def afficher_disques_mo(self):
+        """Choix des 3 disques MO, seulement quand « Disque MO » est coché."""
+        if not hasattr(self, "liste_disques_mo"):
+            return
+        if self.disques_mo.get():
+            self.liste_disques_mo.pack(anchor="w", padx=(27, 0), after=self.place_disques_mo)
+        else:
+            self.liste_disques_mo.pack_forget()
+
+    def enigmes_choisies(self):
+        """Ids des objets d'énigme cochés (les disques MO seulement si « Disque MO » est coché)."""
+        return {i for i, v in self.enigmes_cochees.items()
+                if v.get() and (i not in (93, 94, 95) or self.disques_mo.get())}
 
     def armes_choisies(self):
         """Ids des armes cochées et utilisables (envoyés au générateur)."""
@@ -1588,6 +1682,8 @@ class Application(tk.Tk):
             self.badge_dll.configure(text=self.t("badge_dll_ancienne"), style="Alerte.TLabel")
         elif dll_ok:
             self.badge_dll.configure(text=self.t("badge_installe"), style="Ok.TLabel")
+            if not modeles_sol.presents(d):    # DLL déjà à jour mais modèles au sol pas encore fabriqués
+                self.fabriquer_modeles(d, silencieux=True)
         else:
             self.badge_dll.configure(text=self.t("badge_origine"), style="Neutre.TLabel")
         self.badge_version.configure(text="" if version_jeu_ok(d) else self.t("badge_version"))
@@ -1703,6 +1799,10 @@ class Application(tk.Tk):
         if messagebox.askyesno(TITRE, self.t("confirmer_desinstaller")):
             self.supprimer(dll, "dll_supprimee")
             if not dll.exists():
+                try:
+                    modeles_sol.retirer(dll.parent)
+                except OSError:
+                    pass
                 self.ecrire(self.t("sans_randomizer"))
 
     def retirer_seed(self):
@@ -1721,7 +1821,17 @@ class Application(tk.Tk):
             self.ecrire(self.t("dll_installee", chemin=cible))
         except OSError as e:
             messagebox.showerror(TITRE, self.t("err_copier_dll", e=e))
+        self.fabriquer_modeles(cible.parent)
         self.actualiser_etat()
+
+    def fabriquer_modeles(self, dossier, silencieux=False):
+        """Modèles au sol faits maison (couteau, armes infinies), fabriqués à partir des fichiers du jeu du joueur."""
+        try:
+            if modeles_sol.fabriquer(dossier) and not silencieux:
+                self.ecrire(self.t("modeles_sol_ok"))
+        except Exception as e:                 # sans eux, le jeu marche : la DLL garde les modèles du jeu
+            if not silencieux:
+                self.ecrire(self.t("modeles_sol_err", e=e))
 
     def regler_option_proton(self):
         """Ligne à copier selon la case dinput8, et mention « détecté » si le fichier est là."""
@@ -1785,6 +1895,12 @@ class Application(tk.Tk):
                                   objets_visibles=self.visibles.get(), arme_depart=self.arme_depart.get(),
                                   malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(), cle_placard=self.cle_placard.get() and not self.ufp.get(),
                                   une_fois_de_plus=self.ufp.get(), serre_dangereuse=self.serre_dangereuse.get(),
+                                  fusees_aleatoires=self.fusees.get(), capsule_pleine=self.capsule.get(),
+                                  cles_aleatoires=self.cles.get(),
+                                  cles_choisies={i for i, v in self.cles_cochees.items() if v.get()},
+                                  enigmes_aleatoires=self.enigmes.get(),
+                                  gourde_aleatoire=self.gourde.get(), gourde_remplie=self.gourde_remplie.get(),
+                                  enigmes_choisies=self.enigmes_choisies(),
                                   armes_bonus=self.armes_bonus_choisies(), messages_differes=True)
             except Exception as e:  # on affiche l'erreur plutôt que de fermer l'application
                 messages.append(textes.Msg("erreur", e=e))

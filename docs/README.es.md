@@ -22,8 +22,8 @@ o estrategias.
 
 ## En resumen
 
-- **Los objetos cambian de sitio**: munición, hierbas, cintas, puñales… Las llaves y los objetos de misión se
-  quedan donde están, así que la partida siempre se puede terminar.
+- **Los objetos cambian de sitio**: munición, hierbas, cintas, puñales… y, si quieres, también **las llaves y los
+  objetos de puzle**, con una lógica que mantiene la partida siempre terminable.
 - **Una aplicación sencilla**: instala el randomizer, elige tus opciones, genera una seed y listo. Un clic
   devuelve el juego original.
 - **Nada más que instalar**: una pequeña DLL se carga con el juego y hace el trabajo. El código del juego
@@ -41,12 +41,16 @@ o estrategias.
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_en.png" alt="Generar una semilla" width="420"><br><sub>Generar una semilla: opciones y elección de armas</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Generar una semilla" width="420"><br><sub>Generar una semilla: llaves y objetos de puzle</sub></td>
 <td align="center"><img src="../images/appli_installation_en.png" alt="Instalación" width="420"><br><sub>Instalación: la DLL en un clic</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_en.png" alt="Personaje y dificultad: qué respuesta elegir en el juego" width="420"><br><sub>Personaje y dificultad: qué respuesta elegir en el juego</sub></td>
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: la lista completa de cambios</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="../images/appli_options_en.png" alt="Opciones: objetos visibles, baúl inicial y opciones para los locos" width="420"><br><sub>Opciones: objetos visibles, baúl inicial y opciones para los locos</sub></td>
+<td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora" width="420"><br><sub>Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora</sub></td>
 </tr>
 </table>
 
@@ -55,10 +59,12 @@ o estrategias.
 | Disponible | Próximamente |
 |---|---|
 | Chris, dificultad Fácil (todo el juego registrado, laboratorio incluido) | Jill, otras dificultades |
-| 164 ubicaciones: munición (pistola, escopeta y magnum), hierbas verdes, rojas y azules, cintas, puñales, granadas cegadoras, pistola de autodefensa, sprays y botiquines | Llaves y objetos de misión (con una lógica que mantiene la partida terminable) |
-| **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa; opción **Baúl inicial aleatorio** | Objetos de misión visibles y objetos que se obtienen al examinar algo (gemas de los trofeos, anzuelo…: ya admitidos por la DLL), con las llaves |
-| Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!) | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios, puertas aleatorias |
-| Sección **Diversión**: **armas extra** (Samurai Edge y lanzacohetes con munición ilimitada) | — |
+| 164 ubicaciones: munición (pistola, escopeta y magnum), hierbas verdes, rojas y azules, cintas, puñales, granadas cegadoras, pistola de autodefensa, sprays y botiquines | — |
+| Opciones **Llaves aleatorias** y **Objetos de puzle aleatorios**, **con lógica**: la partida siempre se puede terminar (una llave nunca acaba detrás de la puerta que abre). Cada objeto se puede marcar o desmarcar; los 3 discos MO uno a uno. Mansión, patio, residencia y laboratorio, puzles incluidos | Opción *Sin lógica*; el espécimen de abeja y el señuelo sin anzuelo (el puzle del acuario se bloquea si se mueven) |
+| **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa, también los objetos que caen o aparecen durante la partida (collar del perro, emblemas de la tumba), los que se obtienen al examinar algo (emblema de la chimenea, anzuelo) y los que se toman en una breve escena; opción **Baúl inicial aleatorio** | Pistas por sala |
+| Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!); modelos reales en el suelo para el cuchillo, la Samurai Edge y el lanzacohetes ilimitados | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios, puertas aleatorias |
+| **Cantimplora**: cantimplora aleatoria (siempre se encuentra) y cantimplora ya llena (2 cargas) | — |
+| Sección **Diversión**: **armas extra** (Samurai Edge y lanzacohetes con munición ilimitada) y **cápsula de combustible ya llena** (¡explota si corres, te golpean o disparas!). **Para los locos**: objetos importantes en el invernadero, **bengalas en cualquier lugar** | — |
 | Windows y **Steam Deck** (probado en el juego con Proton, también en tarjeta SD); Linux | **[Archipelago](#archipelago-próximamente)** |
 
 **Versión del juego necesaria**: el `bhd.exe` actual de Steam (9.640.360 bytes). La aplicación lo comprueba;
@@ -68,20 +74,21 @@ con cualquier otra versión el randomizer queda inactivo y el juego no se toca.
 
 El randomizer ya se puede jugar, pero aún hay mucho previsto, más o menos en este orden:
 
-1. **Llaves aleatorias con lógica**: llaves y objetos de misión mezclados también, y la partida siempre se puede terminar. Es el siguiente gran paso (también para *Sin lógica* y Archipelago).
-2. **Jill**: registrar todos sus lugares de objetos.
-3. **Otras dificultades**: los objetos cambian según la dificultad.
-4. **Las demás armas**: lanzagranadas y lanzallamas.
-5. **Enemigos aleatorios**.
-6. **Puertas aleatorias**: cada puerta lleva a otra sala.
-7. **Archipelago**: multimundo con otros juegos.
+1. **Jill**: registrar todos sus lugares de objetos y adaptar la lógica de las llaves.
+2. **Otras dificultades**: los objetos cambian según la dificultad.
+3. **Las demás armas**: lanzagranadas y lanzallamas.
+4. Opción **Sin lógica**: llaves mezcladas sin red de seguridad.
+5. **Pistas por sala**.
+6. **Enemigos aleatorios**.
+7. **Puertas aleatorias**: cada puerta lleva a otra sala.
+8. **Archipelago**: multimundo con otros juegos.
 
 ## Archipelago (próximamente)
 
 [Archipelago](https://archipelago.gg) es un randomizer multijuego: los objetos de tu partida pueden acabar en
 los juegos de otros jugadores (y al revés), cada uno en su propio juego, a la vez. El soporte de Resident Evil
 HD Remaster está en preparación: la pestaña *Archipelago* de la aplicación ya muestra el formulario de
-conexión (desactivado) y lo que falta por hacer. Primero hay que mezclar las llaves con lógica.
+conexión (desactivado) y lo que falta por hacer. Las llaves con lógica están listas desde la v0.9.8.
 
 ## Progreso del registro
 
@@ -135,14 +142,17 @@ La aplicación tiene seis pestañas y un selector de idioma arriba a la derecha 
 
 - **Instalación** — carpeta del juego, estado del randomizer y de la seed instalada, instalar / actualizar /
   desinstalar la DLL (y la opción de lanzamiento en Steam Deck).
-- **Generar una semilla** — con cuatro subpestañas:
+- **Generar una semilla** — con siete subpestañas:
   - *Personaje y dificultad*;
-  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio, armas aleatorias (con la lista de
-    armas), arma garantizada al inicio (en el inventario, con su munición; su ubicación recibe un objeto al
-    azar) y cuchillo inicial aleatorio; debajo, *Para los locos* (sin lógica, próximamente);
+  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio; debajo, *Para los locos* (sin lógica,
+    próximamente; objetos importantes en el invernadero; bengalas en cualquier lugar);
+  - *Armas*: armas aleatorias (con la lista de armas), arma garantizada al inicio, cuchillo inicial aleatorio;
+    debajo, la *Cantimplora* (aleatoria, ya llena);
+  - *Llaves y objetos de puzle*: llaves y objetos de puzle aleatorios, cada uno con su lista (*Disco MO*
+    despliega los 3 discos);
   - *Enemigos*: enemigos aleatorios (próximamente);
   - *Puertas*: puertas aleatorias, cada puerta lleva a otra sala (próximamente);
-  - *Diversión*: armas extra (Samurai Edge, lanzacohetes o ambos);
+  - *Diversión*: armas extra (Samurai Edge, lanzacohetes o ambos) y cápsula de combustible ya llena;
   - **Generar la seed**, con la seed (o «Al azar») al lado — misma seed + mismas opciones = mismo resultado.
 - **Spoiler** — la lista completa de cambios en una tabla, con búsqueda y orden, oculta hasta que marques
   *Mostrar el spoiler*.

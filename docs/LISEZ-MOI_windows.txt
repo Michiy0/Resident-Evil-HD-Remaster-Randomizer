@@ -8,7 +8,7 @@ INSTALLER (une seule fois)
    Si Windows affiche « Windows a protégé votre ordinateur » : clique
    « Informations complémentaires » puis « Exécuter quand même » (l'exe n'est pas signé).
 2. Vérifie que le dossier du jeu est le bon (sinon « Parcourir… »).
-   Si un message orange parle de « version non prise en charge », ton jeu n'est pas la
+   Si un message rouge parle de « version non prise en charge », ton jeu n'est pas la
    version Steam actuelle : le randomizer reste inactif.
 3. Clique « Installer la DLL ».
 

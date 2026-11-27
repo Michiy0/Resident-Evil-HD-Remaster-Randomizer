@@ -45,7 +45,18 @@ typedef struct {
     DWORD piece;
     DWORD empreinte[8];
     DWORD id, qte;
+    DWORD ancien;            /* id d'origine (seeds v0.9.8+ ; 0 = inconnu) : on ne remplace que lui */
+    DWORD obj;               /* objet « mobile » (v0.9.8+) : repéré par son identifiant ([objet+0x30] >> 16), pas par
+                              * sa position (le collier du balcon suit un corps) ; 0 = repéré par sa position */
 } Emplacement;
+
+/* L'emplacement e correspond-il à l'objet (pièce, valeurs +0x10..+0x2C, identifiant +0x30 >> 16) ? */
+static int correspond(const Emplacement *e, DWORD piece, const DWORD *valeurs, DWORD obj)
+{
+    if (e->piece != piece) return 0;
+    if (e->obj) return e->obj == obj;
+    return memcmp(e->empreinte, valeurs, 8 * sizeof(DWORD)) == 0;
+}
 
 static Emplacement g_seed[MAX_EMPLACEMENTS];
 static int   g_nb;
@@ -225,14 +236,30 @@ static int charger_seed(const char *chemin)
             } else {
                 journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
             }
+        } else if (strstr(ligne, "mobile =")) {
+            DWORD v[6];
+            if (lire_nombres(ligne, v, 6) == 5 && g_nb < MAX_EMPLACEMENTS) {
+                Emplacement *e = &g_seed[g_nb++];
+                memset(e, 0, sizeof *e);
+                e->piece = v[0];
+                e->obj = v[1];
+                e->ancien = v[2];
+                e->id = v[3];
+                e->qte = v[4];
+            } else {
+                journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
+            }
         } else if (strstr(ligne, "piece =")) {
-            DWORD v[12];
-            if (lire_nombres(ligne, v, 12) == 11 && g_nb < MAX_EMPLACEMENTS) {
+            DWORD v[13];
+            int n = lire_nombres(ligne, v, 13);
+            if ((n == 11 || n == 12) && g_nb < MAX_EMPLACEMENTS) {
                 Emplacement *e = &g_seed[g_nb++];
                 e->piece = v[0];
                 memcpy(e->empreinte, &v[1], sizeof e->empreinte);
                 e->id = v[9];
                 e->qte = v[10];
+                e->ancien = n == 12 ? v[11] : 0;
+                e->obj = 0;
             } else {
                 journal("Ligne de seed ignoree (format inattendu) : %.200s", ligne);
             }
@@ -323,6 +350,8 @@ static void noter_difficulte(void)
 
 /* ------------------------------------------------- traitement du ramassage */
 
+static DWORD g_id_modele[MAX_EMPLACEMENTS];    /* défini plus bas (objets visibles) */
+
 static void traiter_objet(DWORD structure)
 {
     DWORD piece, valeurs[8], maintenant = GetTickCount();
@@ -344,7 +373,13 @@ static void traiter_objet(DWORD structure)
 
     for (i = 0; i < g_nb; i++) {
         const Emplacement *e = &g_seed[i];
-        if (e->piece == piece && memcmp(e->empreinte, valeurs, sizeof valeurs) == 0) {
+        if (correspond(e, piece, valeurs, *(DWORD *)(structure + 0x30) >> 16)) {
+            if (e->ancien && lisible((void *)(structure + 0x34), 4, 0)) {
+                /* objet d'origine, ou déjà remplacé à son apparition (id de la seed ou du modèle emprunté) ; un objet
+                 * posé là par le joueur (fausse clé…) n'est pas touché */
+                DWORD actuel = *(DWORD *)(structure + 0x34) >> 16;
+                if (actuel != e->ancien && actuel != e->id && actuel != g_id_modele[i]) return;
+            }
             if (lisible((void *)(structure + 0x34), 4, 1)) {
                 *(volatile DWORD *)(structure + 0x34) = (e->id << 16) | (e->qte & 0xFFFF);
                 if (g_messages < 500) {
@@ -394,11 +429,11 @@ static void traiter_objet(DWORD structure)
 #endif
 static int g_visible;
 
-static const Emplacement *chercher_emplacement(DWORD piece, const DWORD *valeurs)
+static const Emplacement *chercher_emplacement(DWORD piece, const DWORD *valeurs, DWORD obj)
 {
     int i;
     for (i = 0; i < g_nb; i++)
-        if (g_seed[i].piece == piece && memcmp(g_seed[i].empreinte, valeurs, 8 * sizeof(DWORD)) == 0)
+        if (correspond(&g_seed[i], piece, valeurs, obj))
             return &g_seed[i];
     return NULL;
 }
@@ -419,10 +454,143 @@ static BYTE g_modele_ok[MAX_EMPLACEMENTS];
  * modèle d'un objet qui leur ressemble (le poignard, 112 ; idée du joueur, 21/11/2026). L'objet reçu au ramassage
  * reste le bon (bhd.exe+1512ED). 0 = pas de substitution. */
 static DWORD g_id_modele[MAX_EMPLACEMENTS];
+static float g_positions_perso[MAX_EMPLACEMENTS][3];   /* positions remontées (modèles faits maison) */
 
+static int modele_existe(DWORD id, char *nom, int taille);
+
+/* Modèles au sol faits maison (25/11/2026, idée du joueur) : le jeu ne crée un objet posé que pour les ids qui ont
+ * une classe (bhd.exe+E77F0) et chaque classe a son chemin de modèle écrit en dur (ex. « model\\item\\i112\\i112p »,
+ * utilisé aussi par le couteau 66). Couteaux, Samurai Edge infini et lance-roquettes infini n'ont pas de classe. On
+ * emprunte donc la classe d'une arme de Jill que Chris ne voit jamais, on réécrit en mémoire son chemin de modèle vers
+ * une archive installée par l'application (modèle tenu en main, arc\\wep, refait en arc\\model\\item\\iNNNp.arc,
+ * version 7), et on fait apparaître l'objet sous l'id de cette classe (l'objet reçu au ramassage reste le bon). */
+typedef struct { DWORD classe, rva; const char *ancien, *nouveau, *arc; float y; volatile LONG actif; } ModelePerso;
+static ModelePerso g_modeles_perso[3] = {
+    { 19, 0x853258u, "model\\item\\i019\\i019p", "model\\item\\i001\\i001p", "i001p", 2.0f, 0 },  /* couteau : origine à la poignée, remonté */
+    { 20, 0x853324u, "model\\item\\i020\\i020p", "model\\item\\i005\\i005p", "i005p", 0.0f, 0 },  /* Samurai Edge */
+    {  7, 0x852B44u, "model\\item\\i007\\i007p", "model\\item\\i014\\i014p", "i014p", 0.0f, 0 },  /* lance-roquettes */
+};
+
+static int modele_perso(DWORD id)            /* index dans g_modeles_perso, ou -1 */
+{
+    int k = (id == 1 || id == 2 || id == 66) ? 0 : id == 5 ? 1 : id == 14 ? 2 : -1;
+    return (k >= 0 && g_modeles_perso[k].actif) ? k : -1;
+}
+
+/* Au lancement (Chris seulement pour l'instant : ces classes servent aux armes de Jill) : réécrit le chemin de modèle
+ * des classes empruntées si l'archive est installée et que le texte d'origine est bien là. */
+static void preparer_modeles_perso(void)
+{
+    int k;
+    for (k = 0; k < 3; k++) {
+        ModelePerso *m = &g_modeles_perso[k];
+        char chemin[MAX_PATH];
+        char *s = (char *)(BASE_JEU + m->rva);
+        DWORD ancienne, inutile;
+        _snprintf(chemin, MAX_PATH, "%snativePC\\arc\\model\\item\\%s.arc", g_dossier, m->arc);
+        if (GetFileAttributesA(chemin) == INVALID_FILE_ATTRIBUTES) continue;
+        if (!lisible(s, 24, 0) || lstrcmpA(s, m->ancien) != 0) {
+            journal("Modele %s : texte inattendu en bhd.exe+%lX, rien n'est change.", m->arc, (unsigned long)m->rva);
+            continue;
+        }
+        if (!VirtualProtect(s, 24, PAGE_READWRITE, &ancienne)) continue;
+        lstrcpyA(s, m->nouveau);                /* même longueur */
+        VirtualProtect(s, 24, ancienne, &inutile);
+        InterlockedExchange(&m->actif, 1);
+        journal("Modele au sol %s : classe de l'objet %lu empruntee.", m->arc, (unsigned long)m->classe);
+    }
+}
+
+/* Éclat des objets (26/11/2026) : 55 des 102 modèles d'objets posés du jeu n'ont pas l'éclat qui aide à les repérer
+ * (herbes, masques, manivelles…) ; une fois mélangés, ils deviennent presque invisibles. L'application fabrique, à
+ * partir des fichiers du jeu, une version qui brille de ces modèles (arc\model\item\iNNNg.arc : sommets de 20 octets
+ * convertis au format de 32 octets des objets qui brillent, matériau avec EmiUV). Au lancement, la DLL réécrit le
+ * chemin de modèle de leur classe (« model\item\iNNN\iNNNp », une seule fois dans le jeu) en « …iNNNg », puis ajoute
+ * « iNNNg » à chaque pièce qui charge « iNNNp ». */
+#define MAX_ECLATS 160
+static int liste_contient(const DWORD *liste, int n, const char *nom);
+static char g_eclats_p[MAX_ECLATS][8], g_eclats_g[MAX_ECLATS][8];
+static int  g_nb_eclats;
+
+static char *chercher_texte(const char *texte)
+{
+    /* page par page : la zone traverse plusieurs sections du programme (test du 26/11/2026 : une seule vérification
+     * de toute la zone échouait, « chemin du modele introuvable ») */
+    BYTE *debut = (BYTE *)(BASE_JEU + 0x800000u), *fin = (BYTE *)(BASE_JEU + 0x8A0000u), *page, *p;
+    size_t n = strlen(texte) + 1;
+    for (page = debut; page < fin; page += 0x1000) {
+        BYTE *fin_page = page + 0x1000;
+        if (!lisible(page, 0x1000, 0)) continue;
+        if (fin_page < fin && lisible(fin_page, 0x1000, 0)) fin_page += n - 1;   /* texte à cheval sur deux pages */
+        for (p = page; p + n <= fin_page && p < page + 0x1000; p++)
+            if (*p == (BYTE)texte[0] && memcmp(p, texte, n) == 0) return (char *)p;
+    }
+    return NULL;
+}
+
+static void preparer_eclats(void)
+{
+    int id;
+    for (id = 1; id < 140 && g_nb_eclats < MAX_ECLATS; id++) {
+        char chemin[MAX_PATH], texte[32], *s;
+        DWORD ancienne, inutile;
+        _snprintf(chemin, MAX_PATH, "%snativePC\\arc\\model\\item\\i%03dg.arc", g_dossier, id);
+        if (GetFileAttributesA(chemin) == INVALID_FILE_ATTRIBUTES) continue;
+        _snprintf(texte, sizeof texte, "model\\item\\i%03d\\i%03dp", id, id);
+        s = chercher_texte(texte);
+        if (!s) { journal("Eclat i%03dg : chemin du modele introuvable, rien n'est change.", id); continue; }
+        if (!VirtualProtect(s, 24, PAGE_READWRITE, &ancienne)) continue;
+        s[strlen(s) - 1] = 'g';
+        VirtualProtect(s, 24, ancienne, &inutile);
+        _snprintf(g_eclats_p[g_nb_eclats], 8, "i%03dp", id);
+        _snprintf(g_eclats_g[g_nb_eclats], 8, "i%03dg", id);
+        g_nb_eclats++;
+    }
+    if (g_nb_eclats) journal("Eclat : %d modele(s) d'objet avec eclat (versions iNNNg).", g_nb_eclats);
+}
+
+/* Ajoute « iNNNg » à chaque liste de ressources de pièce qui contient « iNNNp » (après ajouter_modeles). */
+static void ajouter_eclats_pieces(void)
+{
+    int zone, salle, total = 0;
+    if (!g_nb_eclats) return;
+    for (zone = 0; zone < 5; zone++) {
+        for (salle = 0; salle <= (int)g_tables_pieces[zone].dernier; salle++) {
+            DWORD *case_table = (DWORD *)(g_tables_pieces[zone].table + salle * 4), *ancienne, *neuve;
+            int n = 0, k, ajouts = 0;
+            if (!lisible(case_table, 4, 1) || !(ancienne = (DWORD *)*case_table)) continue;
+            while (n < 256 && lisible(&ancienne[n], 4, 0) && ancienne[n]) n++;
+            for (k = 0; k < g_nb_eclats; k++)
+                if (liste_contient(ancienne, n, g_eclats_p[k]) && !liste_contient(ancienne, n, g_eclats_g[k])) ajouts++;
+            if (!ajouts) continue;
+            neuve = (DWORD *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, (n + ajouts + 1) * sizeof(DWORD));
+            if (!neuve) continue;
+            memcpy(neuve, ancienne, n * sizeof(DWORD));
+            ajouts = 0;
+            for (k = 0; k < g_nb_eclats; k++)
+                if (liste_contient(ancienne, n, g_eclats_p[k]) && !liste_contient(ancienne, n, g_eclats_g[k]))
+                    neuve[n + ajouts++] = (DWORD)g_eclats_g[k];
+            *case_table = (DWORD)neuve;
+            total += ajouts;
+        }
+    }
+    journal("Eclat : %d ajout(s) dans les listes de modeles des pieces.", total);
+}
+
+/* Modèles au sol de remplacement (25/11/2026, idée du joueur) :
+ * - couteaux (1, 2, 66) : modèle « i001p » fabriqué à partir du couteau tenu en main (arc\wep\wep01.arc, installé par
+ *   l'application dans arc\model\item) ; sinon le poignard (112) ;
+ * - Samurai Edge infini (5) : le pistolet au sol (3) ; lance-roquettes infini (14) : celui de la fin du jeu (10). */
 static DWORD substitut_modele(DWORD id)
 {
-    return (id == 1 || id == 2 || id == 66) ? 112u : 0u;
+    /* Le jeu ne crée un objet posé que pour les ids qui ont une classe (bhd.exe+E77F0 : rien pour 1, 2, 5, 14) ; le
+     * couteau 66 partage la classe du poignard (112). Couteaux 1 et 2 : on fait apparaître un 66. */
+    if (id == 1 || id == 2 || id == 66) return 112u;   /* la classe du 66 / 112 charge toujours i112p (test 25/11) */
+    if (id == 5) return 3u;
+    if (id == 14) return 10u;
+    if (id == 50) return 49u;
+    if (id == 129) return 32u;  /* musique, pages du milieu : pas de i129p ; modèle des notes manquantes (partition) */   /* clé de la salle 003 : pas de i050p (27/11/2026) ; celle de la salle 001 lui ressemble */
+    return 0u;
 }
 
 static int liste_contient(const DWORD *liste, int n, const char *nom)
@@ -485,9 +653,18 @@ static int ajouter_modeles_piece(DWORD piece, int *sans_modele)
     for (j = 0; g_visible && j < g_nb; j++) {           /* objets posés de cette pièce */
         if (g_seed[j].piece != piece) continue;
         g_id_modele[j] = g_seed[j].id;
-        if (!modele_existe(g_seed[j].id, g_noms_modeles[j], sizeof g_noms_modeles[j])) {
+        if (modele_perso(g_seed[j].id) >= 0) {          /* modèle fait maison : classe empruntée + son archive */
+            int k = modele_perso(g_seed[j].id);
+            lstrcpynA(g_noms_modeles[j], g_modeles_perso[k].arc, sizeof g_noms_modeles[j]);
+            g_id_modele[j] = g_modeles_perso[k].classe;
+        } else if (!modele_existe(g_seed[j].id, g_noms_modeles[j], sizeof g_noms_modeles[j])) {
             DWORD sub = substitut_modele(g_seed[j].id);
-            if (!sub || !modele_existe(sub, g_noms_modeles[j], sizeof g_noms_modeles[j])) { (*sans_modele)++; continue; }
+            if (!sub || !modele_existe(sub, g_noms_modeles[j], sizeof g_noms_modeles[j])) {
+                (*sans_modele)++;
+                journal("Piece %X : pas de modele au sol pour l'id %lu (%s introuvable)", piece,
+                        (unsigned long)g_seed[j].id, g_noms_modeles[j]);
+                continue;
+            }
             g_id_modele[j] = sub;                       /* modèle d'un autre objet, l'objet reçu reste le bon */
         }
         g_modele_ok[j] = 1;
@@ -510,7 +687,7 @@ static int ajouter_modeles_piece(DWORD piece, int *sans_modele)
 
 static void ajouter_modeles(void)
 {
-    int i, j, pieces = 0, ajouts = 0, sans_modele = 0, n;
+    int i, j, k, charge, pieces = 0, ajouts = 0, sans_modele = 0, n;
     for (i = 0; g_visible && i < g_nb; i++) {
         if (piece_traitee(g_seed[i].piece, i, 0)) continue;           /* une seule fois par pièce */
         if ((n = ajouter_modeles_piece(g_seed[i].piece, &sans_modele)) > 0) { pieces++; ajouts += n; }
@@ -523,9 +700,12 @@ static void ajouter_modeles(void)
         char nom[16], chemin[MAX_PATH];
         nom_modele(g_decors[i].nouveau, nom, sizeof nom, "p");
         _snprintf(chemin, MAX_PATH, "%snativePC\\arc\\model\\item\\%s.arc", g_dossier, nom);
-        for (j = 0; j < g_nb; j++)                      /* et être chargé dans la pièce (objet de la seed) */
-            if (g_seed[j].piece == g_decors[i].piece && g_seed[j].id == g_decors[i].nouveau && g_modele_ok[j]) break;
-        g_decors[i].ok = j < g_nb && GetFileAttributesA(chemin) != INVALID_FILE_ATTRIBUTES;
+        charge = 0;
+        for (j = 0; j < g_nb && !charge; j++)           /* et être chargé dans la pièce (objet de la seed) */
+            if (g_seed[j].piece == g_decors[i].piece && g_seed[j].id == g_decors[i].nouveau && g_modele_ok[j]) charge = 1;
+        for (k = 0; k < g_nb_examens && !charge; k++)   /* ou objet examiné de la pièce (aquarium, 27/11/2026) */
+            if (g_examens[k].piece == g_decors[i].piece && g_examens[k].id == g_decors[i].nouveau) charge = 1;
+        g_decors[i].ok = charge && GetFileAttributesA(chemin) != INVALID_FILE_ATTRIBUTES;
     }
     journal("Modeles : %d ajoute(s) dans %d piece(s) (objets visibles : %s, objets examines : %d) ; "
             "%d objet(s) sans modele (remplaces seulement au ramassage, sans apercu).",
@@ -566,12 +746,23 @@ static void remplacer_au_placement(CONTEXT *c)
     idx = *(DWORD *)(esp + 0x18);
     if (idx >= nb || !lisible((void *)(tableau + idx * 4), 4, 0)) return;
     evt = *(DWORD *)(tableau + idx * 4);
-    if (!lisible((void *)(evt + 0x10), 0x20, 0) || !piece_actuelle(&piece)) return;
+    if (!lisible((void *)(evt + 0x10), 0x28, 0) || !piece_actuelle(&piece)) return;
     memcpy(valeurs, (void *)(evt + 0x10), sizeof valeurs);
-    e = chercher_emplacement(piece, valeurs);
+    e = chercher_emplacement(piece, valeurs, *(DWORD *)(evt + 0x30) >> 16);
+    if (!e) {
+        /* objet mobile (27/11/2026) : le collier lâché par le chien est créé par SpawnItem avec un événement encore
+         * vide (identifiant d'objet 0, zone pas encore écrite) : on le reconnaît par la pièce et l'id d'origine */
+        DWORD id_spawn = *(DWORD *)(esp + 0x04);
+        int k;
+        for (k = 0; k < g_nb; k++)
+            if (g_seed[k].obj && g_seed[k].piece == piece && g_seed[k].ancien == id_spawn) { e = &g_seed[k]; break; }
+    }
     if (!e || !g_modele_ok[e - g_seed]) return;        /* pas de modèle chargé : on laisse l'objet d'origine */
     ancien_id = *(DWORD *)(esp + 0x04);
     ancienne_qte = *(DWORD *)(esp + 0x10);
+    /* Seulement l'objet d'origine : un objet que le joueur pose au même endroit (fausse clé sur la dalle du passage
+     * de la Mort, test du 25/11/2026) est recréé là et ne doit pas redevenir l'objet de la seed. */
+    if (e->ancien && ancien_id != e->ancien) return;
     *(DWORD *)(esp + 0x04) = g_id_modele[e - g_seed] ? g_id_modele[e - g_seed] : e->id;
     *(DWORD *)(esp + 0x10) = e->qte;
     {   /* +8 = pointeur vers la position (x, y, z) : objet remonté si la seed le demande */
@@ -587,6 +778,13 @@ static void remplacer_au_placement(CONTEXT *c)
             g_positions[k][1] += g_decalages[k].y;
             *(DWORD *)(esp + 0x08) = (DWORD)g_positions[k];
             break;
+        }
+        /* modèle fait maison dont l'origine n'est pas sous l'objet (couteau : à la poignée) : un peu plus haut */
+        if (k == g_nb_decalages && modele_perso(e->id) >= 0 && g_modeles_perso[modele_perso(e->id)].y != 0.0f &&
+            lisible((void *)pos, 12, 0)) {
+            memcpy(g_positions_perso[e - g_seed], (void *)pos, 12);
+            g_positions_perso[e - g_seed][1] += g_modeles_perso[modele_perso(e->id)].y;
+            *(DWORD *)(esp + 0x08) = (DWORD)g_positions_perso[e - g_seed];
         }
     }
     if (g_messages < 500) {
@@ -1144,7 +1342,7 @@ static void mettre_a_jour_evenements(void)
         memcpy(valeurs, (void *)(o + 0x10), sizeof valeurs);
         for (i = 0; i < g_nb; i++) {
             const Emplacement *e = &g_seed[i];
-            if (e->piece != piece || !g_modele_ok[i] || memcmp(e->empreinte, valeurs, sizeof valeurs) != 0) continue;
+            if (!g_modele_ok[i] || !correspond(e, piece, valeurs, *(DWORD *)(o + 0x30) >> 16)) continue;
             voulu = (e->id << 16) | (e->qte & 0xFFFF);
             if (*(volatile DWORD *)(o + 0x34) != voulu && (*(DWORD *)(o + 0x34) >> 16) != 0) {
                 DWORD avant = *(volatile DWORD *)(o + 0x34);
@@ -1500,7 +1698,7 @@ static void test_donner(void)
     static DWORD piece_vue = 0xFFFFFFFF, premiere = 0xFFFFFFFF, depuis;
     static int deja;
     DWORD piece;
-    if ((g_test_donne || !g_test_donner_id) && (g_malle_faite || !g_test_malle) &&
+    if ((g_test_donne || !g_test_donner_id) && ((g_malle_faite && g_test_malle != 2) || !g_test_malle) &&
         (g_test_malle_donne || !g_test_malle_id)) return;
     if (!piece_actuelle(&piece) || piece == 0) return;
     if (premiere == 0xFFFFFFFF) premiere = piece;
@@ -1508,7 +1706,8 @@ static void test_donner(void)
     if (piece != piece_vue) { piece_vue = piece; depuis = GetTickCount(); deja = 0; return; }
     if (GetTickCount() - depuis < 4000 || deja) return;  /* pièce stable depuis 4 s : le joueur a la main */
     deja = 1;                                            /* une fois par arrivée dans une pièce */
-    if (g_test_malle && !g_malle_faite) { g_malle_faite = 1; copier_partie(); }
+    /* TestMalle=1 : une copie au début ; TestMalle=2 : à chaque arrivée dans une pièce (relevés en cours de partie) */
+    if (g_test_malle && (!g_malle_faite || g_test_malle == 2)) { g_malle_faite = 1; copier_partie(); }
     /* (inventaire et malle de départ : vérifiés en continu dans la boucle de surveillance) */
     if (g_test_donner_id && !g_test_donne) { g_test_donne = 1; donner_objet(g_test_donner_id, g_test_donner_qte); }
     if (g_test_malle_id && !g_test_malle_donne) { g_test_malle_donne = 1; donner_malle(g_test_malle_id, g_test_malle_qte); }
@@ -1920,7 +2119,10 @@ static DWORD WINAPI surveillance(LPVOID inutile)
     Sleep(3000);
 
     if (g_diagnostic) vider_image();
+    if (g_visible) preparer_modeles_perso();          /* avant les listes de modèles des pièces */
+    preparer_eclats();                                 /* avant les listes : les noms iNNNp restent ceux du jeu */
     if (g_visible || g_nb_examens) ajouter_modeles();   /* écran titre : aucune pièce n'est encore chargée */
+    ajouter_eclats_pieces();
     AddVectoredExceptionHandler(1, gestionnaire);
     InterlockedExchange(&g_actif, 1);
     journal("Point d'arret pose en bhd.exe+1512ED.");
@@ -1981,7 +2183,7 @@ static void demarrer(void)
     _snprintf(g_journal, MAX_PATH, "%srandomizer_journal.txt", g_dossier);
     _snprintf(ini, MAX_PATH, "%srandomizer.ini", g_dossier);
 
-    journal("---- Resident Evil HD Remaster Randomizer v0.9.7.3 : demarrage");
+    journal("---- Resident Evil HD Remaster Randomizer v0.9.8 : demarrage");
     {
         /* Les adresses ne valent que pour une version précise de bhd.exe : sur une autre version,
          * on ne pose rien (le jeu tourne normalement, XInput reste transmis). */

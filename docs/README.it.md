@@ -22,8 +22,8 @@ tempi o strategie.
 
 ## In breve
 
-- **Gli oggetti cambiano posto**: munizioni, erbe, nastri, pugnali… Le chiavi e gli oggetti della missione
-  restano dove sono, quindi la partita si può sempre finire.
+- **Gli oggetti cambiano posto**: munizioni, erbe, nastri, pugnali… e, se vuoi, anche **le chiavi e gli oggetti
+  degli enigmi**, con una logica che rende la partita sempre completabile.
 - **Un'app semplice**: installa il randomizer, scegli le opzioni, genera un seed ed è fatta. Un clic riporta
   il gioco originale.
 - **Nient'altro da installare**: una piccola DLL si carica con il gioco e fa il lavoro. Il codice del gioco non
@@ -41,12 +41,16 @@ tempi o strategie.
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_en.png" alt="Genera un seed" width="420"><br><sub>Genera un seed: opzioni e scelta delle armi</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Genera un seed" width="420"><br><sub>Genera un seed: chiavi e oggetti degli enigmi</sub></td>
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installazione" width="420"><br><sub>Installazione: la DLL in un clic</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_en.png" alt="Personaggio e difficoltà: quale risposta scegliere nel gioco" width="420"><br><sub>Personaggio e difficoltà: quale risposta scegliere nel gioco</sub></td>
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: l'elenco completo delle modifiche</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="../images/appli_options_en.png" alt="Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi" width="420"><br><sub>Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi</sub></td>
+<td align="center"><img src="../images/appli_armes_en.png" alt="Armi: armi casuali, arma e coltello iniziali, borraccia" width="420"><br><sub>Armi: armi casuali, arma e coltello iniziali, borraccia</sub></td>
 </tr>
 </table>
 
@@ -55,10 +59,12 @@ tempi o strategie.
 | Disponibile | In arrivo |
 |---|---|
 | Chris, difficoltà Facile (tutto il gioco rilevato, laboratorio compreso) | Jill, altre difficoltà |
-| 164 punti: munizioni (pistola, fucile e magnum), erbe verdi, rosse e blu, nastri, pugnali, granate accecanti, pistola per autodifesa, spray e kit di pronto soccorso | Chiavi e oggetti della missione (con una logica che mantiene la partita completabile) |
-| **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima; opzione **Baule iniziale casuale** | Oggetti della missione visibili e oggetti ottenuti esaminando qualcosa (gemme dei trofei, amo…: già gestiti dalla DLL), con le chiavi |
-| Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'inizio, con le sue munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!) | Altre armi (lanciagranate, lanciafiamme), nemici casuali, porte casuali |
-| Sezione **Divertimento**: **armi bonus** (Samurai Edge e lanciarazzi con munizioni illimitate) | — |
+| 164 posizioni: munizioni (pistola, fucile e magnum), erbe verdi, rosse e blu, nastri, pugnali, granate accecanti, pistola di autodifesa, spray e kit di pronto soccorso | — |
+| Opzioni **Chiavi casuali** e **Oggetti degli enigmi casuali**, **con logica**: la partita resta sempre completabile (una chiave non finisce mai dietro la porta che apre). Ogni oggetto si può spuntare o togliere; i 3 dischi MO uno per uno. Villa, cortile, residenza e laboratorio, enigmi compresi | Opzione *Senza logica*; il campione d'ape e l'esca senza amo (l'enigma dell'acquario si blocca se vengono spostati) |
+| **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima, anche gli oggetti lasciati cadere o rivelati durante la partita (collare del cane, stemmi della tomba), quelli ottenuti esaminando qualcosa (emblema del camino, amo) e quelli presi durante una breve scena; opzione **Baule iniziale casuale** | Indizi per stanza |
+| Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'avvio, con le munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!); veri modelli a terra per il coltello, la Samurai Edge e il lanciarazzi illimitati | Altre armi (lanciagranate, lanciafiamme), nemici casuali, porte casuali |
+| **Borraccia**: borraccia casuale (sempre trovabile) e borraccia già piena (2 cariche) | — |
+| Sezione **Divertimento**: **armi bonus** (Samurai Edge e lanciarazzi con munizioni illimitate) e **capsula di carburante già piena** (esplode se corri, vieni colpito o spari!). **Per i pazzi**: oggetti importanti nella serra, **razzi di segnalazione ovunque** | — |
 | Windows e **Steam Deck** (testato in gioco con Proton, anche su scheda SD); Linux | **[Archipelago](#archipelago-in-arrivo)** |
 
 **Versione del gioco richiesta**: il `bhd.exe` attuale di Steam (9.640.360 byte). L'app lo controlla; con
@@ -68,20 +74,21 @@ qualsiasi altra versione il randomizer resta inattivo e il gioco non viene tocca
 
 Il randomizer è già giocabile, ma c'è ancora molto in programma, più o meno in quest'ordine:
 
-1. **Chiavi casuali con logica**: anche chiavi e oggetti di missione mescolati, con la partita sempre completabile. È il prossimo grande passo (anche per *Senza logica* e Archipelago).
-2. **Jill**: rilevare tutti i suoi punti degli oggetti.
-3. **Altre difficoltà**: gli oggetti cambiano con la difficoltà.
-4. **Le altre armi**: lanciagranate e lanciafiamme.
-5. **Nemici casuali**.
-6. **Porte casuali**: ogni porta porta a un'altra stanza.
-7. **Archipelago**: multiworld con altri giochi.
+1. **Jill**: registrare tutte le sue posizioni e adattare la logica delle chiavi.
+2. **Altre difficoltà**: gli oggetti cambiano con la difficoltà.
+3. **Le altre armi**: lanciagranate e lanciafiamme.
+4. Opzione **Senza logica**: chiavi mescolate senza rete di sicurezza.
+5. **Indizi per stanza**.
+6. **Nemici casuali**.
+7. **Porte casuali**: ogni porta porta in un'altra stanza.
+8. **Archipelago**: multimondo con altri giochi.
 
 ## Archipelago (in arrivo)
 
 [Archipelago](https://archipelago.gg) è un randomizer multi-gioco: gli oggetti della tua partita possono finire
 nei giochi di altri giocatori (e viceversa), ognuno nel proprio gioco, contemporaneamente. Il supporto per
 Resident Evil HD Remaster è in preparazione: la scheda *Archipelago* dell'app mostra già il modulo di
-connessione (disattivato) e cosa resta da fare. Prima bisogna mescolare le chiavi con la logica.
+connessione (disattivato) e cosa resta da fare. Le chiavi con logica sono pronte dalla v0.9.8.
 
 ## Avanzamento dei rilevamenti
 
@@ -133,14 +140,17 @@ L'app ha sei schede e un selettore della lingua in alto a destra («Automatica»
 
 - **Installazione** — cartella del gioco, stato del randomizer e del seed installato, installare / aggiornare
   / disinstallare la DLL (e l'opzione di avvio su Steam Deck).
-- **Genera un seed** — con quattro sottoschede:
+- **Genera un seed** — con sette sottoschede:
   - *Personaggio e difficoltà*;
-  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale, armi casuali (con l'elenco delle armi), arma
-    garantita all'inizio (nell'inventario, con le sue munizioni; il suo posto riceve un oggetto a caso) e
-    coltello iniziale casuale; sotto, *Per i folli* (senza logica, in arrivo);
+  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale; sotto, *Per i pazzi* (senza logica, in arrivo;
+    oggetti importanti nella serra; razzi di segnalazione ovunque);
+  - *Armi*: armi casuali (con l'elenco delle armi), arma garantita all'inizio, coltello iniziale casuale; sotto, la
+    *Borraccia* (casuale, già piena);
+  - *Chiavi e oggetti degli enigmi*: chiavi e oggetti degli enigmi casuali, ognuno con il suo elenco (*Disco MO*
+    apre i 3 dischi);
   - *Nemici*: nemici casuali (in arrivo);
   - *Porte*: porte casuali, ogni porta porta a un'altra stanza (in arrivo);
-  - *Divertimento*: armi bonus (Samurai Edge, lanciarazzi o entrambi);
+  - *Divertimento*: armi bonus (Samurai Edge, lanciarazzi o entrambi) e capsula di carburante già piena;
   - **Genera il seed**, con il seed (o «Casuale») accanto — stesso seed + stesse opzioni = stesso risultato.
 - **Spoiler** — l'elenco completo delle modifiche in una tabella, con ricerca e ordinamento, nascosto finché
   non spunti *Mostra lo spoiler*.

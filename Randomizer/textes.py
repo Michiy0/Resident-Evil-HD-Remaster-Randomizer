@@ -293,6 +293,103 @@ T = {
                         "Случайные ключи", "随机钥匙"),
     "ennemis_aleatoires": ("Ennemis aléatoires", "Random enemies", "敵もランダム", "Enemigos aleatorios",
                            "Inimigos aleatórios", "Случайные враги", "随机敌人"),
+    "carte_armes": ("Armes", "Weapons", "武器", "Armas", "Armas", "Оружие", "武器"),
+    "carte_cles": ("Clés et objets d'énigme", "Keys and puzzle items", "鍵と謎解きアイテム",
+                   "Llaves y objetos de puzle", "Chaves e itens de enigma", "Ключи и предметы для головоломок",
+                   "钥匙与谜题物品"),
+    "disque_mo_93": ("Statue du tigre (manoir)", "Tiger statue (mansion)", "虎の像（洋館）", "Estatua del tigre (mansión)",
+                     "Estátua do tigre (mansão)", "Статуя тигра (особняк)", "老虎雕像（洋馆）"),
+    "disque_mo_94": ("Escalier du labo", "Laboratory stairway", "研究所の階段", "Escalera del laboratorio",
+                     "Escada do laboratório", "Лестница лаборатории", "研究所楼梯"),
+    "disque_mo_95": ("Salle des données visuelles (labo)", "Visual data room (laboratory)", "映像資料室（研究所）",
+                     "Sala de datos visuales (laboratorio)", "Sala de dados visuais (laboratório)",
+                     "Комната видеоданных (лаборатория)", "影像资料室（研究所）"),
+    "carte_gourde": ("Gourde", "Fuel canteen", "水筒", "Cantimplora", "Cantil", "Фляга", "水壶"),
+    "gourde_aleatoire": ("Gourde aléatoire", "Random fuel canteen", "水筒もランダム", "Cantimplora aleatoria",
+                         "Cantil aleatório", "Случайная фляга", "随机水壶"),
+    "note_gourde_aleatoire": (
+        "La gourde (pour brûler les corps) est mélangée avec les objets.",
+        "The fuel canteen (to burn bodies) is shuffled with the items.",
+        "水筒（死体を燃やすため）がアイテムと一緒にシャッフルされます。",
+        "La cantimplora (para quemar cuerpos) se mezcla con los objetos.",
+        "O cantil (para queimar corpos) é embaralhado com os itens.",
+        "Фляга (чтобы сжигать тела) перемешивается с предметами.",
+        "水壶（用于烧毁尸体）会与物品一起打乱。"),
+    "gourde_remplie": ("Gourde remplie au ramassage", "Canteen already filled", "水筒を満タンで入手",
+                       "Cantimplora ya llena", "Cantil já cheio", "Фляга уже наполнена", "水壶拾取时已装满"),
+    "note_gourde_remplie": (
+        "La gourde contient déjà ses 2 charges de kérosène quand on la ramasse.",
+        "The canteen already holds its 2 charges of kerosene when you pick it up.",
+        "拾った時点で水筒に灯油が2回分入っています。",
+        "La cantimplora ya contiene sus 2 cargas de queroseno al recogerla.",
+        "O cantil já contém suas 2 cargas de querosene ao ser apanhado.",
+        "Когда вы подбираете флягу, в ней уже 2 заряда керосина.",
+        "拾取时水壶里已经有 2 次份的煤油。"),
+    "modeles_sol_ok": ("Modèles au sol du couteau et des armes infinies fabriqués à partir des fichiers du jeu.",
+                       "Ground models for the knife and the infinite weapons built from the game files.",
+                       "ナイフと無限武器の床置きモデルをゲームのファイルから作成しました。",
+                       "Modelos en el suelo del cuchillo y de las armas infinitas creados a partir de los archivos del juego.",
+                       "Modelos no chão da faca e das armas infinitas criados a partir dos arquivos do jogo.",
+                       "Модели ножа и бесконечного оружия на полу созданы из файлов игры.",
+                       "已根据游戏文件生成小刀和无限武器的地面模型。"),
+    "modeles_sol_err": ("Modèles au sol non fabriqués ({e}) : le couteau et les armes infinies garderont l'apparence d'un "
+                        "autre objet.",
+                        "Ground models not built ({e}): the knife and the infinite weapons will look like another item.",
+                        "床置きモデルを作成できませんでした（{e}）：ナイフと無限武器は別のアイテムの見た目になります。",
+                        "No se crearon los modelos en el suelo ({e}): el cuchillo y las armas infinitas tendrán el "
+                        "aspecto de otro objeto.",
+                        "Modelos no chão não criados ({e}): a faca e as armas infinitas terão a aparência de outro item.",
+                        "Модели на полу не созданы ({e}): нож и бесконечное оружие будут выглядеть как другой предмет.",
+                        "未能生成地面模型（{e}）：小刀和无限武器将显示为其他物品的外观。"),
+    "enigmes_aleatoires": ("Objets d'énigme aléatoires", "Random puzzle items", "謎解きアイテムもランダム",
+                           "Objetos de puzle aleatorios", "Itens de enigma aleatórios",
+                           "Случайные предметы для головоломок", "随机谜题物品"),
+    "note_enigmes_aleatoires": (
+        "Les objets d'énigme cochés (manivelles, masques, batterie, boîtes à bijoux…) sont mélangés avec les "
+        "objets. La partie reste toujours finissable. Décoche ceux qui doivent rester à leur place. Nouvelle "
+        "partie seulement.",
+        "The ticked puzzle items (cranks, masks, battery, jewelry boxes…) are shuffled with the items. The game "
+        "always stays finishable. Untick those that should stay in place. New game only.",
+        "チェックした謎解きアイテム（クランク、仮面、バッテリー、宝石箱など）がアイテムと一緒にシャッフルされます。"
+        "必ずクリアできます。元の場所に残すものはチェックを外してください。ニューゲームのみ。",
+        "Los objetos de puzle marcados (manivelas, máscaras, batería, joyeros…) se mezclan con los objetos. La "
+        "partida siempre se puede terminar. Desmarca los que deben quedarse en su sitio. Solo en partida nueva.",
+        "Os itens de enigma marcados (manivelas, máscaras, bateria, porta-joias…) são embaralhados com os itens. O "
+        "jogo sempre pode ser concluído. Desmarque os que devem ficar no lugar. Só em um novo jogo.",
+        "Отмеченные предметы для головоломок (рукоятки, маски, батарея, шкатулки…) перемешиваются с предметами. "
+        "Игру всегда можно пройти. Снимите отметку с тех, что должны остаться на месте. Только для новой игры.",
+        "勾选的谜题物品（摇柄、面具、电池、首饰盒等）会与物品一起打乱。游戏始终可以通关。取消勾选应保持原位的物品。"
+        "仅限新游戏。"),
+    "note_cles_aleatoires": (
+        "Les clés du manoir (épée, armure, bouclier, casque, les 5 vieilles clés) et de la résidence (salles 001 et 003, "
+        "galerie, salle de contrôle), ainsi que la clé zone haute tension du labo, sont mélangées avec les objets. La partie reste toujours finissable : une clé "
+        "n'est jamais cachée derrière la porte qu'elle ouvre. Décoche celles qui doivent rester à leur "
+        "place. Nouvelle partie seulement.",
+        "The mansion keys (Sword, Armor, Shield, Helmet, the 5 Old Keys) and the residence keys (rooms 001 and 003, Gallery, "
+        "Control Room), as well as the lab's Power Area key, are shuffled with the items. The game always stays finishable: a key is never hidden behind "
+        "the door it opens. Untick those that should stay in place. New game only.",
+        "洋館の鍵（剣、鎧、盾、兜、古い鍵5本）と寮の鍵（001号室・003号室、ギャラリー、制御室）、研究所の高圧電流区域の鍵がアイテムと一緒に"
+        "シャッフルされます。必ずクリアできます：鍵がその鍵で開く扉の奥に隠れることはありません。元の場所に残す鍵は"
+        "チェックを外してください。ニューゲームのみ。",
+        "Las llaves de la mansión (espada, armadura, escudo, casco, las 5 llaves viejas) y de la residencia (salas 001 y 003, "
+        "galería, sala de control), así como la llave de la zona de alta tensión del laboratorio, se mezclan con los objetos. La partida siempre se puede terminar: una llave nunca "
+        "queda detrás de la puerta que abre. Desmarca las que deben quedarse en su sitio. Solo en "
+        "partida nueva.",
+        "As chaves da mansão (espada, armadura, escudo, elmo, as 5 chaves velhas) e da residência (salas 001 e 003, galeria, "
+        "sala de controle), além da chave da área de alta tensão do laboratório, são embaralhadas com os itens. O jogo sempre pode ser concluído: uma chave nunca fica "
+        "atrás da porta que ela abre. Desmarque as que devem ficar no lugar. Só em um novo jogo.",
+        "Ключи особняка (меча, доспехов, щита, шлема, 5 старых ключей) и общежития (комнаты 001 и 003, галерея, "
+        "диспетчерская), а также ключ от зоны высокого напряжения в лаборатории, перемешиваются с предметами. Игру всегда можно пройти: ключ никогда не лежит за дверью, "
+        "которую он открывает. Снимите отметку с тех, что должны остаться на месте. Только для новой игры.",
+        "洋馆钥匙（剑、盔甲、盾牌、头盔、5 把旧钥匙）和宿舍钥匙（001 和 003 号房、画廊、控制室）以及研究所的高压电区钥匙会与物品一起打乱。游戏"
+        "始终可以通关：钥匙绝不会藏在它所打开的门后面。取消勾选应保持原位的钥匙。仅限新游戏。"),
+    "gen_cles_echec": ("Impossible de placer les clés pour cette graine : essaie une autre graine.",
+                       "Could not place the keys for this seed: try another seed.",
+                       "このシードでは鍵を配置できません：別のシードを試してください。",
+                       "No se pudieron colocar las llaves con esta semilla: prueba otra.",
+                       "Não foi possível posicionar as chaves com esta seed: tente outra.",
+                       "Не удалось расставить ключи для этого сида: попробуйте другой.",
+                       "无法为此种子放置钥匙：请换一个种子。"),
     "role_releves": ("Tests et relevés des objets", "Testing and item surveys", "テストとアイテム調査",
                      "Pruebas y registro de objetos", "Testes e levantamento dos itens",
                      "Тестирование и сбор предметов", "测试与物品记录"),
@@ -301,28 +398,80 @@ T = {
     "serre_dangereuse": ("Objets importants dans la serre", "Important items in the greenhouse",
                          "温室に重要なアイテム", "Objetos importantes en el invernadero",
                          "Itens importantes na estufa", "Важные предметы в оранжерее", "温室里的重要物品"),
+    "capsule_pleine": ("Capsule de carburant pleine au ramassage", "Fuel capsule already full",
+                       "燃料カプセルを満タンで入手", "Cápsula de combustible ya llena", "Cápsula de combustível já cheia",
+                       "Топливная капсула уже заполнена", "燃料舱拾取时已装满"),
+    "note_capsule_pleine": (
+        "Normalement, la capsule de carburant du labo est vide et on la remplit sur place. Coché : elle est déjà pleine "
+        "quand on la ramasse. Attention : si tu cours, si tu te fais attaquer ou si tu tires en l'ayant sur toi, elle "
+        "explose (mort immédiate). Range-la vite dans une malle et marche jusqu'au générateur du labo.",
+        "Normally, the lab's fuel capsule is empty and you fill it on site. Ticked: it is already full when you pick it "
+        "up. Careful: if you run, get attacked or shoot while carrying it, it explodes (instant death). Put it in an "
+        "item box quickly and walk to the lab's generator.",
+        "通常、研究所の燃料カプセルは空で、その場で満タンにします。オン：拾った時点で満タンです。注意：持ったまま"
+        "走る、攻撃を受ける、撃つと爆発します（即死）。すぐにアイテムボックスにしまい、研究所の発電機まで歩いて"
+        "運びましょう。",
+        "Normalmente, la cápsula de combustible del laboratorio está vacía y se llena allí. Marcado: ya está llena al "
+        "recogerla. Cuidado: si corres, te atacan o disparas llevándola, explota (muerte inmediata). Guárdala pronto en "
+        "un baúl y camina hasta el generador del laboratorio.",
+        "Normalmente, a cápsula de combustível do laboratório está vazia e é enchida lá. Marcado: ela já está cheia ao "
+        "ser apanhada. Cuidado: se você correr, for atacado ou atirar com ela, ela explode (morte imediata). Guarde-a "
+        "logo num baú e ande até o gerador do laboratório.",
+        "Обычно топливная капсула лаборатории пуста, и её заправляют на месте. Включено: она уже заполнена, когда вы "
+        "её подбираете. Осторожно: если бежать, получить удар или стрелять, имея её при себе, она взрывается "
+        "(мгновенная смерть). Скорее уберите её в сундук и идите шагом к генератору лаборатории.",
+        "通常，研究所的燃料舱是空的，需要在那里装满。勾选后：拾取时它已经装满。注意：携带它时奔跑、被攻击或开枪，"
+        "它会爆炸（立即死亡）。尽快把它放进物品箱，然后步行到研究所的发电机。"),
+    "fusees_aleatoires": ("Fusées de signalisation n'importe où", "Signal rockets anywhere",
+                          "信号弾をどこにでも", "Bengalas en cualquier lugar", "Sinalizadores em qualquer lugar",
+                          "Сигнальные ракеты где угодно", "信号弹随机放置"),
+    "note_fusees_aleatoires": (
+        "Normalement, les fusées de signalisation, qui servent à appeler l'hélicoptère à la toute fin, sont posées "
+        "sur l'héliport. Coché : elles sont placées n'importe où dans le jeu (manoir, résidence, souterrains, labo…) "
+        "et il faut les trouver avant d'aller à l'héliport. Sur l'héliport, ramasse l'objet posé à leur place : tant "
+        "que tu ne l'as pas pris, les fusées ne marchent pas.",
+        "Normally, the signal rockets, used to call the helicopter at the very end, lie on the heliport. Ticked: they "
+        "are placed anywhere in the game (mansion, residence, caves, lab…) and you must find them before going to the "
+        "heliport. On the heliport, pick up the item lying in their place: until you take it, the rockets don't work.",
+        "通常、最後にヘリを呼ぶための信号弾はヘリポートに置かれています。オン：信号弾はゲーム内のどこか（洋館、寄宿舎、"
+        "地下洞窟、研究所…）に置かれ、ヘリポートに行く前に見つける必要があります。ヘリポートでは、信号弾の代わりに"
+        "置かれたアイテムを拾ってください：拾うまで信号弾は使えません。",
+        "Normalmente, las bengalas, que sirven para llamar al helicóptero al final, están en el helipuerto. Marcado: "
+        "se colocan en cualquier lugar del juego (mansión, residencia, cuevas, laboratorio…) y hay que encontrarlas "
+        "antes de ir al helipuerto. En el helipuerto, recoge el objeto que hay en su lugar: hasta que lo cojas, las "
+        "bengalas no funcionan.",
+        "Normalmente, os sinalizadores, que servem para chamar o helicóptero no final, ficam no heliporto. Marcado: "
+        "eles são colocados em qualquer lugar do jogo (mansão, residência, cavernas, laboratório…) e é preciso "
+        "achá-los antes de ir ao heliporto. No heliporto, pegue o item deixado no lugar deles: enquanto não pegá-lo, "
+        "os sinalizadores não funcionam.",
+        "Обычно сигнальные ракеты, которыми в самом конце вызывают вертолёт, лежат на вертолётной площадке. "
+        "Включено: они спрятаны где угодно в игре (особняк, общежитие, пещеры, лаборатория…), и их нужно найти до "
+        "того, как идти на площадку. На площадке подберите предмет, лежащий на их месте: пока вы его не возьмёте, "
+        "ракеты не работают.",
+        "通常，最后用来呼叫直升机的信号弹放在直升机坪上。勾选后：它们会被放在游戏中的任意位置（洋馆、宿舍、地下洞窟、"
+        "研究所…），必须在前往直升机坪之前找到。在直升机坪上，捡起放在它们原位置的物品：捡起之前，信号弹无法使用。"),
     "note_serre_dangereuse": (
         "Dans la serre, si on ouvre le mauvais tuyau, les plantes meurent : les objets mélangés à la place des "
-        "plantes peuvent alors être détruits. Coché : n'importe quel objet peut remplacer une plante, armes "
-        "comprises (et plus tard les clés). Décoché : seuls des objets ordinaires (herbes, munitions…) remplacent "
+        "plantes peuvent alors être détruits. Coché : n'importe quel objet peut remplacer une plante, armes, "
+        "clés et objets d'énigme compris. Décoché : seuls des objets ordinaires (herbes, munitions…) remplacent "
         "les plantes.",
         "In the greenhouse, opening the wrong pipe kills the plants: the shuffled items placed instead of the plants "
-        "can then be destroyed. Ticked: any item can replace a plant, weapons included (and later keys). Unticked: "
+        "can then be destroyed. Ticked: any item can replace a plant, weapons, keys and puzzle items included. Unticked: "
         "only ordinary items (herbs, ammo…) replace the plants.",
         "温室で間違ったパイプを開けると植物が枯れ、植物の代わりに置かれたアイテムが失われることがあります。オン："
-        "武器を含むどのアイテムも植物の代わりになります（今後は鍵も）。オフ：植物の代わりになるのは普通のアイテム"
+        "武器、鍵、謎解きアイテムを含むどのアイテムも植物の代わりになります。オフ：植物の代わりになるのは普通のアイテム"
         "（ハーブ、弾薬など）だけです。",
         "En el invernadero, si abres la tubería equivocada, las plantas mueren: los objetos mezclados que sustituyen a "
-        "las plantas pueden destruirse. Marcada: cualquier objeto puede sustituir a una planta, armas incluidas (y más "
-        "adelante las llaves). Sin marcar: solo objetos normales (hierbas, munición…) sustituyen a las plantas.",
+        "las plantas pueden destruirse. Marcada: cualquier objeto puede sustituir a una planta, armas, llaves y "
+        "objetos de puzle incluidos. Sin marcar: solo objetos normales (hierbas, munición…) sustituyen a las plantas.",
         "Na estufa, abrir o cano errado mata as plantas: os itens embaralhados colocados no lugar das plantas podem "
-        "então ser destruídos. Marcada: qualquer item pode substituir uma planta, armas incluídas (e mais tarde as "
-        "chaves). Desmarcada: só itens comuns (ervas, munição…) substituem as plantas.",
+        "então ser destruídos. Marcada: qualquer item pode substituir uma planta, armas, chaves e "
+        "itens de enigma incluídos. Desmarcada: só itens comuns (ervas, munição…) substituem as plantas.",
         "Если в оранжерее открыть не ту трубу, растения погибнут, и предметы, поставленные вместо растений, могут "
-        "исчезнуть. Включено: растение может заменить любой предмет, включая оружие (а позже и ключи). Выключено: "
+        "исчезнуть. Включено: растение может заменить любой предмет, включая оружие, ключи и предметы для головоломок. Выключено: "
         "растения заменяют только обычные предметы (травы, патроны…).",
-        "在温室里打开错误的管道会让植物枯死，取代植物的随机物品可能因此被毁。勾选：任何物品都可能取代植物，包括武器"
-        "（以后还有钥匙）。不勾选：只有普通物品（草药、弹药等）会取代植物。"),
+        "在温室里打开错误的管道会让植物枯死，取代植物的随机物品可能因此被毁。勾选：任何物品都可能取代植物，包括武器、钥匙"
+        "和谜题物品。不勾选：只有普通物品（草药、弹药等）会取代植物。"),
     "partie_nouvelle": ("Nouvelle partie", "New game", "ニューゲーム", "Partida nueva", "Novo jogo", "Новая игра",
                         "新游戏"),
     "note_partie_nouvelle": ("Réponse à « Quel est votre style de jeu ? »",
@@ -1072,16 +1221,72 @@ ALLEMAND_ITALIEN = {
     'carte_ennemis': ('Gegner',
                       'Nemici'),
     'carte_portes': ('Türen', 'Porte'),
+    'carte_armes': ('Waffen', 'Armi'),
+    'carte_cles': ('Schlüssel und Rätselgegenstände', 'Chiavi e oggetti degli enigmi'),
+    'carte_gourde': ('Feldflasche', 'Borraccia'),
+    'disque_mo_93': ('Tigerstatue (Villa)', 'Statua della tigre (villa)'),
+    'disque_mo_94': ('Treppe des Labors', 'Scala del laboratorio'),
+    'disque_mo_95': ('Raum der Bilddaten (Labor)', 'Sala dei dati visivi (laboratorio)'),
+    'gourde_aleatoire': ('Zufällige Feldflasche', 'Borraccia casuale'),
+    'note_gourde_aleatoire': ('Die Feldflasche (zum Verbrennen von Leichen) wird mit den Gegenständen gemischt.',
+                              'La borraccia (per bruciare i corpi) viene mescolata con gli oggetti.'),
+    'gourde_remplie': ('Feldflasche schon gefüllt', 'Borraccia già piena'),
+    'note_gourde_remplie': ('Die Feldflasche enthält beim Aufheben schon ihre 2 Ladungen Kerosin.',
+                            'La borraccia contiene già le sue 2 cariche di cherosene quando la raccogli.'),
+    'modeles_sol_ok': ('Bodenmodelle für das Messer und die unendlichen Waffen aus den Spieldateien erstellt.',
+                       'Modelli a terra del coltello e delle armi infinite creati dai file del gioco.'),
+    'modeles_sol_err': ('Bodenmodelle nicht erstellt ({e}): Das Messer und die unendlichen Waffen sehen wie ein anderer '
+                        'Gegenstand aus.',
+                        "Modelli a terra non creati ({e}): il coltello e le armi infinite avranno l'aspetto di un altro "
+                        "oggetto."),
+    'enigmes_aleatoires': ('Zufällige Rätselgegenstände', 'Oggetti degli enigmi casuali'),
+    'note_enigmes_aleatoires': ('Die angehakten Rätselgegenstände (Kurbeln, Masken, Batterie, Schmuckkästchen…) '
+                                'werden mit den Gegenständen gemischt. Das Spiel bleibt immer schaffbar. Hake die ab, '
+                                'die an ihrem Platz bleiben sollen. Nur bei einem neuen Spiel.',
+                                'Gli oggetti degli enigmi selezionati (manovelle, maschere, batteria, portagioie…) '
+                                'vengono mescolati con gli oggetti. La partita resta sempre completabile. Deseleziona '
+                                'quelli che devono restare al loro posto. Solo in una nuova partita.'),
+    'note_cles_aleatoires': ('Die Schlüssel des Herrenhauses (Schwert, Rüstung, Schild, Helm, die 5 alten Schlüssel) und der '
+                             'Unterkunft (Räume 001 und 003, Galerie, Kontrollraum) sowie der Schlüssel für den Hochspannungsbereich im Labor werden mit den Gegenständen '
+                             'gemischt. Das Spiel bleibt immer schaffbar: Ein Schlüssel liegt nie hinter der Tür, die '
+                             'er öffnet. Hake die ab, die an ihrem Platz bleiben sollen. '
+                             'Nur bei einem neuen Spiel.',
+                             'Le chiavi della villa (spada, armatura, scudo, elmo, le 5 chiavi vecchie) e della residenza '
+                             '(stanze 001 e 003, galleria, sala di controllo), oltre alla chiave della zona ad alta tensione del laboratorio, vengono mescolate con gli oggetti. La '
+                             'partita resta sempre completabile: una chiave non è mai dietro la porta che apre. Deseleziona '
+                             'quelle che devono restare al loro posto. Solo in una nuova partita.'),
+    'gen_cles_echec': ('Die Schlüssel konnten für diesen Seed nicht platziert werden: Versuche einen anderen.',
+                       'Impossibile piazzare le chiavi con questo seed: provane un altro.'),
     'role_beta': ('Betatester', 'Beta tester'),
     'role_releves': ('Tests und Erfassung der Gegenstände', 'Test e rilevamento degli oggetti'),
     'serre_dangereuse': ('Wichtige Gegenstände im Gewächshaus', 'Oggetti importanti nella serra'),
+    'capsule_pleine': ('Treibstoffkapsel schon voll', 'Capsula di carburante già piena'),
+    'note_capsule_pleine': ('Normalerweise ist die Treibstoffkapsel im Labor leer und wird dort gefüllt. Aktiviert: '
+                            'Sie ist beim Aufheben schon voll. Achtung: Wenn du rennst, angegriffen wirst oder '
+                            'schießt, während du sie trägst, explodiert sie (sofortiger Tod). Leg sie schnell in eine '
+                            'Truhe und geh zu Fuß zum Generator im Labor.',
+                            "Normalmente la capsula di carburante del laboratorio è vuota e si riempie sul posto. "
+                            "Attivato: è già piena quando la raccogli. Attenzione: se corri, vieni attaccato o spari "
+                            "mentre la porti, esplode (morte immediata). Mettila subito in un baule e cammina fino al "
+                            "generatore del laboratorio."),
+    'fusees_aleatoires': ('Signalraketen überall', 'Razzi di segnalazione ovunque'),
+    'note_fusees_aleatoires': ('Normalerweise liegen die Signalraketen, mit denen man ganz am Ende den Hubschrauber '
+                               'ruft, auf dem Hubschrauberlandeplatz. Aktiviert: Sie werden irgendwo im Spiel '
+                               'platziert (Villa, Wohnheim, Höhlen, Labor…), und du musst sie finden, bevor du zum '
+                               'Landeplatz gehst. Heb auf dem Landeplatz den Gegenstand auf, der an ihrer Stelle '
+                               'liegt: Solange du ihn nicht genommen hast, funktionieren die Raketen nicht.',
+                               "Normalmente i razzi di segnalazione, che servono a chiamare l'elicottero alla fine, "
+                               "si trovano sull'eliporto. Attivato: vengono messi in un punto qualsiasi del gioco "
+                               "(villa, residenza, grotte, laboratorio…) e devi trovarli prima di andare "
+                               "all'eliporto. Sull'eliporto, raccogli l'oggetto messo al loro posto: finché non lo "
+                               "prendi, i razzi non funzionano."),
     'note_serre_dangereuse': ('Öffnet man im Gewächshaus das falsche Rohr, sterben die Pflanzen: Die gemischten '
                               'Gegenstände an Stelle der Pflanzen können dann zerstört werden. Aktiviert: Jeder '
-                              'Gegenstand kann eine Pflanze ersetzen, Waffen inklusive (und später Schlüssel). '
+                              'Gegenstand kann eine Pflanze ersetzen, Waffen, Schlüssel und Rätselgegenstände inklusive. '
                               'Deaktiviert: Nur gewöhnliche Gegenstände (Kräuter, Munition…) ersetzen die Pflanzen.',
                               'Nella serra, aprendo il tubo sbagliato le piante muoiono: gli oggetti mescolati al '
                               'posto delle piante possono quindi essere distrutti. Attivata: qualsiasi oggetto può '
-                              'sostituire una pianta, armi comprese (e più avanti le chiavi). Disattivata: solo '
+                              'sostituire una pianta, armi, chiavi e oggetti degli enigmi compresi. Disattivata: solo '
                               'oggetti comuni (erbe, munizioni…) sostituiscono le piante.'),
     'partie_nouvelle': ('Neues Spiel', 'Nuova partita'),
     'note_partie_nouvelle': ('Antwort auf die Frage nach deinem Spielstil', 'Risposta alla domanda sul tuo stile di gioco'),

@@ -2,7 +2,7 @@
 <rect width="800" height="440" rx="14" fill="#15171c"/>
 <rect x="8" y="8" width="784" height="424" rx="10" fill="#1e2128" stroke="#2c313b"/>
 <text x="28" y="44" font-size="20" font-weight="700" fill="#e7e9ee">Survey progress</text>
-<text x="28" y="66" font-size="12" fill="#8a909c">Rooms surveyed in a new game, out of 118 rooms · updated 2026-11-22</text>
+<text x="28" y="66" font-size="12" fill="#8a909c">Rooms surveyed in a new game, out of 118 rooms · updated 2026-11-27</text>
 <rect x="548" y="36" width="12" height="12" rx="3" fill="#b3262e"/><text x="566" y="46" font-size="12" fill="#8a909c">complete</text>
 <rect x="640" y="36" width="12" height="12" rx="3" fill="#5a2a2e"/><text x="658" y="46" font-size="12" fill="#8a909c">game in progress</text>
 <text x="28" y="92" font-size="14" font-weight="700" fill="#e7e9ee">Chris</text>

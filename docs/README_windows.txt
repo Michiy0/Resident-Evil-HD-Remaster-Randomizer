@@ -8,7 +8,7 @@ INSTALLING (only once)
    If Windows shows "Windows protected your PC": click "More info", then "Run anyway"
    (the exe is not signed).
 2. Check that the game folder is the right one (otherwise "Browse…").
-   If an orange message mentions an "unsupported version", your game is not the current
+   If a red message mentions an "unsupported version", your game is not the current
    Steam version: the randomizer stays inactive.
 3. Click "Install the DLL".
 

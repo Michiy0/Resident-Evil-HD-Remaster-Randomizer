@@ -18,8 +18,8 @@ or strategies.
 
 ## In short
 
-- **Items change places**: ammo, herbs, ink ribbons, daggers… Keys and quest items stay where they are,
-  so the game is always completable.
+- **Items change places**: ammo, herbs, ink ribbons, daggers… and, if you want, **keys and puzzle items**
+  too, with logic that keeps the game always completable.
 - **A simple app**: install the randomizer, choose your options, generate a seed, and you're ready. One
   click brings back the original game.
 - **Nothing else to install**: a small DLL loads with the game and does the work. The game's code is never
@@ -37,24 +37,30 @@ or strategies.
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_en.png" alt="Generate a seed: options and weapon choice" width="420"><br><sub>Generate a seed: options and weapon choice</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Generate a seed: keys and puzzle items" width="420"><br><sub>Generate a seed: keys and puzzle items</sub></td>
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installation: the DLL in one click" width="420"><br><sub>Installation: the DLL in one click</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_en.png" alt="Character and difficulty: which answer to pick in the game" width="420"><br><sub>Character and difficulty: which answer to pick in the game</sub></td>
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
 </tr>
+<tr>
+<td align="center"><img src="../images/appli_options_en.png" alt="Options: items visible on the ground, starting item box, and the options for the crazy ones" width="420"><br><sub>Options: items visible on the ground, starting item box, and the options for the crazy ones</sub></td>
+<td align="center"><img src="../images/appli_armes_en.png" alt="Weapons: random weapons, starting weapon and knife, fuel canteen" width="420"><br><sub>Weapons: random weapons, starting weapon and knife, fuel canteen</sub></td>
+</tr>
 </table>
 
-## Status: version 0.9.7.5 (test)
+## Status: version 0.9.8 (test)
 
 | Supported | Coming |
 |---|---|
 | Chris, Easy difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
-| 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | Keys and quest items (with logic that keeps the game completable) |
-| **Items visible on the ground**: the new item appears in the room and in the preview before pickup; **random starting item box** option (also in *Once Again*); **Closet Key from the start** option | Visible quest items and items obtained by examining something (trophy gems, fish hook…: already supported by the game DLL, name and preview included), with keys |
-| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!) | The other weapons (grenade launcher, flamethrower), random enemies, random doors |
-| **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) | — |
+| 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | — |
+| **Random keys** and **random puzzle items** options, **with logic**: the game always stays completable (a key never ends up behind the door it opens). Each key and puzzle item can be ticked or unticked; the 3 MO disks can be chosen one by one. Mansion, courtyard, residence and laboratory, including puzzles (tiger statue, dog collar, grave crests, fish tank, insecticide, slide filter, MO terminals, fuse, fuel capsule…) | The *No logic* option; the bee specimen and the hookless lure of the fish tank puzzle (the puzzle locks up if they are moved, so they stay in place) |
+| **Items visible on the ground**: the new item appears in the room and in the preview before pickup, including items dropped or revealed during the game (dog collar, grave crests), items obtained by examining something (fireplace emblem, fish hook) and items taken during a short scene (fuel capsule machine, Enrico's room); **random starting item box** option (also in *Once Again*); **Closet Key from the start** option | Per-room hints |
+| **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!); real ground models for the knife, the unlimited Samurai Edge and the unlimited rocket launcher | The other weapons (grenade launcher, flamethrower), random enemies, random doors |
+| **Fuel canteen**: random canteen (always findable) and canteen already filled (2 charges) | — |
+| **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) and **fuel capsule already full** (it explodes if you run, get hit or shoot!). **For the crazy ones**: important items in the greenhouse, **signal rockets anywhere** | — |
 | Windows and **Steam Deck** (tested in game under Proton, SD card included); Linux | **[Archipelago](#archipelago-coming-soon)** support |
 
 **Required game version**: the current Steam `bhd.exe` (9,640,360 bytes, SHA-256
@@ -65,17 +71,16 @@ version the randomizer stays inactive and the game is untouched.
 
 The randomizer is already playable, but a lot is still planned. Roughly in order:
 
-1. **Random keys with logic**: keys and quest items shuffled too, while the game always stays finishable (a key
-   never ends up behind the door it opens). This is the big next step: it also unlocks the *No logic* option and
-   Archipelago.
-2. **Jill**: survey all of her item locations (she has a bigger inventory, her own weapons and some different
-   items).
-3. **Other difficulties**: survey Very Easy, Normal and Hard (items change with the difficulty), and maybe set the
+1. **Jill**: survey all of her item locations (she has a bigger inventory, her own weapons and some different
+   items), and adapt the keys logic to her.
+2. **Other difficulties**: survey Very Easy, Normal and Hard (items change with the difficulty), and maybe set the
    difficulty automatically at the start of the game.
-4. **The other weapons**: grenade launcher and flamethrower (each one can only be used by one character).
-5. **Random enemies**: shuffle which enemies appear in each room.
-6. **Random doors**: each door leads to a different room than usual.
-7. **[Archipelago](#archipelago-coming-soon)**: play in a multiworld with other games.
+3. **The other weapons**: grenade launcher and flamethrower (each one can only be used by one character).
+4. **No logic** option: keys shuffled with no safety net, for the crazy ones.
+5. **Per-room hints**: optional hints about where the important items are.
+6. **Random enemies**: shuffle which enemies appear in each room.
+7. **Random doors**: each door leads to a different room than usual.
+8. **[Archipelago](#archipelago-coming-soon)**: play in a multiworld with other games.
 
 You can help right now by surveying item locations: see [Help the project](#help-the-project).
 
@@ -87,11 +92,10 @@ HD Remaster is being prepared.
 
 - **Already in the app**: an *Archipelago* tab with the connection form (server, player name, password,
   DeathLink), greyed out for now, and the list of what is left to do.
-- **Still to do**: keys and quest items shuffled with logic (this comes first), reporting each picked-up
-  location to the server, receiving other players' items (into the item box, then a waiting list when it is full), the game's Archipelago "world"
+- **Still to do**: reporting each picked-up location to the server, receiving other players' items (into the item box, then a waiting list when it is full), the game's Archipelago "world"
   (`.apworld` file: items, locations, rules) and sending the goal (ending) to the server.
 
-No date yet: the keys-with-logic step has to be finished first.
+No date yet. Keys and puzzle items with logic, the step it was waiting for, are done since v0.9.8.
 
 ## Survey progress
 
@@ -117,7 +121,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 | Jill | Hard | 0/118 (0%) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0%) | 0 | 0 |
 
-Bonus weapons: 2/2 identified. Updated 2026-11-22.
+Bonus weapons: 2/2 identified. Updated 2026-11-27.
 
 </details>
 
@@ -174,21 +178,26 @@ otherwise).
 
 - **Installation** — game folder, randomizer and installed seed status, install / update / uninstall the
   DLL (and the launch option on Steam Deck). The app opens here until the DLL is installed and up to date.
-- **Generate a seed** — unlocked once the DLL is in place, with five sub-tabs:
+- **Generate a seed** — unlocked once the DLL is in place, with seven sub-tabs:
   - *Character and difficulty*: the difficulty in two columns, *New game* (answer to the first question:
     I. Old school, II. Gamer, III. Casual) and *Once Again* (game already finished, difficulty picked by name;
     unlocked infinite weapons are not given, use *Bonus weapons* instead), and the *Closet Key from the start*
     option (the key to the costume room is in the item box from the start, and its door works);
   - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
-    pickup), random starting item box (ticked by default; new game only), random weapons (ticking it shows the weapon list; untick those that should stay in place) and
-    guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and random
-    starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon); below,
-    in its own card, *For the crazy ones*: no logic (coming soon) and important items in the greenhouse (opening
-    the wrong pipe there kills the plants and can destroy the items placed instead of them; unticked, only ordinary
-    items replace the plants);
+    pickup) and random starting item box (ticked by default; new game only); below, in its own card, *For the
+    crazy ones*: no logic (coming soon), important items in the greenhouse (opening the wrong pipe there kills the
+    plants and can destroy the items placed instead of them; unticked, only ordinary items replace the plants) and
+    signal rockets anywhere (to call the helicopter at the end, you must first pick up the item lying in their place
+    on the heliport);
+  - *Weapons*: random weapons (ticking it shows the weapon list; untick those that should stay in place),
+    guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and
+    random starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon);
+    below, the *Fuel canteen* card: random canteen and canteen already filled;
+  - *Keys and puzzle items*: random keys and random puzzle items, each with its list (untick an item to leave it
+    in place; *MO Disk* unfolds the 3 disks). The logic keeps the game completable;
   - *Enemies*: random enemies (coming soon);
   - *Doors*: random doors, each door leads to a different room (coming soon);
-  - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both);
+  - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both) and fuel capsule already full;
   - **Generate seed**, with the seed (or “Random”) next to it — same seed + same options = same result: writes
     the seed to the `seeds` folder and installs it in the game.
 - **Spoiler** — unlocked as soon as there is a seed: the full list of changes as a table (location, original
@@ -197,7 +206,7 @@ otherwise).
 - **Help the project** — survey mode and the progress bars (see below).
 - **Info** — the credits (author, testers, thanks) and a link to this page.
 
-Options marked “coming soon” (keys, enemies, other weapons, Archipelago…) are visible but greyed out.
+Options marked “coming soon” (no logic, enemies, doors, Archipelago…) are visible but greyed out.
 
 ### Compatibility
 
@@ -275,6 +284,8 @@ Randomizer/
   mise_a_jour.py              automatic update from the GitHub Releases
   noms_jeu.py                 official item names, read from the installed game's texts
   generateur_seed.py          seed generation (also command line)
+  logique_cles.py             keys and puzzle items logic (door map, puzzles, assumed fill)
+  modeles_sol.py              builds the ground models (knife, unlimited weapons) from the installed game's files
   importer_journal.py         imports survey logs into the spreadsheet
   progression.py              progress bars of this README
   textes.py                   all translations

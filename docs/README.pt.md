@@ -21,8 +21,8 @@ estratégias.
 
 ## Em resumo
 
-- **Os itens mudam de lugar**: munição, ervas, fitas, adagas… Chaves e itens de missão ficam onde estão, então
-  o jogo sempre pode ser terminado.
+- **Os itens mudam de lugar**: munição, ervas, fitas, adagas… e, se quiser, também **as chaves e os itens de
+  enigma**, com uma lógica que mantém o jogo sempre terminável.
 - **Um app simples**: instale o randomizer, escolha as opções, gere uma seed e pronto. Um clique traz de volta
   o jogo original.
 - **Nada mais para instalar**: uma pequena DLL é carregada com o jogo e faz o trabalho. O código do jogo nunca
@@ -40,12 +40,16 @@ estratégias.
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_en.png" alt="Gerar uma semente" width="420"><br><sub>Gerar uma semente: opções e escolha de armas</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Gerar uma semente" width="420"><br><sub>Gerar uma semente: chaves e itens de enigma</sub></td>
 <td align="center"><img src="../images/appli_installation_en.png" alt="Instalação" width="420"><br><sub>Instalação: a DLL em um clique</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_en.png" alt="Personagem e dificuldade: qual resposta escolher no jogo" width="420"><br><sub>Personagem e dificuldade: qual resposta escolher no jogo</sub></td>
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="../images/appli_options_en.png" alt="Opções: itens visíveis, baú inicial e opções para os loucos" width="420"><br><sub>Opções: itens visíveis, baú inicial e opções para os loucos</sub></td>
+<td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatórias, arma e faca iniciais, cantil" width="420"><br><sub>Armas: armas aleatórias, arma e faca iniciais, cantil</sub></td>
 </tr>
 </table>
 
@@ -54,10 +58,12 @@ estratégias.
 | Disponível | Em breve |
 |---|---|
 | Chris, dificuldade Fácil (jogo inteiro levantado, laboratório incluído) | Jill, outras dificuldades |
-| 164 locais: munição (pistola, espingarda e magnum), ervas verdes, vermelhas e azuis, fitas, adagas, granadas de luz, pistola de autodefesa, sprays e kits de primeiros socorros | Chaves e itens de missão (com uma lógica que mantém o jogo terminável) |
-| **Itens visíveis no chão**: o novo item aparece na sala e na prévia; opção **Baú inicial aleatório** | Itens de missão visíveis e itens obtidos ao examinar algo (gemas dos troféus, anzol…: já suportados pela DLL), com as chaves |
-| Opção **Armas aleatórias** (pistola, espingarda, espingarda de assalto, magnum) e **Arma garantida no início** (no inventário no início, com sua munição); opção **Faca inicial aleatória** (você pode começar sem arma!) | Outras armas (lança-granadas, lança-chamas), inimigos aleatórios, portas aleatórias |
-| Seção **Diversão**: **armas bônus** (Samurai Edge e lança-foguetes com munição ilimitada) | — |
+| 164 locais: munição (pistola, espingarda e magnum), ervas verdes, vermelhas e azuis, fitas, adagas, granadas de luz, pistola de autodefesa, sprays e kits de primeiros socorros | — |
+| Opções **Chaves aleatórias** e **Itens de enigma aleatórios**, **com lógica**: o jogo sempre pode ser terminado (uma chave nunca fica atrás da porta que abre). Cada item pode ser marcado ou desmarcado; os 3 discos MO um por um. Mansão, pátio, residência e laboratório, enigmas incluídos | Opção *Sem lógica*; o espécime de abelha e a isca sem anzol (o enigma do aquário trava se forem movidos) |
+| **Itens visíveis no chão**: o novo item aparece na sala e na prévia, inclusive itens largados ou revelados durante o jogo (coleira do cão, emblemas do túmulo), itens obtidos ao examinar algo (emblema da lareira, anzol) e itens pegos durante uma cena curta; opção **Baú inicial aleatório** | Dicas por sala |
+| Opção **Armas aleatórias** (pistola, espingarda, espingarda de assalto, magnum) e **Arma garantida no início** (no inventário ao começar, com munição); opção **Faca inicial aleatória** (você pode começar sem arma!); modelos reais no chão para a faca, a Samurai Edge e o lança-foguetes ilimitados | Outras armas (lança-granadas, lança-chamas), inimigos aleatórios, portas aleatórias |
+| **Cantil**: cantil aleatório (sempre encontrável) e cantil já cheio (2 cargas) | — |
+| Seção **Diversão**: **armas bônus** (Samurai Edge e lança-foguetes com munição ilimitada) e **cápsula de combustível já cheia** (explode se você correr, for atingido ou atirar!). **Para os loucos**: itens importantes na estufa, **sinalizadores em qualquer lugar** | — |
 | Windows e **Steam Deck** (testado no jogo com Proton, inclusive no cartão SD); Linux | **[Archipelago](#archipelago-em-breve)** |
 
 **Versão do jogo necessária**: o `bhd.exe` atual da Steam (9.640.360 bytes). O app verifica isso; com qualquer
@@ -67,20 +73,21 @@ outra versão o randomizer fica inativo e o jogo não é alterado.
 
 O randomizer já é jogável, mas ainda há muito planejado, mais ou menos nesta ordem:
 
-1. **Chaves aleatórias com lógica**: chaves e itens de missão também embaralhados, com o jogo sempre concluível. É o próximo grande passo (também para *Sem lógica* e Archipelago).
-2. **Jill**: levantar todos os locais de itens dela.
-3. **Outras dificuldades**: os itens mudam conforme a dificuldade.
-4. **As outras armas**: lança-granadas e lança-chamas.
-5. **Inimigos aleatórios**.
-6. **Portas aleatórias**: cada porta leva a outra sala.
-7. **Archipelago**: multiworld com outros jogos.
+1. **Jill**: registrar todos os seus locais de itens e adaptar a lógica das chaves.
+2. **Outras dificuldades**: os itens mudam com a dificuldade.
+3. **As outras armas**: lança-granadas e lança-chamas.
+4. Opção **Sem lógica**: chaves misturadas sem rede de segurança.
+5. **Dicas por sala**.
+6. **Inimigos aleatórios**.
+7. **Portas aleatórias**: cada porta leva a outra sala.
+8. **Archipelago**: multimundo com outros jogos.
 
 ## Archipelago (em breve)
 
 [Archipelago](https://archipelago.gg) é um randomizer multijogos: os itens do seu jogo podem ir parar nos jogos
 de outros jogadores (e vice-versa), cada um no seu próprio jogo, ao mesmo tempo. O suporte a Resident Evil HD
 Remaster está em preparação: a aba *Archipelago* do app já mostra o formulário de conexão (desativado) e o que
-falta fazer. Primeiro é preciso misturar as chaves com lógica.
+falta fazer. As chaves com lógica estão prontas desde a v0.9.8.
 
 ## Progresso do levantamento
 
@@ -133,14 +140,17 @@ O app tem seis abas e um seletor de idioma no canto superior direito (“Automá
 
 - **Instalação** — pasta do jogo, estado do randomizer e da seed instalada, instalar / atualizar /
   desinstalar a DLL (e a opção de inicialização no Steam Deck).
-- **Gerar uma semente** — com quatro subabas:
+- **Gerar uma semente** — com sete subabas:
   - *Personagem e dificuldade*;
-  - *Opções*: itens visíveis no chão, baú inicial aleatório, armas aleatórias (com a lista de armas), arma
-    garantida no início (no inventário, com sua munição; o local dela recebe um item aleatório) e faca inicial
-    aleatória; abaixo, *Para os loucos* (sem lógica, em breve);
+  - *Opções*: itens visíveis no chão, baú inicial aleatório; abaixo, *Para os loucos* (sem lógica, em breve;
+    itens importantes na estufa; sinalizadores em qualquer lugar);
+  - *Armas*: armas aleatórias (com a lista de armas), arma garantida no início, faca inicial aleatória; abaixo, o
+    *Cantil* (aleatório, já cheio);
+  - *Chaves e itens de enigma*: chaves e itens de enigma aleatórios, cada um com sua lista (*Disco MO* abre os
+    3 discos);
   - *Inimigos*: inimigos aleatórios (em breve);
   - *Portas*: portas aleatórias, cada porta leva a outra sala (em breve);
-  - *Diversão*: armas bônus (Samurai Edge, lança-foguetes ou os dois);
+  - *Diversão*: armas bônus (Samurai Edge, lança-foguetes ou os dois) e cápsula de combustível já cheia;
   - **Gerar a seed**, com a seed (ou “Aleatória”) ao lado — mesma seed + mesmas opções = mesmo resultado.
 - **Spoiler** — a lista completa de mudanças em uma tabela, com busca e ordenação, escondida até você marcar
   *Mostrar o spoiler*.

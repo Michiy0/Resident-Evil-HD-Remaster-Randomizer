@@ -22,8 +22,8 @@ oder Strategien zu vergleichen.
 
 ## Kurz gesagt
 
-- **Gegenstände wechseln den Platz**: Munition, Kräuter, Farbbänder, Dolche… Schlüssel und Questgegenstände
-  bleiben, wo sie sind, damit das Spiel immer schaffbar bleibt.
+- **Gegenstände wechseln den Platz**: Munition, Kräuter, Farbbänder, Dolche… und auf Wunsch auch **Schlüssel und
+  Rätselgegenstände**, mit einer Logik, die das Spiel immer schaffbar hält.
 - **Eine einfache App**: Randomizer installieren, Optionen wählen, Seed erstellen, fertig. Ein Klick bringt
   das Originalspiel zurück.
 - **Sonst nichts zu installieren**: Eine kleine DLL wird mit dem Spiel geladen und erledigt die Arbeit. Der
@@ -41,12 +41,16 @@ oder Strategien zu vergleichen.
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_en.png" alt="Seed erstellen" width="420"><br><sub>Seed erstellen: Optionen und Waffenwahl</sub></td>
+<td align="center"><img src="../images/appli_generer_en.png" alt="Seed erstellen" width="420"><br><sub>Seed erstellen: Schlüssel und Rätselgegenstände</sub></td>
 <td align="center"><img src="../images/appli_installation_en.png" alt="Installation" width="420"><br><sub>Installation: die DLL mit einem Klick</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_en.png" alt="Charakter und Schwierigkeit: welche Antwort im Spiel zu wählen ist" width="420"><br><sub>Charakter und Schwierigkeit: welche Antwort im Spiel zu wählen ist</sub></td>
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="../images/appli_options_en.png" alt="Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte" width="420"><br><sub>Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte</sub></td>
+<td align="center"><img src="../images/appli_armes_en.png" alt="Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche" width="420"><br><sub>Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche</sub></td>
 </tr>
 </table>
 
@@ -55,10 +59,12 @@ oder Strategien zu vergleichen.
 | Unterstützt | Demnächst |
 |---|---|
 | Chris, Schwierigkeit Leicht (ganzes Spiel erfasst, Labor inklusive) | Jill, weitere Schwierigkeitsgrade |
-| 164 Fundorte: Munition (Pistole, Gewehr, Magnum), grüne, rote und blaue Kräuter, Farbbänder, Dolche, Blendgranaten, Selbstverteidigungswaffe, Erste-Hilfe-Sprays und -Kästen | Schlüssel und Questgegenstände (mit einer Logik, die das Spiel schaffbar hält) |
-| **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau; Option **Zufällige Kiste am Start** | Sichtbare Questgegenstände und Gegenstände, die man durch Untersuchen erhält (Edelsteine der Trophäen, Angelhaken…: von der DLL bereits unterstützt), mit den Schlüsseln |
-| Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!) | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner, zufällige Türen |
-| Bereich **Spaß**: **Bonuswaffen** (Samurai Edge und Raketenwerfer mit unendlicher Munition) | — |
+| 164 Fundorte: Munition (Pistole, Gewehr, Magnum), grüne, rote und blaue Kräuter, Farbbänder, Dolche, Blendgranaten, Selbstverteidigungswaffe, Erste-Hilfe-Sprays und -Kästen | — |
+| Optionen **Zufällige Schlüssel** und **Zufällige Rätselgegenstände**, **mit Logik**: Das Spiel bleibt immer schaffbar (ein Schlüssel landet nie hinter der Tür, die er öffnet). Jeder Gegenstand lässt sich an- oder abwählen, die 3 MO-Disks einzeln. Villa, Hof, Wohnheim und Labor, Rätsel inklusive | Option *Ohne Logik*; Bienenpräparat und Köder ohne Haken (das Aquariumrätsel blockiert, wenn sie verschoben werden) |
+| **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau, auch fallengelassene oder enthüllte Gegenstände (Hundehalsband, Grabsymbole), untersuchte Gegenstände (Emblem am Kamin, Angelhaken) und in kurzen Szenen erhaltene; Option **Zufällige Kiste am Start** | Hinweise pro Raum |
+| Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!); echte Bodenmodelle für Messer, Samurai Edge und Raketenwerfer mit unendlicher Munition | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner, zufällige Türen |
+| **Feldflasche**: zufällige Feldflasche (immer auffindbar) und schon gefüllte Feldflasche (2 Ladungen) | — |
+| Bereich **Spaß**: **Bonuswaffen** (Samurai Edge und Raketenwerfer mit unendlicher Munition) und **schon volle Treibstoffkapsel** (sie explodiert, wenn du rennst, getroffen wirst oder schießt!). **Für Verrückte**: wichtige Gegenstände im Gewächshaus, **Signalraketen überall** | — |
 | Windows und **Steam Deck** (im Spiel unter Proton getestet, auch SD-Karte); Linux | **[Archipelago](#archipelago-demnächst)** |
 
 **Benötigte Spielversion**: die aktuelle Steam-`bhd.exe` (9.640.360 Bytes). Die App prüft das; bei jeder
@@ -68,21 +74,22 @@ anderen Version bleibt der Randomizer inaktiv und das Spiel unverändert.
 
 Der Randomizer ist schon spielbar, aber vieles ist noch geplant, ungefähr in dieser Reihenfolge:
 
-1. **Zufällige Schlüssel mit Logik**: Schlüssel und Questgegenstände werden mitgemischt, das Spiel bleibt immer schaffbar. Das ist der nächste große Schritt (auch für *Ohne Logik* und Archipelago).
-2. **Jill**: alle ihre Fundorte erfassen.
-3. **Weitere Schwierigkeitsgrade**: die Gegenstände ändern sich mit dem Schwierigkeitsgrad.
-4. **Die übrigen Waffen**: Granatwerfer und Flammenwerfer.
-5. **Zufällige Gegner**.
-6. **Zufällige Türen**: jede Tür führt in einen anderen Raum.
-7. **Archipelago**: Multiworld mit anderen Spielen.
+1. **Jill**: alle ihre Fundorte erfassen und die Schlüssellogik anpassen.
+2. **Weitere Schwierigkeitsgrade**: die Gegenstände ändern sich mit dem Schwierigkeitsgrad.
+3. **Die übrigen Waffen**: Granatwerfer und Flammenwerfer.
+4. Option **Ohne Logik**: Schlüssel ohne Sicherheitsnetz gemischt.
+5. **Hinweise pro Raum**.
+6. **Zufällige Gegner**.
+7. **Zufällige Türen**: jede Tür führt in einen anderen Raum.
+8. **Archipelago**: Multiworld mit anderen Spielen.
 
 ## Archipelago (demnächst)
 
 [Archipelago](https://archipelago.gg) ist ein Multi-Game-Randomizer: Die Gegenstände deines Spiels können in
 den Spielen anderer Spieler landen (und umgekehrt), jeder in seinem eigenen Spiel, gleichzeitig. Die
 Unterstützung für Resident Evil HD Remaster ist in Vorbereitung: Der Tab *Archipelago* der App zeigt bereits
-das (noch ausgegraute) Verbindungsformular und was noch zu tun ist. Zuerst müssen die Schlüssel mit Logik
-gemischt werden.
+das (noch ausgegraute) Verbindungsformular und was noch zu tun ist. Die Schlüssel mit Logik sind seit v0.9.8
+fertig.
 
 ## Fortschritt der Erfassung
 
@@ -136,14 +143,17 @@ Die App hat sechs Tabs und oben rechts eine Sprachauswahl („Automatisch“ = S
 
 - **Installation** — Spielordner, Status von Randomizer und installiertem Seed, DLL installieren /
   aktualisieren / deinstallieren (und die Startoption auf dem Steam Deck).
-- **Seed erstellen** — mit vier Untertabs:
+- **Seed erstellen** — mit sieben Untertabs:
   - *Charakter und Schwierigkeit*;
-  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start, Zufällige Waffen (mit Waffenliste),
-    Garantierte Startwaffe (ins Inventar, mit Munition; ihr Fundort erhält einen zufälligen Gegenstand) und
-    Zufälliges Startmesser; darunter *Für die Verrückten* (Ohne Logik, demnächst);
+  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start; darunter *Für Verrückte* (ohne Logik,
+    demnächst; wichtige Gegenstände im Gewächshaus; Signalraketen überall);
+  - *Waffen*: Zufällige Waffen (mit Waffenliste), Garantierte Startwaffe, Zufälliges Startmesser; darunter die
+    *Feldflasche* (zufällig, schon gefüllt);
+  - *Schlüssel und Rätselgegenstände*: zufällige Schlüssel und Rätselgegenstände, jeweils mit Liste (*MO-Disk*
+    klappt die 3 Disks auf);
   - *Gegner*: Zufällige Gegner (demnächst);
   - *Türen*: Zufällige Türen, jede Tür führt in einen anderen Raum (demnächst);
-  - *Spaß*: Bonuswaffen (Samurai Edge, Raketenwerfer oder beide);
+  - *Spaß*: Bonuswaffen (Samurai Edge, Raketenwerfer oder beide) und schon volle Treibstoffkapsel;
   - **Seed erstellen** mit dem Seed (oder „Zufällig“) daneben — gleicher Seed + gleiche Optionen = gleiches
     Ergebnis.
 - **Spoiler** — die vollständige Liste der Änderungen als Tabelle, mit Suche und Sortierung, verborgen, bis du

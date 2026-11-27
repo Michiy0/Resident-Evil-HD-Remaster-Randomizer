@@ -17,8 +17,8 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 
 ## En bref
 
-- **Les objets changent de place** : munitions, herbes, rubans encreurs, poignards… Les clés et objets de
-  quête restent à leur place, la partie reste toujours finissable.
+- **Les objets changent de place** : munitions, herbes, rubans encreurs, poignards… et, si tu veux, les
+  **clés et objets d'énigme** aussi, avec une logique qui garde la partie toujours finissable.
 - **On voit le nouvel objet** : il apparaît directement par terre dans le décor et dans l'aperçu avant
   ramassage (option « Objets visibles par terre »).
 - **Une application simple** : on installe le randomizer, on choisit ses options, on génère une seed, et
@@ -39,24 +39,30 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 
 <table>
 <tr>
-<td align="center"><img src="../images/appli_generer_fr.png" alt="Générer une seed : options et choix des armes" width="420"><br><sub>Générer une seed : options et choix des armes</sub></td>
+<td align="center"><img src="../images/appli_generer_fr.png" alt="Générer une seed : clés et objets d'énigme" width="420"><br><sub>Générer une seed : clés et objets d'énigme</sub></td>
 <td align="center"><img src="../images/appli_installation_fr.png" alt="Installation : la DLL en un clic" width="420"><br><sub>Installation : la DLL en un clic</sub></td>
 </tr>
 <tr>
 <td align="center"><img src="../images/appli_difficulte_fr.png" alt="Personnage et difficulté : quelle réponse choisir dans le jeu" width="420"><br><sub>Personnage et difficulté : quelle réponse choisir dans le jeu</sub></td>
 <td align="center"><img src="../images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
 </tr>
+<tr>
+<td align="center"><img src="../images/appli_options_fr.png" alt="Options : objets visibles par terre, malle de départ et options pour les fous" width="420"><br><sub>Options : objets visibles par terre, malle de départ et options pour les fous</sub></td>
+<td align="center"><img src="../images/appli_armes_fr.png" alt="Armes : armes aléatoires, arme et couteau de départ, gourde" width="420"><br><sub>Armes : armes aléatoires, arme et couteau de départ, gourde</sub></td>
+</tr>
 </table>
 
-## État : version 0.9.7.5 (test)
+## État : version 0.9.8 (test)
 
 | Pris en charge | À venir |
 |---|---|
 | Chris, difficulté Facile (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
-| 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | Clés et objets de quête (avec une logique qui garantit que la partie reste finissable) |
-| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage ; option **malle de départ aléatoire** (aussi en *Une fois de plus*) ; option **clé du placard dès le départ** | Objets de quête visibles et objets obtenus en examinant quelque chose (joyaux des trophées, hameçon… : déjà gérés par la DLL du jeu, nom et aperçu compris), avec les clés |
-| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires, portes aléatoires |
-| Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) | — |
+| 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | — |
+| Options **clés aléatoires** et **objets d'énigme aléatoires**, **avec logique** : la partie reste toujours finissable (une clé ne se retrouve jamais derrière la porte qu'elle ouvre). Chaque clé et chaque objet d'énigme se coche ou se décoche ; les 3 disques MO se choisissent un par un. Manoir, cour, résidence et laboratoire, énigmes comprises (statue du tigre, collier du chien, symboles de la tombe, aquarium, insecticide, filtre à diapos, terminaux MO, fusibles, capsule de carburant…) | L'option *Sans logique* ; le spécimen d'abeille et le leurre sans hameçon de l'énigme de l'aquarium (l'énigme se bloque s'ils sont déplacés : ils restent à leur place) |
+| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage, y compris les objets lâchés ou révélés pendant la partie (collier du chien, symboles de la tombe), les objets obtenus en examinant quelque chose (emblème de la cheminée, hameçon) et ceux pris pendant une petite scène (machine de la capsule, salle d'Enrico) ; option **malle de départ aléatoire** (aussi en *Une fois de plus*) ; option **clé du placard dès le départ** | Indices par pièce |
+| Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) ; vrais modèles au sol pour le couteau, le Samurai Edge illimité et le lance-roquettes illimité | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires, portes aléatoires |
+| **Gourde** : gourde aléatoire (toujours trouvable) et gourde remplie au ramassage (2 charges) | — |
+| Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) et **capsule de carburant pleine au ramassage** (elle explose si on court, si on se fait attaquer ou si on tire !). **Pour les fous** : objets importants dans la serre, **fusées de signalisation n'importe où** | — |
 | Windows et **Steam Deck** (testé en jeu sous Proton, carte SD comprise) ; Linux | Support d'**[Archipelago](#archipelago-à-venir)** |
 
 **Version du jeu requise** : la version Steam actuelle de `bhd.exe` (9 640 360 octets, SHA-256
@@ -67,17 +73,16 @@ autre version, le randomizer se met en veille et le jeu reste intact.
 
 Le randomizer est déjà jouable, mais il reste beaucoup de choses prévues. À peu près dans l'ordre :
 
-1. **Clés aléatoires avec logique** : les clés et objets de quête mélangés aussi, en gardant une partie toujours
-   finissable (une clé ne se retrouve jamais derrière la porte qu'elle ouvre). C'est la prochaine grosse étape :
-   elle débloque aussi l'option *Sans logique* et Archipelago.
-2. **Jill** : relever tous ses emplacements d'objets (inventaire plus grand, ses propres armes et quelques objets
-   différents).
-3. **Les autres difficultés** : relever Débutant, Normal et Expert (les objets changent selon la difficulté), et
+1. **Jill** : relever tous ses emplacements d'objets (inventaire plus grand, ses propres armes et quelques objets
+   différents), et adapter la logique des clés.
+2. **Les autres difficultés** : relever Débutant, Normal et Expert (les objets changent selon la difficulté), et
    peut-être régler la difficulté automatiquement au début de la partie.
-4. **Les autres armes** : lance-grenades et lance-flammes (chacune n'est utilisable que par un personnage).
-5. **Ennemis aléatoires** : mélanger les ennemis de chaque pièce.
-6. **Portes aléatoires** : chaque porte mène vers une autre pièce que d'habitude.
-7. **[Archipelago](#archipelago-à-venir)** : jouer en multi-mondes avec d'autres jeux.
+3. **Les autres armes** : lance-grenades et lance-flammes (chacune n'est utilisable que par un personnage).
+4. Option **Sans logique** : les clés mélangées sans filet, pour les fous.
+5. **Indices par pièce** : des indices facultatifs sur l'endroit des objets importants.
+6. **Ennemis aléatoires** : mélanger les ennemis de chaque pièce.
+7. **Portes aléatoires** : chaque porte mène vers une autre pièce que d'habitude.
+8. **[Archipelago](#archipelago-à-venir)** : jouer en multi-mondes avec d'autres jeux.
 
 Tu peux aider dès maintenant en relevant les emplacements d'objets : voir [Aider le projet](#aider-le-projet).
 
@@ -89,12 +94,12 @@ de Resident Evil HD Remaster est en préparation.
 
 - **Déjà dans l'application** : un onglet *Archipelago* avec le formulaire de connexion (serveur, nom du
   joueur, mot de passe, DeathLink), grisé pour l'instant, et la liste de ce qu'il reste à faire.
-- **Reste à faire** : le mélange des clés et objets de quête avec la logique (en premier), l'envoi au serveur
-  de chaque emplacement ramassé, la réception des objets des autres joueurs (dans la malle, puis une file d'attente quand elle est pleine), le « monde »
+- **Reste à faire** : l'envoi au serveur de chaque emplacement ramassé, la réception des objets des autres joueurs (dans la malle, puis une file d'attente quand elle est pleine), le « monde »
   Archipelago du jeu (fichier `.apworld` : objets, emplacements, règles) et l'envoi de l'objectif (fin du jeu)
   au serveur.
 
-Pas encore de date : le mélange des clés avec la logique doit être terminé avant.
+Pas encore de date. Les clés et objets d'énigme avec logique, l'étape qu'il fallait d'abord, sont faits depuis
+la v0.9.8.
 
 ## Avancement des relevés
 
@@ -120,7 +125,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 | Jill | Difficile | 0/118 (0 %) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0 %) | 0 | 0 |
 
-Armes bonus : 2/2 identifiées. Mis à jour le 22/11/2026.
+Armes bonus : 2/2 identifiées. Mis à jour le 27/11/2026.
 
 </details>
 
@@ -184,22 +189,28 @@ système, anglais sinon).
 - **Installation** — dossier du jeu, état du randomizer et de la seed installée, installer / mettre à
   jour / désinstaller la DLL (et l'option de lancement sur Steam Deck). L'application s'ouvre ici tant
   que la DLL n'est pas installée et à jour.
-- **Générer une seed** — débloqué une fois la DLL en place, avec cinq sous-onglets :
+- **Générer une seed** — débloqué une fois la DLL en place, avec sept sous-onglets :
   - *Personnage et difficulté* : la difficulté en deux colonnes, *Nouvelle partie* (réponse à la première
     question : I. Old school, II. Gamer, III. Casual) et *Une fois de plus* (jeu déjà terminé, difficulté
     choisie par son nom ; les armes infinies débloquées ne sont pas données, passer par *Armes bonus*), et l'option
     *Clé du placard dès le départ* (la clé de la salle des costumes est dans la malle dès le début, et sa porte
     fonctionne) ;
   - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
-    ramassage), malle de départ aléatoire (cochée d'office ; nouvelle partie seulement), armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent
-    rester à leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement
-    reçoit un objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie,
-    on peut commencer sans arme) ; en dessous, dans sa propre carte, *Pour les fous* : sans logique (à venir) et objets importants dans la serre (y ouvrir
-    le mauvais tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets
-    ordinaires remplacent les plantes) ;
+    ramassage) et malle de départ aléatoire (cochée d'office ; nouvelle partie seulement) ; en dessous, dans sa
+    propre carte, *Pour les fous* : sans logique (à venir), objets importants dans la serre (y ouvrir le mauvais
+    tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets ordinaires
+    remplacent les plantes) et fusées de signalisation n'importe où (pour appeler l'hélicoptère à la fin, il faut
+    d'abord ramasser l'objet posé à leur place sur l'héliport) ;
+  - *Armes* : armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent rester à
+    leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement reçoit un
+    objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie, on peut
+    commencer sans arme) ; en dessous, la carte *Gourde* : gourde aléatoire et gourde remplie au ramassage ;
+  - *Clés et objets d'énigme* : clés aléatoires et objets d'énigme aléatoires, chacun avec sa liste (décoche un
+    objet pour le laisser à sa place ; *Disque MO* déplie les 3 disques). La logique garde la partie finissable ;
   - *Ennemis* : ennemis aléatoires (à venir) ;
   - *Portes* : portes aléatoires, chaque porte mène vers une autre pièce (à venir) ;
-  - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) ;
+  - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) et capsule de carburant pleine
+    au ramassage ;
   - **Générer la seed**, avec la graine (ou « Au hasard ») juste à côté — même graine + mêmes options = même
     résultat : écrit la seed dans le dossier `seeds` et l'installe dans le jeu.
 - **Spoiler** — débloqué dès qu'il y a une seed : la liste complète des changements en tableau (lieu, objet
@@ -209,7 +220,7 @@ système, anglais sinon).
 - **Aider le projet** — le mode relevé et les barres d'avancement (voir plus bas).
 - **Info** — les crédits (auteur, testeurs, remerciements) et le lien vers cette page.
 
-Les options marquées « à venir » (clés, ennemis, autres armes, Archipelago…) sont visibles mais grisées.
+Les options marquées « à venir » (sans logique, ennemis, portes, Archipelago…) sont visibles mais grisées.
 
 ### Compatibilité
 
@@ -293,6 +304,8 @@ Randomizer/
   mise_a_jour.py              mise à jour automatique depuis les Releases GitHub
   noms_jeu.py                 noms officiels des objets, lus dans les textes du jeu installé
   generateur_seed.py          génération des seeds (aussi en ligne de commande)
+  logique_cles.py             logique des clés et objets d'énigme (carte des portes, énigmes, remplissage supposé)
+  modeles_sol.py              fabrique les modèles au sol (couteau, armes illimitées) à partir des fichiers du jeu
   importer_journal.py         importe les journaux de relevés dans le tableur
   progression.py              barres d'avancement de ce README
   textes.py                   toutes les traductions
