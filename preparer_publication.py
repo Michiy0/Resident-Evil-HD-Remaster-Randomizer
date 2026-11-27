@@ -80,6 +80,8 @@ FICHIERS = {
     "images/appli_options_en.png": "images/appli_options_en.png",
     "images/appli_armes_fr.png": "images/appli_armes_fr.png",
     "images/appli_armes_en.png": "images/appli_armes_en.png",
+    "images/appli_indices_fr.png": "images/appli_indices_fr.png",
+    "images/appli_indices_en.png": "images/appli_indices_en.png",
     "images/avant_apres.gif": "images/avant_apres.gif",
     "Randomizer/creer_icone.py": "Randomizer/creer_icone.py",
     "Randomizer/construire_exe.bat": "Randomizer/construire_exe.bat",

@@ -110,6 +110,50 @@ T = {
     "arme_bonus_roquettes": ("Lance-roquettes", "Rocket launcher", "ロケットランチャー", "Lanzacohetes",
                              "Lança-foguetes", "Ракетница", "火箭筒"),
     "col_lieu": ("Lieu", "Location", "場所", "Lugar", "Local", "Место", "地点"),
+    "onglet_indices": ("Indices", "Hints", "ヒント", "Pistas", "Dicas", "Подсказки", "提示"),
+    "carte_indices_objets": ("Où est cet objet ?", "Where is this item?", "このアイテムはどこ？", "¿Dónde está este objeto?",
+                             "Onde está este item?", "Где этот предмет?", "这个物品在哪里？"),
+    "carte_indices_pieces": ("Cette pièce cache-t-elle quelque chose ?", "Does this room hide something?",
+                             "この部屋に何かある？", "¿Esta sala esconde algo?", "Esta sala esconde algo?",
+                             "Есть ли что-то в этой комнате?", "这个房间藏着什么吗？"),
+    "col_indice_objet": ("Objet", "Item", "アイテム", "Objeto", "Item", "Предмет", "物品"),
+    "col_indice_zone": ("Zone", "Area", "エリア", "Zona", "Área", "Зона", "区域"),
+    "col_indice_piece": ("Pièce", "Room", "部屋", "Sala", "Sala", "Комната", "房间"),
+    "col_indice_indice": ("Indice", "Hint", "ヒント", "Pista", "Dica", "Подсказка", "提示"),
+    "indice_cache": ("▸ Cliquer pour voir", "▸ Click to see", "▸ クリックで表示", "▸ Haz clic para ver",
+                     "▸ Clique para ver", "▸ Нажмите, чтобы увидеть", "▸ 点击查看"),
+    "indice_important": ("Quelque chose d'important", "Something important", "何か重要なものがある",
+                         "Algo importante", "Algo importante", "Что-то важное", "有重要的东西"),
+    "indice_rien": ("Rien d'important", "Nothing important", "重要なものはない", "Nada importante", "Nada importante",
+                    "Ничего важного", "没有重要的东西"),
+    "note_indices": (
+        "Seed {graine}. Coincé ? Clique sur une case pour la révéler, une à la fois : la zone d'abord, puis la pièce "
+        "exacte si tu en as besoin. Sont « importants » : les clés, les objets d'énigme et les armes mélangés.",
+        "Seed {graine}. Stuck? Click a cell to reveal it, one at a time: the area first, then the exact room if you "
+        "need it. \"Important\" means the shuffled keys, puzzle items and weapons.",
+        "シード {graine}。行き詰まった？セルをクリックすると 1 つずつ表示されます。まずエリア、必要なら正確な部屋。"
+        "「重要」とは、ランダム化された鍵、謎解きアイテム、武器のことです。",
+        "Semilla {graine}. ¿Atascado? Haz clic en una casilla para revelarla, una a una: primero la zona, luego la sala "
+        "exacta si la necesitas. «Importante» son las llaves, los objetos de puzle y las armas mezclados.",
+        "Semente {graine}. Travou? Clique numa célula para revelá-la, uma de cada vez: primeiro a área, depois a sala "
+        "exata se precisar. «Importante» são as chaves, os itens de enigma e as armas embaralhados.",
+        "Сид {graine}. Застряли? Нажмите на ячейку, чтобы открыть её, по одной: сначала зону, потом точную комнату, "
+        "если нужно. «Важное» — это перемешанные ключи, предметы для головоломок и оружие.",
+        "种子 {graine}。卡关了？点击单元格逐个揭示：先看区域，需要时再看具体房间。“重要”指被打乱的钥匙、谜题物品和武器。"),
+    "indices_aucun": (
+        "Cette seed ne mélange ni clés, ni objets d'énigme, ni armes : il n'y a pas d'indice à donner.",
+        "This seed doesn't shuffle keys, puzzle items or weapons: there are no hints to give.",
+        "このシードでは鍵、謎解きアイテム、武器がランダム化されていないので、ヒントはありません。",
+        "Esta semilla no mezcla llaves, objetos de puzle ni armas: no hay pistas que dar.",
+        "Esta semente não embaralha chaves, itens de enigma nem armas: não há dicas a dar.",
+        "Этот сид не перемешивает ключи, предметы для головоломок и оружие: подсказок нет.",
+        "这个种子没有打乱钥匙、谜题物品或武器：没有可给的提示。"),
+    "zone_manoir": ("Manoir", "Mansion", "洋館", "Mansión", "Mansão", "Особняк", "洋馆"),
+    "zone_cour": ("Cour", "Courtyard", "中庭", "Patio", "Pátio", "Двор", "庭院"),
+    "zone_residence": ("Résidence", "Residence", "寄宿舎", "Residencia", "Residência", "Общежитие", "宿舍"),
+    "zone_labo": ("Labo", "Laboratory", "研究所", "Laboratorio", "Laboratório", "Лаборатория", "研究所"),
+    "zone_heliport": ("Héliport", "Heliport", "ヘリポート", "Helipuerto", "Heliporto", "Вертолётная площадка",
+                      "直升机坪"),
     "col_origine": ("Objet d'origine", "Original item", "元のアイテム", "Objeto original", "Item original",
                     "Исходный предмет", "原物品"),
     "col_nouveau": ("Remplacé par", "Replaced by", "入れ替え後", "Reemplazado por", "Substituído por", "Заменён на",
@@ -673,14 +717,48 @@ T = {
     "info_inspiration": ("Inspiré des randomizers de la communauté : BioRand et l'ancien randomizer de Benn Powell.", "Inspired by community randomizers: BioRand and Benn Powell's earlier randomizer.", 'コミュニティのランダマイザー（BioRand、Benn Powell 氏の旧ランダマイザー）に着想を得ています。', 'Inspirado en randomizers de la comunidad: BioRand y el antiguo randomizer de Benn Powell.', 'Inspirado nos randomizers da comunidade: BioRand e o antigo randomizer de Benn Powell.', 'Вдохновлено рандомайзерами сообщества: BioRand и прежним рандомайзером Benn Powell.', '灵感来自社区随机器：BioRand 以及 Benn Powell 早期的随机器。'),
     "quitter": ("Quitter", "Quit", "終了", "Salir", "Sair", "Выход", "退出"),
     "sans_logique": ("Sans logique", "No logic", "ロジックなし", "Sin lógica", "Sem lógica", "Без логики", "无逻辑"),
+    "fin_garantie": ("Fin garantie seulement", "Ending guaranteed only", "エンディングだけ保証",
+                     "Solo el final garantizado", "Só o final garantido", "Гарантирован только финал", "仅保证结局"),
+    "note_fin_garantie": (
+        "Les clés et objets d'énigme cochés sont mélangés presque au hasard : la seule chose vérifiée, c'est qu'on peut "
+        "finir le jeu. Certaines clés ou certains objets peuvent rester introuvables, et des pièces peuvent rester "
+        "fermées pour toute la partie.",
+        "The ticked keys and puzzle items are shuffled almost at random: the only thing checked is that you can finish "
+        "the game. Some keys or items may never be found, and some rooms may stay locked for the whole game.",
+        "チェックした鍵と謎解きアイテムはほぼランダムにシャッフルされます。確認するのはゲームをクリアできることだけです。"
+        "見つからない鍵やアイテムがあったり、最後まで開かない部屋があったりします。",
+        "Las llaves y objetos de puzle marcados se mezclan casi al azar: lo único que se comprueba es que se pueda "
+        "terminar el juego. Algunas llaves u objetos pueden no encontrarse nunca, y algunas salas pueden quedar "
+        "cerradas toda la partida.",
+        "As chaves e itens de enigma marcados são embaralhados quase ao acaso: a única coisa verificada é que dá para "
+        "terminar o jogo. Algumas chaves ou itens podem nunca ser encontrados, e algumas salas podem ficar fechadas "
+        "o jogo todo.",
+        "Отмеченные ключи и предметы для головоломок перемешиваются почти случайно: проверяется только то, что игру "
+        "можно пройти. Некоторые ключи или предметы можно так и не найти, а некоторые комнаты могут остаться "
+        "закрытыми всю игру.",
+        "勾选的钥匙和谜题物品几乎完全随机打乱：唯一检查的是游戏能够通关。有些钥匙或物品可能永远找不到，有些房间可能"
+        "整局都无法进入。"),
     "note_sans_logique": (
-        "Les clés peuvent tomber n'importe où : la partie risque d'être impossible à finir.",
-        "Keys can end up anywhere: the run may be impossible to finish.",
-        "鍵がどこにでも置かれるため、クリアできなくなる可能性があります。",
-        "Las llaves pueden acabar en cualquier sitio: la partida podría no poder terminarse.",
-        "As chaves podem ir para qualquer lugar: a partida pode ficar impossível de terminar.",
-        "Ключи могут оказаться где угодно: игру, возможно, не удастся пройти.",
-        "钥匙可能出现在任何地方：本局可能无法通关。"),
+        "Les clés et objets d'énigme cochés (onglet « Clés et objets d'énigme ») sont mélangés au hasard, sans vérifier "
+        "que la partie reste finissable : une clé peut se retrouver derrière la porte qu'elle ouvre, et la partie "
+        "peut devenir impossible à finir. Sans effet si aucune de ces deux options n'est cochée.",
+        "The ticked keys and puzzle items (\"Keys and puzzle items\" tab) are shuffled at random, without checking that "
+        "the game stays completable: a key may end up behind the door it opens, and the game may become impossible "
+        "to finish. No effect if neither of these two options is ticked.",
+        "チェックした鍵と謎解きアイテム（「鍵と謎解きアイテム」タブ）を、クリアできるか確認せずに完全ランダムで"
+        "シャッフルします。鍵がその鍵で開く扉の奥に置かれることもあり、クリアできなくなる可能性があります。"
+        "その 2 つのオプションがどちらもオフなら効果はありません。",
+        "Las llaves y objetos de puzle marcados (pestaña «Llaves y objetos de puzle») se mezclan al azar, sin comprobar "
+        "que la partida se pueda terminar: una llave puede acabar detrás de la puerta que abre, y la partida puede "
+        "volverse imposible de terminar. Sin efecto si ninguna de esas dos opciones está marcada.",
+        "As chaves e itens de enigma marcados (aba «Chaves e itens de enigma») são embaralhados ao acaso, sem verificar "
+        "se o jogo pode ser terminado: uma chave pode ficar atrás da porta que abre, e o jogo pode ficar impossível "
+        "de terminar. Sem efeito se nenhuma dessas duas opções estiver marcada.",
+        "Отмеченные ключи и предметы для головоломок (вкладка «Ключи и предметы для головоломок») перемешиваются "
+        "случайно, без проверки, что игру можно пройти: ключ может оказаться за дверью, которую он открывает, и "
+        "игру может стать невозможно пройти. Ничего не меняет, если ни одна из этих двух опций не включена.",
+        "勾选的钥匙和谜题物品（“钥匙与谜题物品”标签页）会完全随机打乱，不检查游戏能否通关：钥匙可能出现在它所开的"
+        "门后面，游戏可能无法通关。如果这两个选项都没有勾选，则没有效果。"),
     "arme_depart": ("Arme garantie au départ", "Guaranteed starting weapon", "序盤に武器を確保",
                     "Arma garantizada al inicio", "Arma garantida no início", "Оружие в начале игры",
                     "开局保证有武器"),
@@ -1204,6 +1282,29 @@ ALLEMAND_ITALIEN = {
                            'Samurai Edge'),
     'arme_bonus_roquettes': ('Raketenwerfer',
                              'Lanciarazzi'),
+    'onglet_indices': ('Hinweise', 'Indizi'),
+    'carte_indices_objets': ('Wo ist dieser Gegenstand?', "Dov'è questo oggetto?"),
+    'carte_indices_pieces': ('Verbirgt dieser Raum etwas?', 'Questa stanza nasconde qualcosa?'),
+    'col_indice_objet': ('Gegenstand', 'Oggetto'),
+    'col_indice_zone': ('Bereich', 'Zona'),
+    'col_indice_piece': ('Raum', 'Stanza'),
+    'col_indice_indice': ('Hinweis', 'Indizio'),
+    'indice_cache': ('▸ Klicken zum Anzeigen', '▸ Clicca per vedere'),
+    'indice_important': ('Etwas Wichtiges', 'Qualcosa di importante'),
+    'indice_rien': ('Nichts Wichtiges', 'Niente di importante'),
+    'note_indices': ('Seed {graine}. Festgefahren? Klicke auf ein Feld, um es aufzudecken, eines nach dem anderen: '
+                     'zuerst den Bereich, dann bei Bedarf den genauen Raum. „Wichtig“ sind die gemischten Schlüssel, '
+                     'Rätselgegenstände und Waffen.',
+                     'Seed {graine}. Bloccato? Clicca su una casella per rivelarla, una alla volta: prima la zona, '
+                     'poi la stanza esatta se serve. «Importanti» sono le chiavi, gli oggetti degli enigmi e le armi '
+                     'mescolati.'),
+    'indices_aucun': ('Dieser Seed mischt weder Schlüssel noch Rätselgegenstände noch Waffen: Es gibt keine Hinweise.',
+                      'Questo seed non mescola chiavi, oggetti degli enigmi né armi: non ci sono indizi da dare.'),
+    'zone_manoir': ('Villa', 'Villa'),
+    'zone_cour': ('Hof', 'Cortile'),
+    'zone_residence': ('Wohnheim', 'Residenza'),
+    'zone_labo': ('Labor', 'Laboratorio'),
+    'zone_heliport': ('Hubschrauberlandeplatz', 'Eliporto'),
     'col_lieu': ('Ort',
                  'Luogo'),
     'col_origine': ('Ursprünglicher Gegenstand',
@@ -1489,8 +1590,21 @@ ALLEMAND_ITALIEN = {
                 'Esci'),
     'sans_logique': ('Ohne Logik',
                      'Senza logica'),
-    'note_sans_logique': ('Schlüssel können überall landen: Der Durchlauf ist eventuell nicht zu schaffen.',
-                          'Le chiavi possono finire ovunque: la partita potrebbe essere impossibile da finire.'),
+    'fin_garantie': ('Nur das Ende garantiert', 'Solo il finale garantito'),
+    'note_fin_garantie': ('Die angehakten Schlüssel und Rätselgegenstände werden fast zufällig gemischt: Geprüft wird '
+                          'nur, dass man das Spiel beenden kann. Manche Schlüssel oder Gegenstände sind vielleicht nie '
+                          'zu finden, und manche Räume bleiben das ganze Spiel über verschlossen.',
+                          'Le chiavi e gli oggetti degli enigmi spuntati vengono mescolati quasi a caso: si verifica '
+                          'solo che si possa finire il gioco. Alcune chiavi o oggetti potrebbero non trovarsi mai, e '
+                          'alcune stanze potrebbero restare chiuse per tutta la partita.'),
+    'note_sans_logique': ('Die angehakten Schlüssel und Rätselgegenstände (Tab „Schlüssel und Rätselgegenstände“) '
+                          'werden zufällig gemischt, ohne zu prüfen, ob das Spiel schaffbar bleibt: Ein Schlüssel '
+                          'kann hinter der Tür landen, die er öffnet, und das Spiel kann unschaffbar werden. Ohne '
+                          'Wirkung, wenn keine der beiden Optionen angehakt ist.',
+                          'Le chiavi e gli oggetti degli enigmi spuntati (scheda «Chiavi e oggetti degli enigmi») '
+                          'vengono mescolati a caso, senza verificare che la partita resti completabile: una chiave può '
+                          'finire dietro la porta che apre, e la partita può diventare impossibile da finire. Nessun '
+                          'effetto se nessuna delle due opzioni è spuntata.'),
     'arme_depart': ('Garantierte Startwaffe',
                     "Arma garantita all'inizio"),
     'note_arme_depart': ("Eine der gemischten Waffen kommt zu Spielbeginn mit ihrer Grundmunition ins Inventar. "

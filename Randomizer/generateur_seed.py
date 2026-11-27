@@ -35,6 +35,7 @@ import json
 import random
 import re
 import sys
+import unicodedata
 from collections import Counter
 from pathlib import Path
 
@@ -376,7 +377,7 @@ def remplir_capsule(resultat, emplacements):
                 break
 
 
-def melanger_cles(resultat, emplacements, graine, serre_dangereuse=False, ids=None):
+def melanger_cles(resultat, emplacements, graine, serre_dangereuse=False, ids=None, fin_garantie=False):
     """Option « Clés aléatoires » (25/11/2026) : place les clés (logique_cles.IDS_CLES) pour que la partie reste
     finissable. emplacements : tous les emplacements relevés (ceux qui ne sont pas mélangés gardent leur objet et
     comptent pour la logique). Les clés ne vont que sur des emplacements mélangés, jamais sur les plantes de la serre
@@ -392,6 +393,8 @@ def melanger_cles(resultat, emplacements, graine, serre_dangereuse=False, ids=No
     interdits |= {i for i, (p, o) in enumerate(emp) if emplacement_risque(p, o, serre_dangereuse)}
     if not logique_cles.placer_cles(emp, contenu, graine, interdits, ids=ids):
         return False
+    if fin_garantie:                     # « Pour les fous » : on ne garde que la fin atteignable
+        logique_cles.liberer(emp, contenu, graine, interdits, ids)
     for r, (ident, qte) in zip(refs, contenu):
         if r is not None:
             r["nouveau"] = {"id": ident, "quantite": qte}
@@ -437,6 +440,59 @@ def lignes_spoiler(sortie, langue="fr"):
              nom_objet(r["nouveau"]["id"], langue) + _fois(r["nouveau"]),
              r["nouveau"]["id"] in IDS_ARMES_BONUS)
             for r in sorted(sortie["remplacements"], key=lambda x: (x["piece"], x.get("case", 0)))]
+
+
+# Indices (onglet « Indices », 27/11/2026, idée du joueur) : zones d'après le début du nom de la pièce
+# (« Mansion 1F - … » -> manoir 1F)
+ZONES = {"Mansion": "zone_manoir", "Courtyard": "zone_cour", "Altar": "zone_cour", "Residence": "zone_residence",
+         "Laboratory": "zone_labo", "Laborartory": "zone_labo", "Heliport": "zone_heliport"}
+
+
+def zone_lieu(r, langue="fr"):
+    """Zone d'un emplacement (« Manoir 1F », « Labo B3 », malle de départ…), sans la pièce exacte."""
+    if r["piece"] == PIECE_MALLE:
+        return tr("malle_depart", langue)
+    if r["piece"] == PIECE_INVENTAIRE:
+        return tr("inventaire_depart", langue)
+    debut = (r.get("nom_piece") or "").split(" - ")[0].split()
+    if not debut or debut[0] not in ZONES:
+        return "?"
+    etage = next((m for m in debut[1:] if m[:1] in "B12345" and len(m) <= 3), "")
+    return f"{tr(ZONES[debut[0]], langue)} {etage}".strip()
+
+
+def objets_importants(sortie):
+    """Ids des objets « importants » d'une seed : clés et objets d'énigme mélangés (logique), et armes si elles
+    sont mélangées."""
+    options = sortie.get("options", {})
+    ids = set(options.get("objets_logique", ()))
+    if options.get("armes_aleatoires"):
+        ids |= IDS_ARMES
+    return ids
+
+
+def indices(sortie, langue="fr"):
+    """Indices d'une seed : (objets, pieces).
+    objets : [(nom de l'objet, zone, lieu exact)] pour chaque objet important, triés par nom ;
+    pieces : [(lieu, zone, important ?)] pour chaque pièce où la seed change quelque chose."""
+    importants = objets_importants(sortie)
+
+    def lieu(r):
+        piece, nom = next((p, n) for p, n, *_ in lignes_spoiler({"remplacements": [r]}, langue))
+        return f"{piece} · {nom}" if nom else piece
+
+    objets, pieces = [], {}
+    for r in sortie["remplacements"]:
+        important = r["nouveau"]["id"] in importants
+        if important:
+            objets.append((nom_objet(r["nouveau"]["id"], langue), zone_lieu(r, langue), lieu(r)))
+        if r["piece"] not in PIECES_SPECIALES:
+            cle = r["piece"].lower()
+            ancien = pieces.get(cle)
+            pieces[cle] = (lieu(r) if not ancien else ancien[0], zone_lieu(r, langue), important or bool(ancien and ancien[2]))
+    def ordre(o):                            # sans guillemets ni accents (« "Dernier livre…" », « Désherbant »)
+        return unicodedata.normalize("NFD", o[0].strip('"«» ')).encode("ascii", "ignore").decode().lower()
+    return sorted(objets, key=ordre), [pieces[k] for k in sorted(pieces)]
 
 
 def texte_spoiler(sortie, langue="fr"):
@@ -548,7 +604,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
              messages_differes=False, malle_aleatoire=False, couteau_aleatoire=False, cle_placard=False, une_fois_de_plus=False,
              serre_dangereuse=False, cles_aleatoires=False, cles_choisies=None,
              enigmes_aleatoires=False, enigmes_choisies=None, gourde_aleatoire=False,
-             gourde_remplie=False, fusees_aleatoires=False, capsule_pleine=False):
+             gourde_remplie=False, fusees_aleatoires=False, capsule_pleine=False, sans_logique=False,
+             fin_garantie=False):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -564,6 +621,10 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     cles_aleatoires / enigmes_aleatoires : les clés / objets d'énigme cochés (cles_choisies / enigmes_choisies,
     None = tous) sont mélangés, la partie reste finissable (logique_cles).
     gourde_aleatoire / gourde_remplie : gourde mélangée avec les objets ; gourde reçue déjà pleine.
+    sans_logique : option « Pour les fous » : les clés et objets d'énigme choisis sont mélangés au hasard, sans logique
+    (la partie peut devenir impossible à finir) ; ils restent seulement écartés des emplacements risqués.
+    fin_garantie : option « Pour les fous » : la logique ne garantit que la fin du jeu (clés et objets d'énigme
+    peuvent rester introuvables). Ignorée avec sans_logique.
     capsule_pleine : option « Fun » : la capsule de carburant est déjà pleine au ramassage (dangereuse).
     fusees_aleatoires : option « Pour les fous » (à tester en jeu) : les fusées de signalisation sont placées par la
     logique, n'importe où avant l'héliport.
@@ -626,7 +687,10 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
         placer_armes_bonus(resultat, graine, armes_bonus)
     # après les armes bonus (elles aussi) : plantes de la serre (sauf option) et emplacements risqués
     proteger_serre(resultat, graine, IDS_ARMES | IDS_ARMES_BONUS, serre_dangereuse)
-    if ids_logique and not melanger_cles(resultat, emplacements, graine, serre_dangereuse, ids_logique):
+    if ids_logique and sans_logique:         # « Pour les fous » : au hasard, seulement hors des emplacements risqués
+        proteger_serre(resultat, graine, ids_logique, serre_dangereuse)
+    elif ids_logique and not melanger_cles(resultat, emplacements, graine, serre_dangereuse, ids_logique,
+                                           fin_garantie):
         dire(Msg("gen_cles_echec"))          # en dernier : les clés gardent la place que la logique leur donne
         return False
     if gourde_remplie:
@@ -648,6 +712,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
                                       "serre_dangereuse": bool(serre_dangereuse),
                                       "fusees_aleatoires": bool(fusees_aleatoires),
                                       "capsule_pleine": bool(capsule_pleine),
+                                      "sans_logique": bool(sans_logique and ids_logique),
+                                      "fin_garantie": bool(fin_garantie and ids_logique and not sans_logique),
                                       "cles_aleatoires": bool(cles_aleatoires),
                                       "enigmes_aleatoires": bool(enigmes_aleatoires),
                                       "gourde_aleatoire": bool(gourde_aleatoire),

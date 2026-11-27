@@ -51,6 +51,9 @@ estratégias.
 <td align="center"><img src="../images/appli_options_en.png" alt="Opções: itens visíveis, baú inicial e opções para os loucos" width="420"><br><sub>Opções: itens visíveis, baú inicial e opções para os loucos</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatórias, arma e faca iniciais, cantil" width="420"><br><sub>Armas: armas aleatórias, arma e faca iniciais, cantil</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="../images/appli_indices_en.png" alt="Dicas: uma de cada vez" width="640"><br><sub>Dicas: uma de cada vez</sub></td>
+</tr>
 </table>
 
 ## Situação
@@ -59,11 +62,12 @@ estratégias.
 |---|---|
 | Chris, dificuldade Fácil (jogo inteiro levantado, laboratório incluído) | Jill, outras dificuldades |
 | 164 locais: munição (pistola, espingarda e magnum), ervas verdes, vermelhas e azuis, fitas, adagas, granadas de luz, pistola de autodefesa, sprays e kits de primeiros socorros | — |
-| Opções **Chaves aleatórias** e **Itens de enigma aleatórios**, **com lógica**: o jogo sempre pode ser terminado (uma chave nunca fica atrás da porta que abre). Cada item pode ser marcado ou desmarcado; os 3 discos MO um por um. Mansão, pátio, residência e laboratório, enigmas incluídos | Opção *Sem lógica*; o espécime de abelha e a isca sem anzol (o enigma do aquário trava se forem movidos) |
-| **Itens visíveis no chão**: o novo item aparece na sala e na prévia, inclusive itens largados ou revelados durante o jogo (coleira do cão, emblemas do túmulo), itens obtidos ao examinar algo (emblema da lareira, anzol) e itens pegos durante uma cena curta; opção **Baú inicial aleatório** | Dicas por sala |
+| Opções **Chaves aleatórias** e **Itens de enigma aleatórios**, **com lógica**: o jogo sempre pode ser terminado (uma chave nunca fica atrás da porta que abre). Cada item pode ser marcado ou desmarcado; os 3 discos MO um por um. Mansão, pátio, residência e laboratório, enigmas incluídos | O espécime de abelha e a isca sem anzol (o enigma do aquário trava se forem movidos) |
+| **Itens visíveis no chão**: o novo item aparece na sala e na prévia, inclusive itens largados ou revelados durante o jogo (coleira do cão, emblemas do túmulo), itens obtidos ao examinar algo (emblema da lareira, anzol) e itens pegos durante uma cena curta; opção **Baú inicial aleatório** | — |
 | Opção **Armas aleatórias** (pistola, espingarda, espingarda de assalto, magnum) e **Arma garantida no início** (no inventário ao começar, com munição); opção **Faca inicial aleatória** (você pode começar sem arma!); modelos reais no chão para a faca, a Samurai Edge e o lança-foguetes ilimitados | Outras armas (lança-granadas, lança-chamas), inimigos aleatórios, portas aleatórias |
 | **Cantil**: cantil aleatório (sempre encontrável) e cantil já cheio (2 cargas) | — |
-| Seção **Diversão**: **armas bônus** (Samurai Edge e lança-foguetes com munição ilimitada) e **cápsula de combustível já cheia** (explode se você correr, for atingido ou atirar!). **Para os loucos**: itens importantes na estufa, **sinalizadores em qualquer lugar** | — |
+| Seção **Diversão**: **armas bônus** (Samurai Edge e lança-foguetes com munição ilimitada) e **cápsula de combustível já cheia** (explode se você correr, for atingido ou atirar!). **Para os loucos**: itens importantes na estufa, **sinalizadores em qualquer lugar**, **só o final garantido** e **sem lógica** (caos puro) | — |
+| Aba **Dicas**: onde está cada item importante (área, depois sala exata) e se cada sala esconde algo, cada dica oculta até o clique, com barra de busca | — |
 | Windows e **Steam Deck** (testado no jogo com Proton, inclusive no cartão SD); Linux | **[Archipelago](#archipelago-em-breve)** |
 
 **Versão do jogo necessária**: o `bhd.exe` atual da Steam (9.640.360 bytes). O app verifica isso; com qualquer
@@ -76,11 +80,9 @@ O randomizer já é jogável, mas ainda há muito planejado, mais ou menos nesta
 1. **Jill**: registrar todos os seus locais de itens e adaptar a lógica das chaves.
 2. **Outras dificuldades**: os itens mudam com a dificuldade.
 3. **As outras armas**: lança-granadas e lança-chamas.
-4. Opção **Sem lógica**: chaves misturadas sem rede de segurança.
-5. **Dicas por sala**.
-6. **Inimigos aleatórios**.
-7. **Portas aleatórias**: cada porta leva a outra sala.
-8. **Archipelago**: multimundo com outros jogos.
+4. **Inimigos aleatórios**.
+5. **Portas aleatórias**: cada porta leva a outra sala.
+6. **Archipelago**: multimundo com outros jogos.
 
 ## Archipelago (em breve)
 
@@ -136,13 +138,13 @@ no canto superior direito, fecha o app corretamente.
 
 ## Uso
 
-O app tem seis abas e um seletor de idioma no canto superior direito (“Automático” = idioma do sistema).
+O app tem sete abas e um seletor de idioma no canto superior direito (“Automático” = idioma do sistema).
 
 - **Instalação** — pasta do jogo, estado do randomizer e da seed instalada, instalar / atualizar /
   desinstalar a DLL (e a opção de inicialização no Steam Deck).
 - **Gerar uma semente** — com sete subabas:
   - *Personagem e dificuldade*;
-  - *Opções*: itens visíveis no chão, baú inicial aleatório; abaixo, *Para os loucos* (sem lógica, em breve;
+  - *Opções*: itens visíveis no chão, baú inicial aleatório; abaixo, *Para os loucos* (só o final garantido; sem lógica;
     itens importantes na estufa; sinalizadores em qualquer lugar);
   - *Armas*: armas aleatórias (com a lista de armas), arma garantida no início, faca inicial aleatória; abaixo, o
     *Cantil* (aleatório, já cheio);
@@ -154,6 +156,8 @@ O app tem seis abas e um seletor de idioma no canto superior direito (“Automá
   - **Gerar a seed**, com a seed (ou “Aleatória”) ao lado — mesma seed + mesmas opções = mesmo resultado.
 - **Spoiler** — a lista completa de mudanças em uma tabela, com busca e ordenação, escondida até você marcar
   *Mostrar o spoiler*.
+- **Dicas** — onde está cada item importante e se cada sala esconde algo; cada célula fica oculta até o clique,
+  com barra de busca.
 - **Archipelago** — em breve.
 - **Ajudar o projeto** — modo levantamento e barras de progresso.
 - **Info** — os créditos e um link para esta página.

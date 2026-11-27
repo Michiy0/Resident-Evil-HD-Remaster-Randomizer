@@ -27,7 +27,7 @@ import progression
 import textes
 import modeles_sol
 
-VERSION = "0.9.8"
+VERSION = "0.9.8.1"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -334,6 +334,9 @@ def dessiner_icone(nom, couleur, taille=16):
         if nom == "info":
             return min(abs(cercle(x, y, 8, 8, 6.3)) - trait, cercle(x, y, 8, 5.2, 1.0),
                        seg(x, y, (8, 7.6), (8, 11.3)) - trait)
+        if nom == "ampoule":                         # onglet « Indices »
+            return min(abs(cercle(x, y, 8, 6.2, 4.3)) - trait, seg(x, y, (6.2, 11.6), (9.8, 11.6)) - trait,
+                       seg(x, y, (6.8, 13.9), (9.2, 13.9)) - trait)
         return 99
 
     r, g, b = _hex(couleur)
@@ -354,7 +357,7 @@ def creer_icones_onglets(racine):
     if getattr(racine, "_icones_onglets", None):
         return racine._icones_onglets
     garde, specs = [], {}
-    for nom in ("telechargement", "de", "oeil", "reseau", "coeur", "info"):
+    for nom in ("telechargement", "de", "oeil", "ampoule", "reseau", "coeur", "info"):
         normal, blanc, grise = (tk.PhotoImage(master=racine, data=dessiner_icone(nom, coul))
                                 for coul in (c["discret"], "#ffffff", c["grise"]))
         garde += [normal, blanc, grise]
@@ -418,6 +421,7 @@ def appliquer_style(racine):
     s.configure("SousTitre.TLabel", font=(POLICE, 10), foreground=c["discret"])
     s.configure("Section.TLabel", background=c["carte"], font=(POLICE, 9, "bold"), foreground=c["discret"])
     s.configure("Note.TLabel", background=c["carte"], font=(POLICE, 9), foreground=c["discret"])
+    s.configure("NotePage.TLabel", background=c["fond"], font=(POLICE, 10), foreground=c["discret"])
     s.configure("Nom.TLabel", background=c["carte"], font=(POLICE, 11, "bold"), foreground=c["texte"])
     s.configure("Mot.TLabel", background=c["carte"], font=(POLICE, 10), foreground=c["discret"])
     s.configure("Emoji.TLabel", background=c["carte"], font=("Segoe UI Emoji", 13), foreground=c["texte"])
@@ -701,7 +705,8 @@ class Application(tk.Tk):
         self.enigmes_cochees = {i: tk.BooleanVar(value=True) for i, _ in gen.logique_cles.ENIGMES_CHOIX}
         # disques MO (joueur, 26/11/2026) : une case « Disque MO » qui déplie le choix des 3 disques
         self.disques_mo = tk.BooleanVar(value=True)
-        self.sans_logique = tk.BooleanVar(value=False)         # option à venir (grisée) : clés sans logique
+        self.sans_logique = tk.BooleanVar(value=False)         # « Pour les fous » : clés et objets d'énigme sans logique
+        self.fin_garantie = tk.BooleanVar(value=False)         # « Pour les fous » : seule la fin est garantie
         self.serre_dangereuse = tk.BooleanVar(value=False)     # « Pour les fous » : objets importants dans la serre
         self.fusees = tk.BooleanVar(value=False)               # « Pour les fous » : fusées de signalisation mélangées
         self.capsule = tk.BooleanVar(value=False)              # « Fun » : capsule de carburant pleine au ramassage
@@ -716,6 +721,8 @@ class Application(tk.Tk):
         self.afficher_spoiler = tk.BooleanVar(value=False)
         self.recherche_spoiler = tk.StringVar()              # filtre du spoiler (vide = tout afficher)
         self.recherche_spoiler.trace_add("write", lambda *_: self.afficher_resultat())
+        self.recherche_indices = tk.StringVar()               # filtre de l'onglet Indices (objet ou pièce)
+        self.recherche_indices.trace_add("write", lambda *_: self.afficher_indices())
         self.releve = tk.BooleanVar(value=False)
         self.proton_dinput8 = tk.BooleanVar(value=False)      # option de lancement : charger aussi dinput8.dll
         self.option_proton = tk.StringVar(value=OPTION_PROTON)
@@ -815,6 +822,7 @@ class Application(tk.Tk):
         self.page_install = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
         self.page_generer = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
         self.page_spoiler = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
+        self.page_indices = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
         page_aide = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
         icones = creer_icones_onglets(self)
         page_info = ttk.Frame(self.onglets, padding=(0, 14, 0, 0))
@@ -822,6 +830,7 @@ class Application(tk.Tk):
         for page, cle, icone in ((self.page_install, "onglet_installation", "telechargement"),
                                  (self.page_generer, "onglet_generer", "de"),
                                  (self.page_spoiler, "onglet_spoiler", "oeil"),
+                                 (self.page_indices, "onglet_indices", "ampoule"),
                                  (page_archipelago, "onglet_archipelago", "reseau"),
                                  (page_aide, "onglet_aide", "coeur"),
                                  (page_info, "onglet_info", "info")):
@@ -829,6 +838,7 @@ class Application(tk.Tk):
         self.construire_installation(self.page_install)
         self.construire_generation(self.page_generer)
         self.construire_spoiler(self.page_spoiler)
+        self.construire_indices(self.page_indices)
         self.construire_archipelago(page_archipelago)
         self.construire_aide(page_aide)
         self.construire_info(page_info)
@@ -1084,10 +1094,20 @@ class Application(tk.Tk):
         # --- Pour les fous : options qui peuvent rendre la partie impossible à finir (sous « Options »)
         fous, fo = self.carte(pages["carte_options"], self.t("carte_fous"))
         fous.pack(fill="x", pady=(16, 0))
-        ttk.Checkbutton(fo, text=self.t("sans_logique") + a_venir, variable=self.sans_logique,
-                        state="disabled").pack(anchor="w")
-        ttk.Label(fo, text=self.t("note_sans_logique"), style="Note.TLabel", wraplength=280,
+        # les deux options de logique s'excluent : cocher l'une décoche l'autre
+        self.case_fin_garantie = ttk.Checkbutton(
+            fo, text=self.t("fin_garantie"), variable=self.fin_garantie,
+            command=lambda: self.fin_garantie.get() and self.sans_logique.set(False))
+        self.case_fin_garantie.pack(anchor="w")
+        ttk.Label(fo, text=self.t("note_fin_garantie"), style="Alerte.TLabel", wraplength=280,
                   justify="left").pack(anchor="w", padx=(27, 0))
+        self.case_sans_logique = ttk.Checkbutton(
+            fo, text=self.t("sans_logique"), variable=self.sans_logique,
+            command=lambda: self.sans_logique.get() and self.fin_garantie.set(False))
+        self.case_sans_logique.pack(anchor="w", pady=(8, 0))
+        ttk.Label(fo, text=self.t("note_sans_logique"), style="Alerte.TLabel", wraplength=280,
+                  justify="left").pack(anchor="w", padx=(27, 0))
+        self.maj_cases_logique()
         # serre (10C) : le mauvais tuyau détruit les objets posés sur les plantes
         ttk.Checkbutton(fo, text=self.t("serre_dangereuse"), variable=self.serre_dangereuse).pack(
             anchor="w", pady=(8, 0))
@@ -1217,6 +1237,98 @@ class Application(tk.Tk):
             ligne.bind("<ButtonRelease-1>", self.lacher_colonne)
         self.after_idle(self.placer_separateurs)
 
+    # --- onglet « Indices » (27/11/2026) : chaque case reste cachée jusqu'au clic
+    def construire_indices(self, cadre):
+        self.indices_reveles = set()                # (graine, tableau, ligne, colonne) déjà révélés
+        self.indices_graine = None
+        cadre.columnconfigure(0, weight=1)
+        cadre.columnconfigure(1, weight=1)
+        cadre.rowconfigure(2, weight=1)
+        self.note_indices = ttk.Label(cadre, style="NotePage.TLabel", wraplength=1000, justify="left")
+        self.note_indices.grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        # recherche : ne cherche que dans ce qui est déjà visible (nom de l'objet, nom de la pièce), jamais dans les
+        # cases encore cachées
+        barre = ttk.Frame(cadre)
+        barre.grid(row=1, column=0, columnspan=2, sticky="w", pady=(0, 10))
+        ttk.Label(barre, text=self.t("rechercher")).pack(side="left")
+        ttk.Entry(barre, textvariable=self.recherche_indices, width=32, font=(POLICE, 11)).pack(side="left",
+                                                                                                padx=(8, 0))
+        ttk.Button(barre, text=self.t("effacer_recherche"),
+                   command=lambda: self.recherche_indices.set("")).pack(side="left", padx=(8, 0))
+        self.compte_indices = ttk.Label(barre, style="NotePage.TLabel")
+        self.compte_indices.pack(side="left", padx=(12, 0))
+        self.tables_indices = {}
+        for col, (cle, colonnes, largeurs) in enumerate((
+                ("carte_indices_objets", ("objet", "zone", "piece"), (200, 150, 260)),
+                ("carte_indices_pieces", ("piece", "indice"), (250, 200)))):
+            carte, c = self.carte(cadre, self.t(cle))
+            carte.grid(row=2, column=col, sticky="nsew", padx=(0, 8) if col == 0 else (8, 0))
+            zone = tk.Frame(c, bg=COULEURS["bord"], padx=1, pady=1)
+            zone.pack(fill="both", expand=True)
+            t = ttk.Treeview(zone, columns=colonnes, show="headings", style="Spoiler.Treeview", selectmode="none")
+            for nom, largeur in zip(colonnes, largeurs):
+                t.heading(nom, text=self.t(f"col_indice_{nom}"), anchor="w")
+                t.column(nom, width=largeur, minwidth=80, anchor="w", stretch=True)
+            t.tag_configure("impair", background=COULEURS["carte"])
+            t.tag_configure("important", foreground="#ff6b6b")
+            defil = ttk.Scrollbar(zone, orient="vertical", style="Mince.Vertical.TScrollbar", command=t.yview)
+            t.configure(yscrollcommand=defil.set)
+            defil.pack(side="right", fill="y")
+            t.pack(side="left", fill="both", expand=True)
+            t.bind("<ButtonRelease-1>", lambda e, nom=cle: self.reveler_indice(nom, e))
+            self.tables_indices[cle] = t
+        self.afficher_indices()
+
+    def reveler_indice(self, table, e):
+        t = self.tables_indices[table]
+        ligne, colonne = t.identify_row(e.y), t.identify_column(e.x)
+        if not ligne or colonne == "#1":
+            return
+        self.indices_reveles.add((self.indices_graine, table, ligne, colonne))
+        self.afficher_indices()
+
+    def afficher_indices(self):
+        """Remplit l'onglet Indices pour la seed du spoiler (générée ou installée)."""
+        if not hasattr(self, "tables_indices"):
+            return
+        langue = self.langue.get()
+        _, seed = self.spoiler_actuel()
+        graine = seed["graine"] if seed else None
+        if graine != self.indices_graine:          # nouvelle seed : tout redevient caché
+            self.indices_graine, self.indices_reveles = graine, set()
+        cache = self.t("indice_cache")
+        objets, pieces = gen.indices(seed, langue) if seed else ([], [])
+        if not seed:
+            note = self.t("spoiler_aucun")
+        elif not gen.objets_importants(seed):
+            note = self.t("indices_aucun")
+        else:
+            note = self.t("note_indices", graine=graine)
+        self.note_indices.configure(text=note)
+        if seed and not gen.objets_importants(seed):
+            objets, pieces = [], []
+        cherche = sans_accents(self.recherche_indices.get().strip())
+        trouves = 0
+        for table, lignes in (("carte_indices_objets", [(o, z, l) for o, z, l in objets]),
+                              ("carte_indices_pieces", [(l, self.t("indice_important" if imp else "indice_rien"), imp)
+                                                        for l, _, imp in pieces])):
+            t = self.tables_indices[table]
+            t.delete(*t.get_children())
+            # numéro d'origine gardé (l0, l1…) : une case révélée le reste quand on filtre
+            lignes = [(f"l{k}", v) for k, v in enumerate(lignes) if not cherche or cherche in sans_accents(v[0])]
+            trouves += len(lignes)
+            for n, (iid, valeurs) in enumerate(lignes):
+                vu = lambda c: (graine, table, iid, c) in self.indices_reveles      # noqa: E731
+                tags = ["impair"] if n % 2 else []
+                if table == "carte_indices_objets":
+                    affiche = (valeurs[0], valeurs[1] if vu("#2") else cache, valeurs[2] if vu("#3") else cache)
+                else:
+                    affiche = (valeurs[0], valeurs[1] if vu("#2") else cache)
+                    if vu("#2") and valeurs[2]:
+                        tags.append("important")
+                t.insert("", "end", iid=iid, values=affiche, tags=tags)
+        self.compte_indices.configure(text=self.t("resultats_recherche", n=trouves) if cherche and seed else "")
+
     # --- largeur des colonnes du spoiler : on attrape une limite (dans les titres ou les lignes) et on glisse
     def limite_proche(self, x, marge=5):
         """N° de la limite de colonne à moins de « marge » pixels de x, ou None."""
@@ -1323,8 +1435,20 @@ class Application(tk.Tk):
         if hasattr(self, "case_arme_depart"):
             self.case_arme_depart.state(["!disabled"] if self.armes.get() else ["disabled"])
 
+    def maj_cases_logique(self):
+        """« Fin garantie seulement » et « Sans logique » n'ont d'effet qu'avec les clés ou les objets d'énigme
+        aléatoires : grisées (et décochées) sinon (remarque du joueur, 27/11/2026)."""
+        if not hasattr(self, "case_sans_logique"):
+            return
+        actif = self.cles.get() or self.enigmes.get()
+        for case, var in ((self.case_fin_garantie, self.fin_garantie), (self.case_sans_logique, self.sans_logique)):
+            case.state(["!disabled"] if actif else ["disabled"])
+            if not actif:
+                var.set(False)
+
     def afficher_listes_logique(self):
         """Listes des clés / objets d'énigme, seulement quand leur option est cochée."""
+        self.maj_cases_logique()
         for var, note, liste in self.listes_logique.values():
             if var.get():
                 liste.pack(anchor="w", padx=(27, 0), pady=(4, 0), after=note)
@@ -1711,12 +1835,13 @@ class Application(tk.Tk):
         self.dll_prete = dll_prete
         spoiler = dll_prete and self.spoiler_actuel()[1] is not None
         courant = self.onglets.select()            # avant de griser : Tk changerait d'onglet tout seul
-        if not dll_prete and courant in (str(self.page_generer), str(self.page_spoiler)):
+        if not dll_prete and courant in (str(self.page_generer), str(self.page_spoiler), str(self.page_indices)):
             self.onglets.select(self.page_install)
-        elif not spoiler and courant == str(self.page_spoiler):
+        elif not spoiler and courant in (str(self.page_spoiler), str(self.page_indices)):
             self.onglets.select(self.page_generer)
         self.onglets.tab(self.page_generer, state="normal" if dll_prete else "disabled")
         self.onglets.tab(self.page_spoiler, state="normal" if spoiler else "disabled")
+        self.onglets.tab(self.page_indices, state="normal" if spoiler else "disabled")
         self.bouton_suivant.state(["!disabled"] if dll_prete else ["disabled"])
 
     def alerte_releve(self):
@@ -1896,6 +2021,7 @@ class Application(tk.Tk):
                                   malle_aleatoire=self.malle.get(), couteau_aleatoire=self.couteau.get(), cle_placard=self.cle_placard.get() and not self.ufp.get(),
                                   une_fois_de_plus=self.ufp.get(), serre_dangereuse=self.serre_dangereuse.get(),
                                   fusees_aleatoires=self.fusees.get(), capsule_pleine=self.capsule.get(),
+                                  sans_logique=self.sans_logique.get(), fin_garantie=self.fin_garantie.get(),
                                   cles_aleatoires=self.cles.get(),
                                   cles_choisies={i for i, v in self.cles_cochees.items() if v.get()},
                                   enigmes_aleatoires=self.enigmes.get(),
@@ -1935,6 +2061,7 @@ class Application(tk.Tk):
             note, contenu = titre, seed
         else:
             note, contenu = self.t("spoiler_masque", titre=titre), None
+        self.afficher_indices()
         if not hasattr(self, "zone_spoiler"):
             return                                  # appelé pendant la construction de la fenêtre
         lignes = []

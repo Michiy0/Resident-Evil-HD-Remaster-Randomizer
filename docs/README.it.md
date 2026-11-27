@@ -52,6 +52,9 @@ tempi o strategie.
 <td align="center"><img src="../images/appli_options_en.png" alt="Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi" width="420"><br><sub>Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armi: armi casuali, arma e coltello iniziali, borraccia" width="420"><br><sub>Armi: armi casuali, arma e coltello iniziali, borraccia</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="../images/appli_indices_en.png" alt="Indizi: uno alla volta" width="640"><br><sub>Indizi: uno alla volta</sub></td>
+</tr>
 </table>
 
 ## Stato
@@ -60,11 +63,12 @@ tempi o strategie.
 |---|---|
 | Chris, difficoltà Facile (tutto il gioco rilevato, laboratorio compreso) | Jill, altre difficoltà |
 | 164 posizioni: munizioni (pistola, fucile e magnum), erbe verdi, rosse e blu, nastri, pugnali, granate accecanti, pistola di autodifesa, spray e kit di pronto soccorso | — |
-| Opzioni **Chiavi casuali** e **Oggetti degli enigmi casuali**, **con logica**: la partita resta sempre completabile (una chiave non finisce mai dietro la porta che apre). Ogni oggetto si può spuntare o togliere; i 3 dischi MO uno per uno. Villa, cortile, residenza e laboratorio, enigmi compresi | Opzione *Senza logica*; il campione d'ape e l'esca senza amo (l'enigma dell'acquario si blocca se vengono spostati) |
-| **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima, anche gli oggetti lasciati cadere o rivelati durante la partita (collare del cane, stemmi della tomba), quelli ottenuti esaminando qualcosa (emblema del camino, amo) e quelli presi durante una breve scena; opzione **Baule iniziale casuale** | Indizi per stanza |
+| Opzioni **Chiavi casuali** e **Oggetti degli enigmi casuali**, **con logica**: la partita resta sempre completabile (una chiave non finisce mai dietro la porta che apre). Ogni oggetto si può spuntare o togliere; i 3 dischi MO uno per uno. Villa, cortile, residenza e laboratorio, enigmi compresi | Il campione d'ape e l'esca senza amo (l'enigma dell'acquario si blocca se vengono spostati) |
+| **Oggetti visibili a terra**: il nuovo oggetto appare nella stanza e nell'anteprima, anche gli oggetti lasciati cadere o rivelati durante la partita (collare del cane, stemmi della tomba), quelli ottenuti esaminando qualcosa (emblema del camino, amo) e quelli presi durante una breve scena; opzione **Baule iniziale casuale** | — |
 | Opzione **Armi casuali** (pistola, fucile, fucile d'assalto, magnum) e **Arma garantita all'inizio** (nell'inventario all'avvio, con le munizioni); opzione **Coltello iniziale casuale** (puoi iniziare senza armi!); veri modelli a terra per il coltello, la Samurai Edge e il lanciarazzi illimitati | Altre armi (lanciagranate, lanciafiamme), nemici casuali, porte casuali |
 | **Borraccia**: borraccia casuale (sempre trovabile) e borraccia già piena (2 cariche) | — |
-| Sezione **Divertimento**: **armi bonus** (Samurai Edge e lanciarazzi con munizioni illimitate) e **capsula di carburante già piena** (esplode se corri, vieni colpito o spari!). **Per i pazzi**: oggetti importanti nella serra, **razzi di segnalazione ovunque** | — |
+| Sezione **Divertimento**: **armi bonus** (Samurai Edge e lanciarazzi con munizioni illimitate) e **capsula di carburante già piena** (esplode se corri, vieni colpito o spari!). **Per i pazzi**: oggetti importanti nella serra, **razzi di segnalazione ovunque**, **solo il finale garantito** e **senza logica** (caos puro) | — |
+| Scheda **Indizi**: dove si trova ogni oggetto importante (zona, poi stanza esatta) e se ogni stanza nasconde qualcosa, ogni indizio nascosto fino al clic, con barra di ricerca | — |
 | Windows e **Steam Deck** (testato in gioco con Proton, anche su scheda SD); Linux | **[Archipelago](#archipelago-in-arrivo)** |
 
 **Versione del gioco richiesta**: il `bhd.exe` attuale di Steam (9.640.360 byte). L'app lo controlla; con
@@ -77,11 +81,9 @@ Il randomizer è già giocabile, ma c'è ancora molto in programma, più o meno 
 1. **Jill**: registrare tutte le sue posizioni e adattare la logica delle chiavi.
 2. **Altre difficoltà**: gli oggetti cambiano con la difficoltà.
 3. **Le altre armi**: lanciagranate e lanciafiamme.
-4. Opzione **Senza logica**: chiavi mescolate senza rete di sicurezza.
-5. **Indizi per stanza**.
-6. **Nemici casuali**.
-7. **Porte casuali**: ogni porta porta in un'altra stanza.
-8. **Archipelago**: multimondo con altri giochi.
+4. **Nemici casuali**.
+5. **Porte casuali**: ogni porta porta in un'altra stanza.
+6. **Archipelago**: multimondo con altri giochi.
 
 ## Archipelago (in arrivo)
 
@@ -136,13 +138,13 @@ L'app si può anche aggiungere a Steam come **gioco non Steam** per usarla in **
 
 ## Utilizzo
 
-L'app ha sei schede e un selettore della lingua in alto a destra («Automatica» = lingua del sistema).
+L'app ha sette schede e un selettore della lingua in alto a destra («Automatica» = lingua del sistema).
 
 - **Installazione** — cartella del gioco, stato del randomizer e del seed installato, installare / aggiornare
   / disinstallare la DLL (e l'opzione di avvio su Steam Deck).
 - **Genera un seed** — con sette sottoschede:
   - *Personaggio e difficoltà*;
-  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale; sotto, *Per i pazzi* (senza logica, in arrivo;
+  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale; sotto, *Per i pazzi* (solo il finale garantito; senza logica;
     oggetti importanti nella serra; razzi di segnalazione ovunque);
   - *Armi*: armi casuali (con l'elenco delle armi), arma garantita all'inizio, coltello iniziale casuale; sotto, la
     *Borraccia* (casuale, già piena);
@@ -154,6 +156,8 @@ L'app ha sei schede e un selettore della lingua in alto a destra («Automatica»
   - **Genera il seed**, con il seed (o «Casuale») accanto — stesso seed + stesse opzioni = stesso risultato.
 - **Spoiler** — l'elenco completo delle modifiche in una tabella, con ricerca e ordinamento, nascosto finché
   non spunti *Mostra lo spoiler*.
+- **Indizi** — dove si trova ogni oggetto importante e se ogni stanza nasconde qualcosa; ogni casella resta
+  nascosta fino al clic, con barra di ricerca.
 - **Archipelago** — in arrivo.
 - **Aiuta il progetto** — modalità rilevamento e barre di avanzamento.
 - **Info** — i ringraziamenti e un link a questa pagina.

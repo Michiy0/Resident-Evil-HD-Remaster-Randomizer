@@ -52,6 +52,9 @@ o estrategias.
 <td align="center"><img src="../images/appli_options_en.png" alt="Opciones: objetos visibles, baúl inicial y opciones para los locos" width="420"><br><sub>Opciones: objetos visibles, baúl inicial y opciones para los locos</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora" width="420"><br><sub>Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="../images/appli_indices_en.png" alt="Pistas: una a la vez" width="640"><br><sub>Pistas: una a la vez</sub></td>
+</tr>
 </table>
 
 ## Estado
@@ -60,11 +63,12 @@ o estrategias.
 |---|---|
 | Chris, dificultad Fácil (todo el juego registrado, laboratorio incluido) | Jill, otras dificultades |
 | 164 ubicaciones: munición (pistola, escopeta y magnum), hierbas verdes, rojas y azules, cintas, puñales, granadas cegadoras, pistola de autodefensa, sprays y botiquines | — |
-| Opciones **Llaves aleatorias** y **Objetos de puzle aleatorios**, **con lógica**: la partida siempre se puede terminar (una llave nunca acaba detrás de la puerta que abre). Cada objeto se puede marcar o desmarcar; los 3 discos MO uno a uno. Mansión, patio, residencia y laboratorio, puzles incluidos | Opción *Sin lógica*; el espécimen de abeja y el señuelo sin anzuelo (el puzle del acuario se bloquea si se mueven) |
-| **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa, también los objetos que caen o aparecen durante la partida (collar del perro, emblemas de la tumba), los que se obtienen al examinar algo (emblema de la chimenea, anzuelo) y los que se toman en una breve escena; opción **Baúl inicial aleatorio** | Pistas por sala |
+| Opciones **Llaves aleatorias** y **Objetos de puzle aleatorios**, **con lógica**: la partida siempre se puede terminar (una llave nunca acaba detrás de la puerta que abre). Cada objeto se puede marcar o desmarcar; los 3 discos MO uno a uno. Mansión, patio, residencia y laboratorio, puzles incluidos | El espécimen de abeja y el señuelo sin anzuelo (el puzle del acuario se bloquea si se mueven) |
+| **Objetos visibles en el suelo**: el nuevo objeto aparece en la sala y en la vista previa, también los objetos que caen o aparecen durante la partida (collar del perro, emblemas de la tumba), los que se obtienen al examinar algo (emblema de la chimenea, anzuelo) y los que se toman en una breve escena; opción **Baúl inicial aleatorio** | — |
 | Opción **Armas aleatorias** (pistola, escopeta, escopeta de asalto, magnum) y **Arma garantizada al inicio** (en el inventario al empezar, con su munición); opción **Cuchillo inicial aleatorio** (¡puedes empezar sin arma!); modelos reales en el suelo para el cuchillo, la Samurai Edge y el lanzacohetes ilimitados | Otras armas (lanzagranadas, lanzallamas), enemigos aleatorios, puertas aleatorias |
 | **Cantimplora**: cantimplora aleatoria (siempre se encuentra) y cantimplora ya llena (2 cargas) | — |
-| Sección **Diversión**: **armas extra** (Samurai Edge y lanzacohetes con munición ilimitada) y **cápsula de combustible ya llena** (¡explota si corres, te golpean o disparas!). **Para los locos**: objetos importantes en el invernadero, **bengalas en cualquier lugar** | — |
+| Sección **Diversión**: **armas extra** (Samurai Edge y lanzacohetes con munición ilimitada) y **cápsula de combustible ya llena** (¡explota si corres, te golpean o disparas!). **Para los locos**: objetos importantes en el invernadero, **bengalas en cualquier lugar**, **solo el final garantizado** y **sin lógica** (caos puro) | — |
+| Pestaña **Pistas**: dónde está cada objeto importante (zona, luego sala exacta) y si cada sala esconde algo, cada pista oculta hasta el clic, con barra de búsqueda | — |
 | Windows y **Steam Deck** (probado en el juego con Proton, también en tarjeta SD); Linux | **[Archipelago](#archipelago-próximamente)** |
 
 **Versión del juego necesaria**: el `bhd.exe` actual de Steam (9.640.360 bytes). La aplicación lo comprueba;
@@ -77,11 +81,9 @@ El randomizer ya se puede jugar, pero aún hay mucho previsto, más o menos en e
 1. **Jill**: registrar todos sus lugares de objetos y adaptar la lógica de las llaves.
 2. **Otras dificultades**: los objetos cambian según la dificultad.
 3. **Las demás armas**: lanzagranadas y lanzallamas.
-4. Opción **Sin lógica**: llaves mezcladas sin red de seguridad.
-5. **Pistas por sala**.
-6. **Enemigos aleatorios**.
-7. **Puertas aleatorias**: cada puerta lleva a otra sala.
-8. **Archipelago**: multimundo con otros juegos.
+4. **Enemigos aleatorios**.
+5. **Puertas aleatorias**: cada puerta lleva a otra sala.
+6. **Archipelago**: multimundo con otros juegos.
 
 ## Archipelago (próximamente)
 
@@ -138,14 +140,13 @@ de lanzamiento).
 
 ## Uso
 
-La aplicación tiene seis pestañas y un selector de idioma arriba a la derecha («Automático» = idioma del sistema).
+La aplicación tiene siete pestañas y un selector de idioma arriba a la derecha («Automático» = idioma del sistema).
 
 - **Instalación** — carpeta del juego, estado del randomizer y de la seed instalada, instalar / actualizar /
   desinstalar la DLL (y la opción de lanzamiento en Steam Deck).
 - **Generar una semilla** — con siete subpestañas:
   - *Personaje y dificultad*;
-  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio; debajo, *Para los locos* (sin lógica,
-    próximamente; objetos importantes en el invernadero; bengalas en cualquier lugar);
+  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio; debajo, *Para los locos* (solo el final garantizado; sin lógica; objetos importantes en el invernadero; bengalas en cualquier lugar);
   - *Armas*: armas aleatorias (con la lista de armas), arma garantizada al inicio, cuchillo inicial aleatorio;
     debajo, la *Cantimplora* (aleatoria, ya llena);
   - *Llaves y objetos de puzle*: llaves y objetos de puzle aleatorios, cada uno con su lista (*Disco MO*
@@ -156,6 +157,8 @@ La aplicación tiene seis pestañas y un selector de idioma arriba a la derecha 
   - **Generar la seed**, con la seed (o «Al azar») al lado — misma seed + mismas opciones = mismo resultado.
 - **Spoiler** — la lista completa de cambios en una tabla, con búsqueda y orden, oculta hasta que marques
   *Mostrar el spoiler*.
+- **Pistas** — dónde está cada objeto importante y si cada sala esconde algo; cada casilla queda oculta hasta el
+  clic, con barra de búsqueda.
 - **Archipelago** — próximamente.
 - **Ayudar al proyecto** — modo registro y barras de progreso.
 - **Info** — los créditos y un enlace a esta página.

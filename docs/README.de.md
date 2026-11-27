@@ -52,6 +52,9 @@ oder Strategien zu vergleichen.
 <td align="center"><img src="../images/appli_options_en.png" alt="Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte" width="420"><br><sub>Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche" width="420"><br><sub>Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="../images/appli_indices_en.png" alt="Hinweise: einer nach dem anderen" width="640"><br><sub>Hinweise: einer nach dem anderen</sub></td>
+</tr>
 </table>
 
 ## Stand
@@ -60,11 +63,12 @@ oder Strategien zu vergleichen.
 |---|---|
 | Chris, Schwierigkeit Leicht (ganzes Spiel erfasst, Labor inklusive) | Jill, weitere Schwierigkeitsgrade |
 | 164 Fundorte: Munition (Pistole, Gewehr, Magnum), grüne, rote und blaue Kräuter, Farbbänder, Dolche, Blendgranaten, Selbstverteidigungswaffe, Erste-Hilfe-Sprays und -Kästen | — |
-| Optionen **Zufällige Schlüssel** und **Zufällige Rätselgegenstände**, **mit Logik**: Das Spiel bleibt immer schaffbar (ein Schlüssel landet nie hinter der Tür, die er öffnet). Jeder Gegenstand lässt sich an- oder abwählen, die 3 MO-Disks einzeln. Villa, Hof, Wohnheim und Labor, Rätsel inklusive | Option *Ohne Logik*; Bienenpräparat und Köder ohne Haken (das Aquariumrätsel blockiert, wenn sie verschoben werden) |
-| **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau, auch fallengelassene oder enthüllte Gegenstände (Hundehalsband, Grabsymbole), untersuchte Gegenstände (Emblem am Kamin, Angelhaken) und in kurzen Szenen erhaltene; Option **Zufällige Kiste am Start** | Hinweise pro Raum |
+| Optionen **Zufällige Schlüssel** und **Zufällige Rätselgegenstände**, **mit Logik**: Das Spiel bleibt immer schaffbar (ein Schlüssel landet nie hinter der Tür, die er öffnet). Jeder Gegenstand lässt sich an- oder abwählen, die 3 MO-Disks einzeln. Villa, Hof, Wohnheim und Labor, Rätsel inklusive | Bienenpräparat und Köder ohne Haken (das Aquariumrätsel blockiert, wenn sie verschoben werden) |
+| **Gegenstände am Boden sichtbar**: Der neue Gegenstand erscheint im Raum und in der Vorschau, auch fallengelassene oder enthüllte Gegenstände (Hundehalsband, Grabsymbole), untersuchte Gegenstände (Emblem am Kamin, Angelhaken) und in kurzen Szenen erhaltene; Option **Zufällige Kiste am Start** | — |
 | Option **Zufällige Waffen** (Pistole, Gewehr, Kampfgewehr, Magnum) und **Garantierte Startwaffe** (zu Spielbeginn ins Inventar, mit Munition); Option **Zufälliges Startmesser** (du kannst ohne Waffe beginnen!); echte Bodenmodelle für Messer, Samurai Edge und Raketenwerfer mit unendlicher Munition | Weitere Waffen (Granatwerfer, Flammenwerfer), zufällige Gegner, zufällige Türen |
 | **Feldflasche**: zufällige Feldflasche (immer auffindbar) und schon gefüllte Feldflasche (2 Ladungen) | — |
-| Bereich **Spaß**: **Bonuswaffen** (Samurai Edge und Raketenwerfer mit unendlicher Munition) und **schon volle Treibstoffkapsel** (sie explodiert, wenn du rennst, getroffen wirst oder schießt!). **Für Verrückte**: wichtige Gegenstände im Gewächshaus, **Signalraketen überall** | — |
+| Bereich **Spaß**: **Bonuswaffen** (Samurai Edge und Raketenwerfer mit unendlicher Munition) und **schon volle Treibstoffkapsel** (sie explodiert, wenn du rennst, getroffen wirst oder schießt!). **Für Verrückte**: wichtige Gegenstände im Gewächshaus, **Signalraketen überall**, **Nur das Ende garantiert** und **Ohne Logik** (reines Chaos) | — |
+| Tab **Hinweise**: wo jeder wichtige Gegenstand ist (Bereich, dann genauer Raum) und ob ein Raum etwas verbirgt, jeder Hinweis bis zum Klick verborgen, mit Suchleiste | — |
 | Windows und **Steam Deck** (im Spiel unter Proton getestet, auch SD-Karte); Linux | **[Archipelago](#archipelago-demnächst)** |
 
 **Benötigte Spielversion**: die aktuelle Steam-`bhd.exe` (9.640.360 Bytes). Die App prüft das; bei jeder
@@ -77,11 +81,9 @@ Der Randomizer ist schon spielbar, aber vieles ist noch geplant, ungefähr in di
 1. **Jill**: alle ihre Fundorte erfassen und die Schlüssellogik anpassen.
 2. **Weitere Schwierigkeitsgrade**: die Gegenstände ändern sich mit dem Schwierigkeitsgrad.
 3. **Die übrigen Waffen**: Granatwerfer und Flammenwerfer.
-4. Option **Ohne Logik**: Schlüssel ohne Sicherheitsnetz gemischt.
-5. **Hinweise pro Raum**.
-6. **Zufällige Gegner**.
-7. **Zufällige Türen**: jede Tür führt in einen anderen Raum.
-8. **Archipelago**: Multiworld mit anderen Spielen.
+4. **Zufällige Gegner**.
+5. **Zufällige Türen**: jede Tür führt in einen anderen Raum.
+6. **Archipelago**: Multiworld mit anderen Spielen.
 
 ## Archipelago (demnächst)
 
@@ -139,14 +141,13 @@ entfernen).
 
 ## Benutzung
 
-Die App hat sechs Tabs und oben rechts eine Sprachauswahl („Automatisch“ = Systemsprache).
+Die App hat sieben Tabs und oben rechts eine Sprachauswahl („Automatisch“ = Systemsprache).
 
 - **Installation** — Spielordner, Status von Randomizer und installiertem Seed, DLL installieren /
   aktualisieren / deinstallieren (und die Startoption auf dem Steam Deck).
 - **Seed erstellen** — mit sieben Untertabs:
   - *Charakter und Schwierigkeit*;
-  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start; darunter *Für Verrückte* (ohne Logik,
-    demnächst; wichtige Gegenstände im Gewächshaus; Signalraketen überall);
+  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start; darunter *Für Verrückte* (nur das Ende garantiert; ohne Logik; wichtige Gegenstände im Gewächshaus; Signalraketen überall);
   - *Waffen*: Zufällige Waffen (mit Waffenliste), Garantierte Startwaffe, Zufälliges Startmesser; darunter die
     *Feldflasche* (zufällig, schon gefüllt);
   - *Schlüssel und Rätselgegenstände*: zufällige Schlüssel und Rätselgegenstände, jeweils mit Liste (*MO-Disk*
@@ -158,6 +159,8 @@ Die App hat sechs Tabs und oben rechts eine Sprachauswahl („Automatisch“ = S
     Ergebnis.
 - **Spoiler** — die vollständige Liste der Änderungen als Tabelle, mit Suche und Sortierung, verborgen, bis du
   *Spoiler anzeigen* anhakst.
+- **Hinweise** — wo jeder wichtige Gegenstand ist und ob ein Raum etwas verbirgt; jedes Feld bleibt bis zum
+  Klick verborgen, mit Suchleiste.
 - **Archipelago** — demnächst.
 - **Projekt unterstützen** — Erfassungsmodus und Fortschrittsbalken.
 - **Info** — Mitwirkende und ein Link zu dieser Seite.

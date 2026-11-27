@@ -362,14 +362,49 @@ def parcourir(emplacements, contenu, depart_possede=(), sans_vieilles=False):
             return pieces, ramasses, possede
 
 
-def finissable(emplacements, contenu, ids=None):
-    """La partie est finissable : but atteint et tous les objets mélangés (ids) ramassables."""
+def finissable(emplacements, contenu, ids=None, but_seulement=False):
+    """La partie est finissable : but atteint et tous les objets mélangés (ids) ramassables (but_seulement : le but
+    suffit, option « Fin garantie seulement »)."""
     ids = IDS_CLES if ids is None else ids
     pieces, ramasses, possede = parcourir(emplacements, contenu)
     for piece, besoin in BUT:
         if piece not in pieces or not all(possede[x] >= 1 for x in besoin):
             return False
-    return all(i in ramasses for i, objet in enumerate(contenu) if _id(objet) in ids)
+    return but_seulement or all(i in ramasses for i, objet in enumerate(contenu) if _id(objet) in ids)
+
+
+def liberer(emplacements, contenu, graine, interdits=(), ids=None):
+    """Option « Fin garantie seulement » (27/11/2026, idée du joueur) : après un placement avec logique, chaque clé /
+    objet d'énigme (ordre tiré au sort) est échangé avec un emplacement pris au hasard, n'importe où (même derrière
+    une porte qu'on n'ouvrira jamais) ; l'échange est gardé si l'on peut encore finir le jeu. contenu est modifié
+    sur place. Renvoie le nombre d'échanges gardés."""
+    rng = random.Random(graine ^ 0xF1A1)
+    ids = IDS_CLES if ids is None else set(ids)
+    interdits = set(interdits)
+    libres = [i for i in range(len(contenu)) if i not in interdits]
+    gardes = 0
+    for _ in range(PASSES_LIBERER):          # plusieurs passes : plus de désordre (une seule en laisse peu)
+        cles = [i for i in libres if _id(contenu[i]) in ids]
+        rng.shuffle(cles)
+        gardes += _liberer_passe(emplacements, contenu, rng, libres, cles, ids)
+    return gardes
+
+
+PASSES_LIBERER = 3
+
+
+def _liberer_passe(emplacements, contenu, rng, libres, cles, ids):
+    gardes = 0
+    for i in cles:
+        j = rng.choice(libres)
+        if j == i:
+            continue
+        contenu[i], contenu[j] = contenu[j], contenu[i]
+        if finissable(emplacements, contenu, ids, but_seulement=True):
+            gardes += 1
+        else:
+            contenu[i], contenu[j] = contenu[j], contenu[i]
+    return gardes
 
 
 def placer_cles(emplacements, contenu, graine, interdits=(), essais=2000, ids=None):

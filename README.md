@@ -48,19 +48,23 @@ or strategies.
 <td align="center"><img src="images/appli_options_en.png" alt="Options: items visible on the ground, starting item box, and the options for the crazy ones" width="420"><br><sub>Options: items visible on the ground, starting item box, and the options for the crazy ones</sub></td>
 <td align="center"><img src="images/appli_armes_en.png" alt="Weapons: random weapons, starting weapon and knife, fuel canteen" width="420"><br><sub>Weapons: random weapons, starting weapon and knife, fuel canteen</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="images/appli_indices_en.png" alt="Hints: reveal one clue at a time" width="640"><br><sub>Hints: reveal one clue at a time</sub></td>
+</tr>
 </table>
 
-## Status: version 0.9.8 (test)
+## Status: version 0.9.8.1 (test)
 
 | Supported | Coming |
 |---|---|
 | Chris, Easy difficulty (whole game surveyed, laboratory included) | Jill, other difficulties |
 | 164 placed-item locations: ammo (handgun, shotgun and magnum), green, red and blue herbs, ink ribbons, daggers, flash grenades, self-defense gun, first aid sprays and boxes | — |
-| **Random keys** and **random puzzle items** options, **with logic**: the game always stays completable (a key never ends up behind the door it opens). Each key and puzzle item can be ticked or unticked; the 3 MO disks can be chosen one by one. Mansion, courtyard, residence and laboratory, including puzzles (tiger statue, dog collar, grave crests, fish tank, insecticide, slide filter, MO terminals, fuse, fuel capsule…) | The *No logic* option; the bee specimen and the hookless lure of the fish tank puzzle (the puzzle locks up if they are moved, so they stay in place) |
-| **Items visible on the ground**: the new item appears in the room and in the preview before pickup, including items dropped or revealed during the game (dog collar, grave crests), items obtained by examining something (fireplace emblem, fish hook) and items taken during a short scene (fuel capsule machine, Enrico's room); **random starting item box** option (also in *Once Again*); **Closet Key from the start** option | Per-room hints |
+| **Random keys** and **random puzzle items** options, **with logic**: the game always stays completable (a key never ends up behind the door it opens). Each key and puzzle item can be ticked or unticked; the 3 MO disks can be chosen one by one. Mansion, courtyard, residence and laboratory, including puzzles (tiger statue, dog collar, grave crests, fish tank, insecticide, slide filter, MO terminals, fuse, fuel capsule…) | The bee specimen and the hookless lure of the fish tank puzzle (the puzzle locks up if they are moved, so they stay in place) |
+| **Items visible on the ground**: the new item appears in the room and in the preview before pickup, including items dropped or revealed during the game (dog collar, grave crests), items obtained by examining something (fireplace emblem, fish hook) and items taken during a short scene (fuel capsule machine, Enrico's room); **random starting item box** option (also in *Once Again*); **Closet Key from the start** option | — |
 | **Random weapons** option, with a choice of which weapons to shuffle (handgun, shotgun, assault shotgun, magnum) and a **guaranteed starting weapon** option (given in the inventory at the start, with its ammo); **random starting knife** option (you may start with no weapon!); real ground models for the knife, the unlimited Samurai Edge and the unlimited rocket launcher | The other weapons (grenade launcher, flamethrower), random enemies, random doors |
 | **Fuel canteen**: random canteen (always findable) and canteen already filled (2 charges) | — |
-| **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) and **fuel capsule already full** (it explodes if you run, get hit or shoot!). **For the crazy ones**: important items in the greenhouse, **signal rockets anywhere** | — |
+| **Fun** section: **bonus weapons** (unlimited Samurai Edge and rocket launcher, each replacing a random item) and **fuel capsule already full** (it explodes if you run, get hit or shoot!). **For the crazy ones**: important items in the greenhouse, **signal rockets anywhere**, **ending guaranteed only** (only the ending is checked: some keys or items may never be found) and **no logic** (pure chaos, the game is almost always blocked) | — |
+| **Hints** tab: where is each important item (area, then exact room) and does each room hide something, every hint hidden until you click it, with a search bar | — |
 | Windows and **Steam Deck** (tested in game under Proton, SD card included); Linux | **[Archipelago](#archipelago-coming-soon)** support |
 
 **Required game version**: the current Steam `bhd.exe` (9,640,360 bytes, SHA-256
@@ -76,11 +80,9 @@ The randomizer is already playable, but a lot is still planned. Roughly in order
 2. **Other difficulties**: survey Very Easy, Normal and Hard (items change with the difficulty), and maybe set the
    difficulty automatically at the start of the game.
 3. **The other weapons**: grenade launcher and flamethrower (each one can only be used by one character).
-4. **No logic** option: keys shuffled with no safety net, for the crazy ones.
-5. **Per-room hints**: optional hints about where the important items are.
-6. **Random enemies**: shuffle which enemies appear in each room.
-7. **Random doors**: each door leads to a different room than usual.
-8. **[Archipelago](#archipelago-coming-soon)**: play in a multiworld with other games.
+4. **Random enemies**: shuffle which enemies appear in each room.
+5. **Random doors**: each door leads to a different room than usual.
+6. **[Archipelago](#archipelago-coming-soon)**: play in a multiworld with other games.
 
 You can help right now by surveying item locations: see [Help the project](#help-the-project).
 
@@ -173,7 +175,7 @@ option). “Remove the installed seed” only removes the seed: without a seed, 
 
 ## Usage
 
-The app has six tabs, and a language selector at the top right (“Automatic” = system language, English
+The app has seven tabs, and a language selector at the top right (“Automatic” = system language, English
 otherwise).
 
 - **Installation** — game folder, randomizer and installed seed status, install / update / uninstall the
@@ -185,7 +187,8 @@ otherwise).
     option (the key to the costume room is in the item box from the start, and its door works);
   - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
     pickup) and random starting item box (ticked by default; new game only); below, in its own card, *For the
-    crazy ones*: no logic (coming soon), important items in the greenhouse (opening the wrong pipe there kills the
+    crazy ones*: ending guaranteed only (only the ending is checked) and no logic (pure chaos;
+    both need random keys or puzzle items), important items in the greenhouse (opening the wrong pipe there kills the
     plants and can destroy the items placed instead of them; unticked, only ordinary items replace the plants) and
     signal rockets anywhere (to call the helicopter at the end, you must first pick up the item lying in their place
     on the heliport);
@@ -202,11 +205,13 @@ otherwise).
     the seed to the `seeds` folder and installs it in the game.
 - **Spoiler** — unlocked as soon as there is a seed: the full list of changes as a table (location, original
   item, replacement), with search and sorting, hidden until you tick *Show spoiler*.
+- **Hints** — unlocked with the spoiler: where each important item is (area, then exact room) and whether each
+  room hides something; each cell stays hidden until you click it, with a search bar.
 - **Archipelago** — coming soon: the connection form (greyed out) and what is left to do.
 - **Help the project** — survey mode and the progress bars (see below).
 - **Info** — the credits (author, testers, thanks) and a link to this page.
 
-Options marked “coming soon” (no logic, enemies, doors, Archipelago…) are visible but greyed out.
+Options marked “coming soon” (enemies, doors, Archipelago…) are visible but greyed out.
 
 ### Compatibility
 
@@ -280,7 +285,7 @@ Open an [issue](https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer/
 donnees_randomizer_RE1.xlsx   data: rooms, items, locations, surveyed rooms, bonus
 DLL/                          the DLL (randomizer.c, xinput1_4.def) and its build scripts
 Randomizer/
-  application.py              the app (6 tabs, 9 languages)
+  application.py              the app (7 tabs, 9 languages)
   mise_a_jour.py              automatic update from the GitHub Releases
   noms_jeu.py                 official item names, read from the installed game's texts
   generateur_seed.py          seed generation (also command line)

@@ -50,19 +50,23 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 <td align="center"><img src="../images/appli_options_fr.png" alt="Options : objets visibles par terre, malle de départ et options pour les fous" width="420"><br><sub>Options : objets visibles par terre, malle de départ et options pour les fous</sub></td>
 <td align="center"><img src="../images/appli_armes_fr.png" alt="Armes : armes aléatoires, arme et couteau de départ, gourde" width="420"><br><sub>Armes : armes aléatoires, arme et couteau de départ, gourde</sub></td>
 </tr>
+<tr>
+<td align="center" colspan="2"><img src="../images/appli_indices_fr.png" alt="Indices : un indice à la fois" width="640"><br><sub>Indices : un indice à la fois</sub></td>
+</tr>
 </table>
 
-## État : version 0.9.8 (test)
+## État : version 0.9.8.1 (test)
 
 | Pris en charge | À venir |
 |---|---|
 | Chris, difficulté Facile (tout le jeu relevé, laboratoire compris) | Jill, autres difficultés |
 | 164 emplacements d'objets posés : munitions (pistolet, fusil et Magnum), herbes vertes, rouges et bleues, rubans encreurs, poignards, grenades aveuglantes, pistolet d'autodéfense, sprays et trousses de premiers secours | — |
-| Options **clés aléatoires** et **objets d'énigme aléatoires**, **avec logique** : la partie reste toujours finissable (une clé ne se retrouve jamais derrière la porte qu'elle ouvre). Chaque clé et chaque objet d'énigme se coche ou se décoche ; les 3 disques MO se choisissent un par un. Manoir, cour, résidence et laboratoire, énigmes comprises (statue du tigre, collier du chien, symboles de la tombe, aquarium, insecticide, filtre à diapos, terminaux MO, fusibles, capsule de carburant…) | L'option *Sans logique* ; le spécimen d'abeille et le leurre sans hameçon de l'énigme de l'aquarium (l'énigme se bloque s'ils sont déplacés : ils restent à leur place) |
-| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage, y compris les objets lâchés ou révélés pendant la partie (collier du chien, symboles de la tombe), les objets obtenus en examinant quelque chose (emblème de la cheminée, hameçon) et ceux pris pendant une petite scène (machine de la capsule, salle d'Enrico) ; option **malle de départ aléatoire** (aussi en *Une fois de plus*) ; option **clé du placard dès le départ** | Indices par pièce |
+| Options **clés aléatoires** et **objets d'énigme aléatoires**, **avec logique** : la partie reste toujours finissable (une clé ne se retrouve jamais derrière la porte qu'elle ouvre). Chaque clé et chaque objet d'énigme se coche ou se décoche ; les 3 disques MO se choisissent un par un. Manoir, cour, résidence et laboratoire, énigmes comprises (statue du tigre, collier du chien, symboles de la tombe, aquarium, insecticide, filtre à diapos, terminaux MO, fusibles, capsule de carburant…) | Le spécimen d'abeille et le leurre sans hameçon de l'énigme de l'aquarium (l'énigme se bloque s'ils sont déplacés : ils restent à leur place) |
+| **Objets visibles par terre** : le nouvel objet s'affiche dans le décor et dans l'aperçu avant ramassage, y compris les objets lâchés ou révélés pendant la partie (collier du chien, symboles de la tombe), les objets obtenus en examinant quelque chose (emblème de la cheminée, hameçon) et ceux pris pendant une petite scène (machine de la capsule, salle d'Enrico) ; option **malle de départ aléatoire** (aussi en *Une fois de plus*) ; option **clé du placard dès le départ** | — |
 | Option **armes aléatoires**, avec le choix des armes à mélanger (pistolet, fusil, fusil d'assaut, Magnum) et option **arme garantie au départ** (donnée dans l'inventaire au début, avec ses munitions) ; option **couteau de départ aléatoire** (on peut commencer sans arme !) ; vrais modèles au sol pour le couteau, le Samurai Edge illimité et le lance-roquettes illimité | Les autres armes (lance-grenades, lance-flammes), ennemis aléatoires, portes aléatoires |
 | **Gourde** : gourde aléatoire (toujours trouvable) et gourde remplie au ramassage (2 charges) | — |
-| Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) et **capsule de carburant pleine au ramassage** (elle explose si on court, si on se fait attaquer ou si on tire !). **Pour les fous** : objets importants dans la serre, **fusées de signalisation n'importe où** | — |
+| Section **Fun** : **armes bonus** (Samurai Edge et lance-roquettes illimités, chacun à la place d'un objet au hasard) et **capsule de carburant pleine au ramassage** (elle explose si on court, si on se fait attaquer ou si on tire !). **Pour les fous** : objets importants dans la serre, **fusées de signalisation n'importe où**, **fin garantie seulement** (seule la fin est vérifiée : des clés ou objets peuvent rester introuvables) et **sans logique** (hasard pur, la partie est presque toujours bloquée) | — |
+| Onglet **Indices** : où est chaque objet important (zone, puis pièce exacte) et si chaque pièce cache quelque chose, chaque indice caché jusqu'au clic, avec une barre de recherche | — |
 | Windows et **Steam Deck** (testé en jeu sous Proton, carte SD comprise) ; Linux | Support d'**[Archipelago](#archipelago-à-venir)** |
 
 **Version du jeu requise** : la version Steam actuelle de `bhd.exe` (9 640 360 octets, SHA-256
@@ -78,11 +82,9 @@ Le randomizer est déjà jouable, mais il reste beaucoup de choses prévues. À 
 2. **Les autres difficultés** : relever Débutant, Normal et Expert (les objets changent selon la difficulté), et
    peut-être régler la difficulté automatiquement au début de la partie.
 3. **Les autres armes** : lance-grenades et lance-flammes (chacune n'est utilisable que par un personnage).
-4. Option **Sans logique** : les clés mélangées sans filet, pour les fous.
-5. **Indices par pièce** : des indices facultatifs sur l'endroit des objets importants.
-6. **Ennemis aléatoires** : mélanger les ennemis de chaque pièce.
-7. **Portes aléatoires** : chaque porte mène vers une autre pièce que d'habitude.
-8. **[Archipelago](#archipelago-à-venir)** : jouer en multi-mondes avec d'autres jeux.
+4. **Ennemis aléatoires** : mélanger les ennemis de chaque pièce.
+5. **Portes aléatoires** : chaque porte mène vers une autre pièce que d'habitude.
+6. **[Archipelago](#archipelago-à-venir)** : jouer en multi-mondes avec d'autres jeux.
 
 Tu peux aider dès maintenant en relevant les emplacements d'objets : voir [Aider le projet](#aider-le-projet).
 
@@ -183,7 +185,7 @@ Dans l'application : **Désinstaller la DLL** (sur Steam Deck, retire aussi l'op
 
 ## Utilisation
 
-L'application a six onglets, et un sélecteur de langue en haut à droite (« Automatique » = langue du
+L'application a sept onglets, et un sélecteur de langue en haut à droite (« Automatique » = langue du
 système, anglais sinon).
 
 - **Installation** — dossier du jeu, état du randomizer et de la seed installée, installer / mettre à
@@ -197,7 +199,8 @@ système, anglais sinon).
     fonctionne) ;
   - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
     ramassage) et malle de départ aléatoire (cochée d'office ; nouvelle partie seulement) ; en dessous, dans sa
-    propre carte, *Pour les fous* : sans logique (à venir), objets importants dans la serre (y ouvrir le mauvais
+    propre carte, *Pour les fous* : fin garantie seulement (seule la fin est vérifiée) et sans logique (hasard pur ;
+    les deux demandent les clés ou objets d'énigme aléatoires), objets importants dans la serre (y ouvrir le mauvais
     tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets ordinaires
     remplacent les plantes) et fusées de signalisation n'importe où (pour appeler l'hélicoptère à la fin, il faut
     d'abord ramasser l'objet posé à leur place sur l'héliport) ;
@@ -216,11 +219,13 @@ système, anglais sinon).
 - **Spoiler** — débloqué dès qu'il y a une seed : la liste complète des changements en tableau (lieu, objet
   d'origine, objet qui le remplace), avec recherche et tri, cachée tant qu'on ne coche pas *Afficher le
   spoiler*.
+- **Indices** — débloqué avec le spoiler : où est chaque objet important (zone, puis pièce exacte) et si chaque
+  pièce cache quelque chose ; chaque case reste cachée jusqu'au clic, avec une barre de recherche.
 - **Archipelago** — à venir : le formulaire de connexion (grisé) et ce qu'il reste à faire.
 - **Aider le projet** — le mode relevé et les barres d'avancement (voir plus bas).
 - **Info** — les crédits (auteur, testeurs, remerciements) et le lien vers cette page.
 
-Les options marquées « à venir » (sans logique, ennemis, portes, Archipelago…) sont visibles mais grisées.
+Les options marquées « à venir » (ennemis, portes, Archipelago…) sont visibles mais grisées.
 
 ### Compatibilité
 
@@ -300,7 +305,7 @@ s'est passé.
 donnees_randomizer_RE1.xlsx   données : pièces, objets, emplacements, pièces relevées, bonus
 DLL/                          la DLL (randomizer.c, xinput1_4.def) et ses scripts de compilation
 Randomizer/
-  application.py              l'application (6 onglets, 9 langues)
+  application.py              l'application (7 onglets, 9 langues)
   mise_a_jour.py              mise à jour automatique depuis les Releases GitHub
   noms_jeu.py                 noms officiels des objets, lus dans les textes du jeu installé
   generateur_seed.py          génération des seeds (aussi en ligne de commande)
