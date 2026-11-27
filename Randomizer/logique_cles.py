@@ -237,7 +237,11 @@ PIECES_INTERDITES_OBJET[ID_FUSEES] = PIECES_INTERDITES_OBJET[93] - {"501", "303"
 # unité de fusibles : peut rester dans le passage vers l'héliport (501), où elle sert
 PIECES_INTERDITES_OBJET[97] = PIECES_INTERDITES_OBJET[93] - {"501"}
 # Malle et inventaire de départ : disponibles dès le début
-PIECES_DE_DEPART = {"malle", "inventaire"}
+PIECES_DE_DEPART = {"inventaire"}
+# Malle de départ (joueur, 27/11/2026) : ses objets ne sont accessibles qu'en atteignant une salle avec une malle. Dans
+# le manoir, il n'y en a que deux : Medical Storage Room (100) et East Wing Storeroom (118) ; les autres viennent plus
+# tard dans le jeu.
+PIECES_MALLE = ("100", "118")
 
 
 def _id(x):
@@ -292,6 +296,7 @@ def _aretes():
     liste = [(COTE_103B.get(a, a) if b in COTE_103B_PIECES else a,
               COTE_103B.get(b, b) if a in COTE_103B_PIECES else b, c) for a, b, c in liste]
     liste.append(("103b", "103", None))       # la fausse porte : seulement de 103b vers 103
+    liste += [(p, "malle", None) for p in PIECES_MALLE]
     return liste
 
 

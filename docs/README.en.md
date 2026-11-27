@@ -53,7 +53,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.8.2 (test)
+## Status: version 0.9.8.3 (test)
 
 | Supported | Coming |
 |---|---|
