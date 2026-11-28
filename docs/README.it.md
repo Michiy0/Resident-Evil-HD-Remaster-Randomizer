@@ -49,7 +49,7 @@ tempi o strategie.
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: l'elenco completo delle modifiche</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_en.png" alt="Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi" width="420"><br><sub>Opzioni: oggetti visibili, baule iniziale e opzioni per i pazzi</sub></td>
+<td align="center"><img src="../images/appli_options_en.png" alt="Per i pazzi: solo il finale garantito, senza logica, serra, razzi di segnalazione" width="420"><br><sub>Per i pazzi: solo il finale garantito, senza logica, serra, razzi di segnalazione</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armi: armi casuali, arma e coltello iniziali, borraccia" width="420"><br><sub>Armi: armi casuali, arma e coltello iniziali, borraccia</sub></td>
 </tr>
 <tr>
@@ -142,14 +142,14 @@ L'app ha sette schede e un selettore della lingua in alto a destra («Automatica
 
 - **Installazione** — cartella del gioco, stato del randomizer e del seed installato, installare / aggiornare
   / disinstallare la DLL (e l'opzione di avvio su Steam Deck).
-- **Genera un seed** — con sette sottoschede:
+- **Genera un seed** — con otto sottoschede:
   - *Personaggio e difficoltà*;
-  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale; sotto, *Per i pazzi* (solo il finale garantito; senza logica;
-    oggetti importanti nella serra; razzi di segnalazione ovunque);
+  - *Opzioni*: oggetti visibili a terra, baule iniziale casuale;
   - *Armi*: armi casuali (con l'elenco delle armi), arma garantita all'inizio, coltello iniziale casuale; sotto, la
     *Borraccia* (casuale, già piena);
   - *Chiavi e oggetti degli enigmi*: chiavi e oggetti degli enigmi casuali, ognuno con il suo elenco (*Disco MO*
     apre i 3 dischi, *Vecchia chiave* le 5 vecchie chiavi);
+  - *Per i pazzi*: solo il finale garantito; senza logica; oggetti importanti nella serra; razzi di segnalazione ovunque;
   - *Nemici*: nemici casuali (in arrivo);
   - *Porte*: porte casuali, ogni porta porta a un'altra stanza (in arrivo);
   - *Divertimento*: armi bonus (Samurai Edge, lanciarazzi o entrambi) e capsula di carburante già piena;

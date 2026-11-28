@@ -45,7 +45,7 @@ or strategies.
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler: the full list of changes" width="420"><br><sub>Spoiler: the full list of changes</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_en.png" alt="Options: items visible on the ground, starting item box, and the options for the crazy ones" width="420"><br><sub>Options: items visible on the ground, starting item box, and the options for the crazy ones</sub></td>
+<td align="center"><img src="../images/appli_options_en.png" alt="For the crazy ones: ending guaranteed only, no logic, greenhouse, signal rockets anywhere" width="420"><br><sub>For the crazy ones: ending guaranteed only, no logic, greenhouse, signal rockets anywhere</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Weapons: random weapons, starting weapon and knife, fuel canteen" width="420"><br><sub>Weapons: random weapons, starting weapon and knife, fuel canteen</sub></td>
 </tr>
 <tr>
@@ -53,7 +53,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.8.3.2 (test)
+## Status: version 0.9.8.3.3 (test)
 
 | Supported | Coming |
 |---|---|
@@ -180,24 +180,19 @@ otherwise).
 
 - **Installation** — game folder, randomizer and installed seed status, install / update / uninstall the
   DLL (and the launch option on Steam Deck). The app opens here until the DLL is installed and up to date.
-- **Generate a seed** — unlocked once the DLL is in place, with seven sub-tabs:
+- **Generate a seed** — unlocked once the DLL is in place, with eight sub-tabs:
   - *Character and difficulty*: the difficulty in two columns, *New game* (answer to the first question:
     I. Old school, II. Gamer, III. Casual) and *Once Again* (game already finished, difficulty picked by name;
     unlocked infinite weapons are not given, use *Bonus weapons* instead), and the *Closet Key from the start*
     option (the key to the costume room is in the item box from the start, and its door works);
-  - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until
-    pickup) and random starting item box (ticked by default; new game only); below, in its own card, *For the
-    crazy ones*: ending guaranteed only (only the ending is checked) and no logic (pure chaos;
-    both need random keys or puzzle items), important items in the greenhouse (opening the wrong pipe there kills the
-    plants and can destroy the items placed instead of them; unticked, only ordinary items replace the plants) and
-    signal rockets anywhere (to call the helicopter at the end, you must first pick up the item lying in their place
-    on the heliport);
+  - *Options*: items visible on the ground (ticked by default; unticked, you see the original item until pickup) and random starting item box (ticked by default);
   - *Weapons*: random weapons (ticking it shows the weapon list; untick those that should stay in place),
     guaranteed starting weapon (given in the inventory, with its ammo; its location gets a random item instead) and
     random starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon);
     below, the *Fuel canteen* card: random canteen and canteen already filled;
   - *Keys and puzzle items*: random keys and random puzzle items, each with its list (untick an item to leave it
     in place; *MO Disk* unfolds the 3 disks, *Old Key* the 5 old keys). The logic keeps the game completable;
+  - *For the crazy ones*: ending guaranteed only (only the ending is checked) and no logic (pure chaos; both need random keys or puzzle items), important items in the greenhouse (opening the wrong pipe there kills the plants and can destroy the items placed instead of them; unticked, only ordinary items replace the plants) and signal rockets anywhere (to call the helicopter at the end, you must first pick up the item lying in their place on the heliport);
   - *Enemies*: random enemies (coming soon);
   - *Doors*: random doors, each door leads to a different room (coming soon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both) and fuel capsule already full;

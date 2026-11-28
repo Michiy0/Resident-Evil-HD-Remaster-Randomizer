@@ -27,7 +27,7 @@ import progression
 import textes
 import modeles_sol
 
-VERSION = "0.9.8.3.2"
+VERSION = "0.9.8.3.3"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -949,8 +949,9 @@ class Application(tk.Tk):
         self.sous_onglets.grid(row=0, column=0, sticky="nsew")
         pages = {}
         # sous-onglets (26/11/2026, demande du joueur : armes et clés à part pour alléger « Options »)
-        for cle in ("carte_partie", "carte_options", "carte_armes", "carte_cles", "carte_ennemis", "carte_portes",
-                    "carte_fun"):
+        # « Pour les fous » : son propre sous-onglet, juste après « Clés et objets d'énigme » (joueur, 28/11/2026)
+        for cle in ("carte_partie", "carte_options", "carte_armes", "carte_cles", "carte_fous", "carte_ennemis",
+                    "carte_portes", "carte_fun"):
             conteneur = ttk.Frame(self.sous_onglets, padding=(0, 12, 0, 0))
             self.sous_onglets.add(conteneur, text=self.t(cle))
             defile = Defilable(conteneur)
@@ -1115,8 +1116,8 @@ class Application(tk.Tk):
         self.afficher_vieilles()
 
         # --- Pour les fous : options qui peuvent rendre la partie impossible à finir (sous « Options »)
-        fous, fo = self.carte(pages["carte_options"], self.t("carte_fous"))
-        fous.pack(fill="x", pady=(16, 0))
+        fous, fo = self.carte(pages["carte_fous"], self.t("carte_fous"))
+        fous.pack(fill="x")
         # les deux options de logique s'excluent : cocher l'une décoche l'autre
         self.case_fin_garantie = ttk.Checkbutton(
             fo, text=self.t("fin_garantie"), variable=self.fin_garantie,

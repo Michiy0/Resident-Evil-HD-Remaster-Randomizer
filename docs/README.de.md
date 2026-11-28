@@ -49,7 +49,7 @@ oder Strategien zu vergleichen.
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: die vollständige Liste der Änderungen</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_en.png" alt="Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte" width="420"><br><sub>Optionen: sichtbare Gegenstände, Startkiste und Optionen für Verrückte</sub></td>
+<td align="center"><img src="../images/appli_options_en.png" alt="Für Verrückte: nur das Ende garantiert, ohne Logik, Gewächshaus, Signalraketen" width="420"><br><sub>Für Verrückte: nur das Ende garantiert, ohne Logik, Gewächshaus, Signalraketen</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche" width="420"><br><sub>Waffen: zufällige Waffen, Startwaffe und Messer, Feldflasche</sub></td>
 </tr>
 <tr>
@@ -145,13 +145,14 @@ Die App hat sieben Tabs und oben rechts eine Sprachauswahl („Automatisch“ = 
 
 - **Installation** — Spielordner, Status von Randomizer und installiertem Seed, DLL installieren /
   aktualisieren / deinstallieren (und die Startoption auf dem Steam Deck).
-- **Seed erstellen** — mit sieben Untertabs:
+- **Seed erstellen** — mit acht Untertabs:
   - *Charakter und Schwierigkeit*;
-  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start; darunter *Für Verrückte* (nur das Ende garantiert; ohne Logik; wichtige Gegenstände im Gewächshaus; Signalraketen überall);
+  - *Optionen*: Gegenstände am Boden sichtbar, Zufällige Kiste am Start;
   - *Waffen*: Zufällige Waffen (mit Waffenliste), Garantierte Startwaffe, Zufälliges Startmesser; darunter die
     *Feldflasche* (zufällig, schon gefüllt);
   - *Schlüssel und Rätselgegenstände*: zufällige Schlüssel und Rätselgegenstände, jeweils mit Liste (*MO-Disk*
     klappt die 3 Disks auf, *Alter Schlüssel* die 5 alten Schlüssel);
+  - *Für Verrückte*: nur das Ende garantiert; ohne Logik; wichtige Gegenstände im Gewächshaus; Signalraketen überall;
   - *Gegner*: Zufällige Gegner (demnächst);
   - *Türen*: Zufällige Türen, jede Tür führt in einen anderen Raum (demnächst);
   - *Spaß*: Bonuswaffen (Samurai Edge, Raketenwerfer oder beide) und schon volle Treibstoffkapsel;

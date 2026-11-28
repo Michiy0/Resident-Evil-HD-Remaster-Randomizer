@@ -47,7 +47,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 <td align="center"><img src="../images/appli_spoiler_fr.png" alt="Spoiler : la liste complète des changements" width="420"><br><sub>Spoiler : la liste complète des changements</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_fr.png" alt="Options : objets visibles par terre, malle de départ et options pour les fous" width="420"><br><sub>Options : objets visibles par terre, malle de départ et options pour les fous</sub></td>
+<td align="center"><img src="../images/appli_options_fr.png" alt="Pour les fous : fin garantie seulement, sans logique, serre, fusées n'importe où" width="420"><br><sub>Pour les fous : fin garantie seulement, sans logique, serre, fusées n'importe où</sub></td>
 <td align="center"><img src="../images/appli_armes_fr.png" alt="Armes : armes aléatoires, arme et couteau de départ, gourde" width="420"><br><sub>Armes : armes aléatoires, arme et couteau de départ, gourde</sub></td>
 </tr>
 <tr>
@@ -55,7 +55,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.8.3.2 (test)
+## État : version 0.9.8.3.3 (test)
 
 | Pris en charge | À venir |
 |---|---|
@@ -191,25 +191,20 @@ système, anglais sinon).
 - **Installation** — dossier du jeu, état du randomizer et de la seed installée, installer / mettre à
   jour / désinstaller la DLL (et l'option de lancement sur Steam Deck). L'application s'ouvre ici tant
   que la DLL n'est pas installée et à jour.
-- **Générer une seed** — débloqué une fois la DLL en place, avec sept sous-onglets :
+- **Générer une seed** — débloqué une fois la DLL en place, avec huit sous-onglets :
   - *Personnage et difficulté* : la difficulté en deux colonnes, *Nouvelle partie* (réponse à la première
     question : I. Old school, II. Gamer, III. Casual) et *Une fois de plus* (jeu déjà terminé, difficulté
     choisie par son nom ; les armes infinies débloquées ne sont pas données, passer par *Armes bonus*), et l'option
     *Clé du placard dès le départ* (la clé de la salle des costumes est dans la malle dès le début, et sa porte
     fonctionne) ;
-  - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au
-    ramassage) et malle de départ aléatoire (cochée d'office ; nouvelle partie seulement) ; en dessous, dans sa
-    propre carte, *Pour les fous* : fin garantie seulement (seule la fin est vérifiée) et sans logique (hasard pur ;
-    les deux demandent les clés ou objets d'énigme aléatoires), objets importants dans la serre (y ouvrir le mauvais
-    tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets ordinaires
-    remplacent les plantes) et fusées de signalisation n'importe où (pour appeler l'hélicoptère à la fin, il faut
-    d'abord ramasser l'objet posé à leur place sur l'héliport) ;
+  - *Options* : objets visibles par terre (cochée d'office ; décochée, on voit l'objet d'origine jusqu'au ramassage) et malle de départ aléatoire (cochée d'office) ;
   - *Armes* : armes aléatoires (cocher la case affiche la liste des armes ; décoche celles qui doivent rester à
     leur place), arme garantie au départ (donnée dans l'inventaire, avec ses munitions ; son emplacement reçoit un
     objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie, on peut
     commencer sans arme) ; en dessous, la carte *Gourde* : gourde aléatoire et gourde remplie au ramassage ;
   - *Clés et objets d'énigme* : clés aléatoires et objets d'énigme aléatoires, chacun avec sa liste (décoche un
     objet pour le laisser à sa place ; *Disque MO* déplie les 3 disques, *Vieille clé* les 5 vieilles clés). La logique garde la partie finissable ;
+  - *Pour les fous* : fin garantie seulement (seule la fin est vérifiée) et sans logique (hasard pur ; les deux demandent les clés ou objets d'énigme aléatoires), objets importants dans la serre (y ouvrir le mauvais tuyau tue les plantes et peut détruire les objets mis à leur place ; décochée, seuls des objets ordinaires remplacent les plantes) et fusées de signalisation n'importe où (pour appeler l'hélicoptère à la fin, il faut d'abord ramasser l'objet posé à leur place sur l'héliport) ;
   - *Ennemis* : ennemis aléatoires (à venir) ;
   - *Portes* : portes aléatoires, chaque porte mène vers une autre pièce (à venir) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) et capsule de carburant pleine

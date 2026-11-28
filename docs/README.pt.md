@@ -48,7 +48,7 @@ estratégias.
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: a lista completa de mudanças</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_en.png" alt="Opções: itens visíveis, baú inicial e opções para os loucos" width="420"><br><sub>Opções: itens visíveis, baú inicial e opções para os loucos</sub></td>
+<td align="center"><img src="../images/appli_options_en.png" alt="Para os loucos: só o final garantido, sem lógica, estufa, sinalizadores" width="420"><br><sub>Para os loucos: só o final garantido, sem lógica, estufa, sinalizadores</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatórias, arma e faca iniciais, cantil" width="420"><br><sub>Armas: armas aleatórias, arma e faca iniciais, cantil</sub></td>
 </tr>
 <tr>
@@ -142,14 +142,14 @@ O app tem sete abas e um seletor de idioma no canto superior direito (“Automá
 
 - **Instalação** — pasta do jogo, estado do randomizer e da seed instalada, instalar / atualizar /
   desinstalar a DLL (e a opção de inicialização no Steam Deck).
-- **Gerar uma semente** — com sete subabas:
+- **Gerar uma semente** — com oito subabas:
   - *Personagem e dificuldade*;
-  - *Opções*: itens visíveis no chão, baú inicial aleatório; abaixo, *Para os loucos* (só o final garantido; sem lógica;
-    itens importantes na estufa; sinalizadores em qualquer lugar);
+  - *Opções*: itens visíveis no chão, baú inicial aleatório;
   - *Armas*: armas aleatórias (com a lista de armas), arma garantida no início, faca inicial aleatória; abaixo, o
     *Cantil* (aleatório, já cheio);
   - *Chaves e itens de enigma*: chaves e itens de enigma aleatórios, cada um com sua lista (*Disco MO* abre os
     3 discos, *Old Key* as 5 chaves velhas);
+  - *Para os loucos*: só o final garantido; sem lógica; itens importantes na estufa; sinalizadores em qualquer lugar;
   - *Inimigos*: inimigos aleatórios (em breve);
   - *Portas*: portas aleatórias, cada porta leva a outra sala (em breve);
   - *Diversão*: armas bônus (Samurai Edge, lança-foguetes ou os dois) e cápsula de combustível já cheia;

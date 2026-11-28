@@ -49,7 +49,7 @@ o estrategias.
 <td align="center"><img src="../images/appli_spoiler_en.png" alt="Spoiler" width="420"><br><sub>Spoiler: la lista completa de cambios</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="../images/appli_options_en.png" alt="Opciones: objetos visibles, baúl inicial y opciones para los locos" width="420"><br><sub>Opciones: objetos visibles, baúl inicial y opciones para los locos</sub></td>
+<td align="center"><img src="../images/appli_options_en.png" alt="Para los locos: solo el final garantizado, sin lógica, invernadero, bengalas" width="420"><br><sub>Para los locos: solo el final garantizado, sin lógica, invernadero, bengalas</sub></td>
 <td align="center"><img src="../images/appli_armes_en.png" alt="Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora" width="420"><br><sub>Armas: armas aleatorias, arma y cuchillo iniciales, cantimplora</sub></td>
 </tr>
 <tr>
@@ -144,13 +144,14 @@ La aplicación tiene siete pestañas y un selector de idioma arriba a la derecha
 
 - **Instalación** — carpeta del juego, estado del randomizer y de la seed instalada, instalar / actualizar /
   desinstalar la DLL (y la opción de lanzamiento en Steam Deck).
-- **Generar una semilla** — con siete subpestañas:
+- **Generar una semilla** — con ocho subpestañas:
   - *Personaje y dificultad*;
-  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio; debajo, *Para los locos* (solo el final garantizado; sin lógica; objetos importantes en el invernadero; bengalas en cualquier lugar);
+  - *Opciones*: objetos visibles en el suelo, baúl inicial aleatorio;
   - *Armas*: armas aleatorias (con la lista de armas), arma garantizada al inicio, cuchillo inicial aleatorio;
     debajo, la *Cantimplora* (aleatoria, ya llena);
   - *Llaves y objetos de puzle*: llaves y objetos de puzle aleatorios, cada uno con su lista (*Disco MO*
     despliega los 3 discos, *Llave vieja* las 5 llaves viejas);
+  - *Para los locos*: solo el final garantizado; sin lógica; objetos importantes en el invernadero; bengalas en cualquier lugar;
   - *Enemigos*: enemigos aleatorios (próximamente);
   - *Puertas*: puertas aleatorias, cada puerta lleva a otra sala (próximamente);
   - *Diversión*: armas extra (Samurai Edge, lanzacohetes o ambos) y cápsula de combustible ya llena;
