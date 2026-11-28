@@ -27,7 +27,7 @@ import progression
 import textes
 import modeles_sol
 
-VERSION = "0.9.8.3"
+VERSION = "0.9.8.3.1"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -169,6 +169,8 @@ COULEURS = {
     "journal": "#101216",
 }
 POLICE = "Segoe UI"
+# Les 5 vieilles clés de Chris (pièce de leur emplacement d'origine), dans l'ordre de la liste de l'appli
+VIEILLES_CLES = ("109", "10e", "118", "209", "21c")
 
 
 def _png(largeur, hauteur, pixels):
@@ -705,6 +707,8 @@ class Application(tk.Tk):
         self.enigmes_cochees = {i: tk.BooleanVar(value=True) for i, _ in gen.logique_cles.ENIGMES_CHOIX}
         # disques MO (joueur, 26/11/2026) : une case « Disque MO » qui déplie le choix des 3 disques
         self.disques_mo = tk.BooleanVar(value=True)
+        # vieilles clés (joueur, 28/11/2026) : une case « Vieille clé » qui déplie le choix des 5 vieilles clés
+        self.vieilles_cochees = {p: tk.BooleanVar(value=True) for p in VIEILLES_CLES}
         self.sans_logique = tk.BooleanVar(value=False)         # « Pour les fous » : clés et objets d'énigme sans logique
         self.fin_garantie = tk.BooleanVar(value=False)         # « Pour les fous » : seule la fin est garantie
         self.serre_dangereuse = tk.BooleanVar(value=False)     # « Pour les fous » : objets importants dans la serre
@@ -1070,6 +1074,16 @@ class Application(tk.Tk):
             liste = ttk.Frame(o, style="Carte.TFrame", borderwidth=0)
             sous_mo = None
             for ident, suffixe in choix:
+                if suffixe == "vieilles":          # vieilles clés : une case qui déplie les 5 emplacements
+                    ttk.Checkbutton(liste, text=gen.nom_objet(44, self.langue.get()), variable=cochees[ident],
+                                    command=self.afficher_vieilles).pack(anchor="w")
+                    self.place_vieilles = ttk.Frame(liste, style="Carte.TFrame", borderwidth=0, height=1)
+                    self.place_vieilles.pack(anchor="w")
+                    self.liste_vieilles = ttk.Frame(liste, style="Carte.TFrame", borderwidth=0)
+                    for piece in VIEILLES_CLES:
+                        ttk.Checkbutton(self.liste_vieilles, text=self.t(f"vieille_{piece}"),
+                                        variable=self.vieilles_cochees[piece]).pack(anchor="w")
+                    continue
                 if suffixe == "mo":                # disques MO : regroupés sous une case qui se déplie
                     if sous_mo is None:
                         ttk.Checkbutton(liste, text=gen.nom_objet(93, self.langue.get()), variable=self.disques_mo,
@@ -1090,6 +1104,7 @@ class Application(tk.Tk):
             self.listes_logique[cle_texte] = (var, note, liste)
         self.afficher_listes_logique()
         self.afficher_disques_mo()
+        self.afficher_vieilles()
 
         # --- Pour les fous : options qui peuvent rendre la partie impossible à finir (sous « Options »)
         fous, fo = self.carte(pages["carte_options"], self.t("carte_fous"))
@@ -1463,6 +1478,22 @@ class Application(tk.Tk):
             self.liste_disques_mo.pack(anchor="w", padx=(27, 0), after=self.place_disques_mo)
         else:
             self.liste_disques_mo.pack_forget()
+
+    def afficher_vieilles(self):
+        """Choix des 5 vieilles clés, seulement quand « Vieille clé » est cochée."""
+        if not hasattr(self, "liste_vieilles"):
+            return
+        if self.cles_cochees[44].get():
+            self.liste_vieilles.pack(anchor="w", padx=(27, 0), after=self.place_vieilles)
+        else:
+            self.liste_vieilles.pack_forget()
+
+    def cles_choisies(self):
+        """Ids des clés cochées (vieille clé : seulement si au moins une des 5 est cochée)."""
+        ids = {i for i, v in self.cles_cochees.items() if v.get()}
+        if not any(v.get() for v in self.vieilles_cochees.values()):
+            ids.discard(44)
+        return ids
 
     def enigmes_choisies(self):
         """Ids des objets d'énigme cochés (les disques MO seulement si « Disque MO » est coché)."""
@@ -2023,7 +2054,8 @@ class Application(tk.Tk):
                                   fusees_aleatoires=self.fusees.get(), capsule_pleine=self.capsule.get(),
                                   sans_logique=self.sans_logique.get(), fin_garantie=self.fin_garantie.get(),
                                   cles_aleatoires=self.cles.get(),
-                                  cles_choisies={i for i, v in self.cles_cochees.items() if v.get()},
+                                  cles_choisies=self.cles_choisies(),
+                                  vieilles_choisies={p for p, v in self.vieilles_cochees.items() if v.get()},
                                   enigmes_aleatoires=self.enigmes.get(),
                                   gourde_aleatoire=self.gourde.get(), gourde_remplie=self.gourde_remplie.get(),
                                   enigmes_choisies=self.enigmes_choisies(),

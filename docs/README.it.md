@@ -149,7 +149,7 @@ L'app ha sette schede e un selettore della lingua in alto a destra («Automatica
   - *Armi*: armi casuali (con l'elenco delle armi), arma garantita all'inizio, coltello iniziale casuale; sotto, la
     *Borraccia* (casuale, già piena);
   - *Chiavi e oggetti degli enigmi*: chiavi e oggetti degli enigmi casuali, ognuno con il suo elenco (*Disco MO*
-    apre i 3 dischi);
+    apre i 3 dischi, *Vecchia chiave* le 5 vecchie chiavi);
   - *Nemici*: nemici casuali (in arrivo);
   - *Porte*: porte casuali, ogni porta porta a un'altra stanza (in arrivo);
   - *Divertimento*: armi bonus (Samurai Edge, lanciarazzi o entrambi) e capsula di carburante già piena;

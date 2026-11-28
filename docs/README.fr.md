@@ -55,7 +55,7 @@ même mélange : en partageant ce numéro, un ami peut jouer la même partie que
 </tr>
 </table>
 
-## État : version 0.9.8.3 (test)
+## État : version 0.9.8.3.1 (test)
 
 | Pris en charge | À venir |
 |---|---|
@@ -127,7 +127,7 @@ Pourcentage de pièces relevées en **nouvelle partie** pour chaque personnage e
 | Jill | Difficile | 0/118 (0 %) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0 %) | 0 | 0 |
 
-Armes bonus : 2/2 identifiées. Mis à jour le 27/11/2026.
+Armes bonus : 2/2 identifiées. Mis à jour le 28/11/2026.
 
 </details>
 
@@ -209,7 +209,7 @@ système, anglais sinon).
     objet au hasard) et couteau de départ aléatoire (le couteau se retrouve ailleurs : sans arme garantie, on peut
     commencer sans arme) ; en dessous, la carte *Gourde* : gourde aléatoire et gourde remplie au ramassage ;
   - *Clés et objets d'énigme* : clés aléatoires et objets d'énigme aléatoires, chacun avec sa liste (décoche un
-    objet pour le laisser à sa place ; *Disque MO* déplie les 3 disques). La logique garde la partie finissable ;
+    objet pour le laisser à sa place ; *Disque MO* déplie les 3 disques, *Vieille clé* les 5 vieilles clés). La logique garde la partie finissable ;
   - *Ennemis* : ennemis aléatoires (à venir) ;
   - *Portes* : portes aléatoires, chaque porte mène vers une autre pièce (à venir) ;
   - *Fun* : armes bonus (au choix le Samurai Edge, le lance-roquettes ou les deux) et capsule de carburant pleine

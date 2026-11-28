@@ -151,7 +151,7 @@ Die App hat sieben Tabs und oben rechts eine Sprachauswahl („Automatisch“ = 
   - *Waffen*: Zufällige Waffen (mit Waffenliste), Garantierte Startwaffe, Zufälliges Startmesser; darunter die
     *Feldflasche* (zufällig, schon gefüllt);
   - *Schlüssel und Rätselgegenstände*: zufällige Schlüssel und Rätselgegenstände, jeweils mit Liste (*MO-Disk*
-    klappt die 3 Disks auf);
+    klappt die 3 Disks auf, *Alter Schlüssel* die 5 alten Schlüssel);
   - *Gegner*: Zufällige Gegner (demnächst);
   - *Türen*: Zufällige Türen, jede Tür führt in einen anderen Raum (demnächst);
   - *Spaß*: Bonuswaffen (Samurai Edge, Raketenwerfer oder beide) und schon volle Treibstoffkapsel;

@@ -160,7 +160,9 @@ EXAMENS_SPECIAUX = [("105", 69, 1),         # emblème au-dessus de la cheminée
                     # spécimen d'abeille (115) sont sur les tableaux de l'énigme : remplacés, l'emplacement du leurre
                     # restait occupé (objet impossible à prendre) et on ne pouvait plus y poser le spécimen ni valider
                     # l'énigme (test du 27/11/2026, seed 271127). Ils restent à leur place.
-                    ("20a", 117, 1)]
+                    ("20a", 117, 1),
+                    # salle des trophées (215, joueur, 28/11/2026) : joyau rouge (72) et joyau jaune (74)
+                    ("215", 72, 1), ("215", 74, 1)]
 # Objets posés qu'on prend par une petite scène (« objet examiné » dans le journal) : le modèle posé est bien remplacé,
 # mais la scène donne l'objet d'origine (test du 27/11/2026, seed 261126 : grenade posée à la machine du labyrinthe
 # électrique A, capsule vide reçue). La ligne « examen » donne le même objet que l'emplacement posé. (pièce, id)
@@ -390,8 +392,9 @@ def melanger_cles(resultat, emplacements, graine, serre_dangereuse=False, ids=No
         contenu.append((r["nouveau"]["id"], r["nouveau"]["quantite"]) if r else (e["id"], e["quantite"]))
         refs.append(r)
     interdits = {i for i, r in enumerate(refs) if r is None}
+    fixes = set(interdits)                   # pas mélangés : leur objet reste (vieille clé décochée…)
     interdits |= {i for i, (p, o) in enumerate(emp) if emplacement_risque(p, o, serre_dangereuse)}
-    if not logique_cles.placer_cles(emp, contenu, graine, interdits, ids=ids):
+    if not logique_cles.placer_cles(emp, contenu, graine, interdits, ids=ids, fixes=fixes):
         return False
     if fin_garantie:                     # « Pour les fous » : on ne garde que la fin atteignable
         logique_cles.liberer(emp, contenu, graine, interdits, ids)
@@ -605,7 +608,7 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
              serre_dangereuse=False, cles_aleatoires=False, cles_choisies=None,
              enigmes_aleatoires=False, enigmes_choisies=None, gourde_aleatoire=False,
              gourde_remplie=False, fusees_aleatoires=False, capsule_pleine=False, sans_logique=False,
-             fin_garantie=False):
+             fin_garantie=False, vieilles_choisies=None):
     """Génère une seed et écrit ses fichiers. Partagé par la ligne de commande et l'application.
     Renvoie True si tout s'est bien passé. langue : langue des messages et du spoiler (textes.py).
     dire_spoiler : si donné, reçoit le contenu de la seed (dictionnaire du fichier .json, à afficher avec
@@ -623,6 +626,7 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     gourde_aleatoire / gourde_remplie : gourde mélangée avec les objets ; gourde reçue déjà pleine.
     sans_logique : option « Pour les fous » : les clés et objets d'énigme choisis sont mélangés au hasard, sans logique
     (la partie peut devenir impossible à finir) ; ils restent seulement écartés des emplacements risqués.
+    vieilles_choisies : pièces des vieilles clés à mélanger (None = toutes) ; les autres restent à leur place.
     fin_garantie : option « Pour les fous » : la logique ne garantit que la fin du jeu (clés et objets d'énigme
     peuvent rester introuvables). Ignorée avec sans_logique.
     capsule_pleine : option « Fun » : la capsule de carburant est déjà pleine au ramassage (dangereuse).
@@ -674,7 +678,12 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
     deja = {(m["piece"], m["id"]) for m in mobiles}
     emplacements = [x for x in emplacements if (x["piece"], x["id"]) not in deja]
     emplacements = emplacements + emplacements_examens(personnage) + mobiles
-    resultat = generer(emplacements, graine, ids_libres)
+    # vieilles clés décochées (28/11/2026) : leur emplacement n'est pas mélangé, la clé reste où elle est
+    if vieilles_choisies is not None:
+        vieilles_choisies = {p.lower() for p in vieilles_choisies}
+    a_melanger = [e for e in emplacements if not (vieilles_choisies is not None and e["id"] == logique_cles.VIEILLE_CLE
+                                                    and e["piece"].lower() not in vieilles_choisies)]
+    resultat = generer(a_melanger, graine, ids_libres)
     # objets examinés et mobiles : pas de nom de pièce dans leur ligne, on reprend celui d'un autre emplacement de la
     # pièce (le spoiler affichait « 105 » tout seul)
     noms = {e["piece"].lower(): e["nom_piece"] for e in emplacements if e.get("nom_piece")}
@@ -714,6 +723,8 @@ def produire(graine, armes_aleatoires, fichier, dossier_sortie=".", installer=Fa
                                       "capsule_pleine": bool(capsule_pleine),
                                       "sans_logique": bool(sans_logique and ids_logique),
                                       "fin_garantie": bool(fin_garantie and ids_logique and not sans_logique),
+                                      "vieilles_choisies": sorted(vieilles_choisies) if vieilles_choisies is not None
+                                      else None,
                                       "cles_aleatoires": bool(cles_aleatoires),
                                       "enigmes_aleatoires": bool(enigmes_aleatoires),
                                       "gourde_aleatoire": bool(gourde_aleatoire),

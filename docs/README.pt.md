@@ -149,7 +149,7 @@ O app tem sete abas e um seletor de idioma no canto superior direito (“Automá
   - *Armas*: armas aleatórias (com a lista de armas), arma garantida no início, faca inicial aleatória; abaixo, o
     *Cantil* (aleatório, já cheio);
   - *Chaves e itens de enigma*: chaves e itens de enigma aleatórios, cada um com sua lista (*Disco MO* abre os
-    3 discos);
+    3 discos, *Old Key* as 5 chaves velhas);
   - *Inimigos*: inimigos aleatórios (em breve);
   - *Portas*: portas aleatórias, cada porta leva a outra sala (em breve);
   - *Diversão*: armas bônus (Samurai Edge, lança-foguetes ou os dois) e cápsula de combustível já cheia;

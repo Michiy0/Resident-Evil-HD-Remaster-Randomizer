@@ -341,6 +341,21 @@ T = {
     "carte_cles": ("Clés et objets d'énigme", "Keys and puzzle items", "鍵と謎解きアイテム",
                    "Llaves y objetos de puzle", "Chaves e itens de enigma", "Ключи и предметы для головоломок",
                    "钥匙与谜题物品"),
+    "vieille_109": ("Baignoire (salle de bain du couloir sinueux)", "Bathtub (winding corridor bathroom)",
+                    "浴槽（曲がりくねった廊下の浴室）", "Bañera (baño del pasillo sinuoso)",
+                    "Banheira (banheiro do corredor sinuoso)", "Ванна (ванная извилистого коридора)", "浴缸（弯曲走廊的浴室）"),
+    "vieille_10e": ("Armoire de la chambre du chercheur", "Wardrobe in the researcher's bedroom", "研究員の寝室のクローゼット",
+                    "Armario del dormitorio del investigador", "Armário do quarto do pesquisador",
+                    "Шкаф в спальне исследователя", "研究员卧室的衣柜"),
+    "vieille_118": ("Local est (rez-de-chaussée)", "East wing storeroom (ground floor)", "東側倉庫（1 階）",
+                    "Almacén este (planta baja)", "Depósito leste (térreo)", "Восточная кладовая (первый этаж)",
+                    "东侧储藏室（一楼）"),
+    "vieille_209": ("Commode de la chambre (1er étage)", "Dresser in the bedroom (upper floor)", "寝室のたんす（2 階）",
+                    "Cómoda del dormitorio (primer piso)", "Cômoda do quarto (andar de cima)",
+                    "Комод в спальне (второй этаж)", "卧室的五斗柜（二楼）"),
+    "vieille_21c": ("Étagère de la cuisine (sous-sol)", "Shelf in the kitchen (basement)", "キッチンの棚（地下）",
+                    "Estante de la cocina (sótano)", "Prateleira da cozinha (porão)", "Полка на кухне (подвал)",
+                    "厨房的架子（地下）"),
     "disque_mo_93": ("Statue du tigre (manoir)", "Tiger statue (mansion)", "虎の像（洋館）", "Estatua del tigre (mansión)",
                      "Estátua do tigre (mansão)", "Статуя тигра (особняк)", "老虎雕像（洋馆）"),
     "disque_mo_94": ("Escalier du labo", "Laboratory stairway", "研究所の階段", "Escalera del laboratorio",
@@ -390,43 +405,41 @@ T = {
                            "Случайные предметы для головоломок", "随机谜题物品"),
     "note_enigmes_aleatoires": (
         "Les objets d'énigme cochés (manivelles, masques, batterie, boîtes à bijoux…) sont mélangés avec les "
-        "objets. La partie reste toujours finissable. Décoche ceux qui doivent rester à leur place. Nouvelle "
-        "partie seulement.",
+        "objets. La partie reste toujours finissable. Décoche ceux qui doivent rester à leur place.",
         "The ticked puzzle items (cranks, masks, battery, jewelry boxes…) are shuffled with the items. The game "
-        "always stays finishable. Untick those that should stay in place. New game only.",
+        "always stays finishable. Untick those that should stay in place.",
         "チェックした謎解きアイテム（クランク、仮面、バッテリー、宝石箱など）がアイテムと一緒にシャッフルされます。"
-        "必ずクリアできます。元の場所に残すものはチェックを外してください。ニューゲームのみ。",
+        "必ずクリアできます。元の場所に残すものはチェックを外してください。",
         "Los objetos de puzle marcados (manivelas, máscaras, batería, joyeros…) se mezclan con los objetos. La "
-        "partida siempre se puede terminar. Desmarca los que deben quedarse en su sitio. Solo en partida nueva.",
+        "partida siempre se puede terminar. Desmarca los que deben quedarse en su sitio.",
         "Os itens de enigma marcados (manivelas, máscaras, bateria, porta-joias…) são embaralhados com os itens. O "
-        "jogo sempre pode ser concluído. Desmarque os que devem ficar no lugar. Só em um novo jogo.",
+        "jogo sempre pode ser concluído. Desmarque os que devem ficar no lugar.",
         "Отмеченные предметы для головоломок (рукоятки, маски, батарея, шкатулки…) перемешиваются с предметами. "
-        "Игру всегда можно пройти. Снимите отметку с тех, что должны остаться на месте. Только для новой игры.",
+        "Игру всегда можно пройти. Снимите отметку с тех, что должны остаться на месте.",
         "勾选的谜题物品（摇柄、面具、电池、首饰盒等）会与物品一起打乱。游戏始终可以通关。取消勾选应保持原位的物品。"
-        "仅限新游戏。"),
+        ""),
     "note_cles_aleatoires": (
         "Les clés du manoir (épée, armure, bouclier, casque, les 5 vieilles clés) et de la résidence (salles 001 et 003, "
         "galerie, salle de contrôle), ainsi que la clé zone haute tension du labo, sont mélangées avec les objets. La partie reste toujours finissable : une clé "
         "n'est jamais cachée derrière la porte qu'elle ouvre. Décoche celles qui doivent rester à leur "
-        "place. Nouvelle partie seulement.",
+        "place.",
         "The mansion keys (Sword, Armor, Shield, Helmet, the 5 Old Keys) and the residence keys (rooms 001 and 003, Gallery, "
         "Control Room), as well as the lab's Power Area key, are shuffled with the items. The game always stays finishable: a key is never hidden behind "
-        "the door it opens. Untick those that should stay in place. New game only.",
+        "the door it opens. Untick those that should stay in place.",
         "洋館の鍵（剣、鎧、盾、兜、古い鍵5本）と寮の鍵（001号室・003号室、ギャラリー、制御室）、研究所の高圧電流区域の鍵がアイテムと一緒に"
         "シャッフルされます。必ずクリアできます：鍵がその鍵で開く扉の奥に隠れることはありません。元の場所に残す鍵は"
-        "チェックを外してください。ニューゲームのみ。",
+        "チェックを外してください。",
         "Las llaves de la mansión (espada, armadura, escudo, casco, las 5 llaves viejas) y de la residencia (salas 001 y 003, "
         "galería, sala de control), así como la llave de la zona de alta tensión del laboratorio, se mezclan con los objetos. La partida siempre se puede terminar: una llave nunca "
-        "queda detrás de la puerta que abre. Desmarca las que deben quedarse en su sitio. Solo en "
-        "partida nueva.",
+        "queda detrás de la puerta que abre. Desmarca las que deben quedarse en su sitio.",
         "As chaves da mansão (espada, armadura, escudo, elmo, as 5 chaves velhas) e da residência (salas 001 e 003, galeria, "
         "sala de controle), além da chave da área de alta tensão do laboratório, são embaralhadas com os itens. O jogo sempre pode ser concluído: uma chave nunca fica "
-        "atrás da porta que ela abre. Desmarque as que devem ficar no lugar. Só em um novo jogo.",
+        "atrás da porta que ela abre. Desmarque as que devem ficar no lugar.",
         "Ключи особняка (меча, доспехов, щита, шлема, 5 старых ключей) и общежития (комнаты 001 и 003, галерея, "
         "диспетчерская), а также ключ от зоны высокого напряжения в лаборатории, перемешиваются с предметами. Игру всегда можно пройти: ключ никогда не лежит за дверью, "
-        "которую он открывает. Снимите отметку с тех, что должны остаться на месте. Только для новой игры.",
+        "которую он открывает. Снимите отметку с тех, что должны остаться на месте.",
         "洋馆钥匙（剑、盔甲、盾牌、头盔、5 把旧钥匙）和宿舍钥匙（001 和 003 号房、画廊、控制室）以及研究所的高压电区钥匙会与物品一起打乱。游戏"
-        "始终可以通关：钥匙绝不会藏在它所打开的门后面。取消勾选应保持原位的钥匙。仅限新游戏。"),
+        "始终可以通关：钥匙绝不会藏在它所打开的门后面。取消勾选应保持原位的钥匙。"),
     "gen_cles_echec": ("Impossible de placer les clés pour cette graine : essaie une autre graine.",
                        "Could not place the keys for this seed: try another seed.",
                        "このシードでは鍵を配置できません：別のシードを試してください。",
@@ -470,30 +483,26 @@ T = {
                           "信号弾をどこにでも", "Bengalas en cualquier lugar", "Sinalizadores em qualquer lugar",
                           "Сигнальные ракеты где угодно", "信号弹随机放置"),
     "note_fusees_aleatoires": (
-        "Normalement, les fusées de signalisation, qui servent à appeler l'hélicoptère à la toute fin, sont posées "
-        "sur l'héliport. Coché : elles sont placées n'importe où dans le jeu (manoir, résidence, souterrains, labo…) "
-        "et il faut les trouver avant d'aller à l'héliport. Sur l'héliport, ramasse l'objet posé à leur place : tant "
-        "que tu ne l'as pas pris, les fusées ne marchent pas.",
-        "Normally, the signal rockets, used to call the helicopter at the very end, lie on the heliport. Ticked: they "
-        "are placed anywhere in the game (mansion, residence, caves, lab…) and you must find them before going to the "
-        "heliport. On the heliport, pick up the item lying in their place: until you take it, the rockets don't work.",
-        "通常、最後にヘリを呼ぶための信号弾はヘリポートに置かれています。オン：信号弾はゲーム内のどこか（洋館、寄宿舎、"
-        "地下洞窟、研究所…）に置かれ、ヘリポートに行く前に見つける必要があります。ヘリポートでは、信号弾の代わりに"
-        "置かれたアイテムを拾ってください：拾うまで信号弾は使えません。",
-        "Normalmente, las bengalas, que sirven para llamar al helicóptero al final, están en el helipuerto. Marcado: "
-        "se colocan en cualquier lugar del juego (mansión, residencia, cuevas, laboratorio…) y hay que encontrarlas "
-        "antes de ir al helipuerto. En el helipuerto, recoge el objeto que hay en su lugar: hasta que lo cojas, las "
-        "bengalas no funcionan.",
-        "Normalmente, os sinalizadores, que servem para chamar o helicóptero no final, ficam no heliporto. Marcado: "
-        "eles são colocados em qualquer lugar do jogo (mansão, residência, cavernas, laboratório…) e é preciso "
-        "achá-los antes de ir ao heliporto. No heliporto, pegue o item deixado no lugar deles: enquanto não pegá-lo, "
-        "os sinalizadores não funcionam.",
-        "Обычно сигнальные ракеты, которыми в самом конце вызывают вертолёт, лежат на вертолётной площадке. "
-        "Включено: они спрятаны где угодно в игре (особняк, общежитие, пещеры, лаборатория…), и их нужно найти до "
-        "того, как идти на площадку. На площадке подберите предмет, лежащий на их месте: пока вы его не возьмёте, "
-        "ракеты не работают.",
-        "通常，最后用来呼叫直升机的信号弹放在直升机坪上。勾选后：它们会被放在游戏中的任意位置（洋馆、宿舍、地下洞窟、"
-        "研究所…），必须在前往直升机坪之前找到。在直升机坪上，捡起放在它们原位置的物品：捡起之前，信号弹无法使用。"),
+        "À la fin du jeu, on utilise l'objet « Fusées de signalisation » (un seul objet) sur l'héliport pour appeler "
+        "l'hélicoptère. Coché : cet objet est caché ailleurs dans le jeu, il faut le trouver avant la fin. Important : "
+        "sur l'héliport, ramasse aussi l'objet posé à sa place, sinon il ne marchera pas.",
+        "At the end of the game, you use the \"Signal Rockets\" item (a single item) on the heliport to call the "
+        "helicopter. Ticked: this item is hidden somewhere else in the game, you must find it before the end. "
+        "Important: on the heliport, also pick up the item lying in its place, or it won't work.",
+        "ゲームの最後に、ヘリポートで「信号弾」（アイテム 1 つ）を使ってヘリを呼びます。オン：このアイテムはゲーム内の"
+        "別の場所に隠され、最後までに見つける必要があります。重要：ヘリポートでは、その代わりに置かれたアイテムも"
+        "拾ってください。拾わないと使えません。",
+        "Al final del juego, se usa el objeto «Bengalas» (un solo objeto) en el helipuerto para llamar al helicóptero. "
+        "Marcado: este objeto está escondido en otro lugar del juego y hay que encontrarlo antes del final. "
+        "Importante: en el helipuerto, recoge también el objeto que hay en su lugar, si no, no funcionará.",
+        "No fim do jogo, o item «Signal Rockets» (um único item) é usado no heliporto para chamar o helicóptero. "
+        "Marcado: esse item fica escondido em outro lugar do jogo e é preciso achá-lo antes do fim. Importante: no "
+        "heliporto, pegue também o item deixado no lugar dele, senão ele não vai funcionar.",
+        "В конце игры предметом «Signal Rockets» (это один предмет) на вертолётной площадке вызывают вертолёт. "
+        "Включено: этот предмет спрятан в другом месте игры, его нужно найти до конца. Важно: на площадке подберите "
+        "и предмет, лежащий на его месте, иначе он не сработает.",
+        "游戏最后要在直升机坪使用“信号弹”（只有一个物品）呼叫直升机。勾选后：这个物品被藏在游戏中的其他地方，必须在结局前"
+        "找到。重要：在直升机坪上，也要捡起放在它原位置的物品，否则它无法使用。"),
     "note_serre_dangereuse": (
         "Dans la serre, si on ouvre le mauvais tuyau, les plantes meurent : les objets mélangés à la place des "
         "plantes peuvent alors être détruits. Coché : n'importe quel objet peut remplacer une plante, armes, "
@@ -588,13 +597,13 @@ T = {
                         "Baúl inicial aleatorio", "Baú inicial aleatório", "Случайный стартовый сундук",
                         "随机初始道具箱"),
     "note_malle_aleatoire": (
-        "Les objets de la malle au début de la partie sont mélangés avec les autres. Seulement pour une nouvelle partie.",
-        "The items in the item box at the start are shuffled with the others. New game only.",
-        "ゲーム開始時のアイテムボックスの中身を他のアイテムと混ぜます。ニューゲームのみ。",
-        "Los objetos del baúl al empezar se mezclan con los demás. Solo en partida nueva.",
-        "Os itens do baú no início são misturados com os outros. Só em um novo jogo.",
-        "Предметы в сундуке в начале игры перемешиваются с остальными. Только для новой игры.",
-        "开局时道具箱中的物品会与其他物品混合。仅限新游戏。"),
+        "Les objets de la malle au début de la partie sont mélangés avec les autres.",
+        "The items in the item box at the start are shuffled with the others.",
+        "ゲーム開始時のアイテムボックスの中身を他のアイテムと混ぜます。",
+        "Los objetos del baúl al empezar se mezclan con los demás.",
+        "Os itens do baú no início são misturados com os outros.",
+        "Предметы в сундуке в начале игры перемешиваются с остальными.",
+        "开局时道具箱中的物品会与其他物品混合。"),
     "malle_depart": ("Malle de départ", "Starting item box", "スタート時のアイテムボックス", "Baúl inicial",
                      "Baú inicial", "Стартовый сундук", "初始道具箱"),
     "malle_case": ("case {n}", "slot {n}", "{n}番目", "casilla {n}", "espaço {n}", "ячейка {n}", "第 {n} 格"),
@@ -764,18 +773,18 @@ T = {
                     "开局保证有武器"),
     "note_arme_depart": (
         "Une des armes mélangées est donnée dans l'inventaire au début de la partie, avec ses munitions de base. "
-        "Son emplacement reçoit un objet au hasard à la place. Nouvelle partie seulement.",
+        "Son emplacement reçoit un objet au hasard à la place.",
         "One of the shuffled weapons is given in the inventory at the start, with its basic ammo. Its location "
-        "gets a random item instead. New game only.",
+        "gets a random item instead.",
         "シャッフルされた武器の1つが、基本の弾薬とともにゲーム開始時にインベントリに入ります。その場所には代わりに"
-        "ランダムなアイテムが置かれます。ニューゲームのみ。",
+        "ランダムなアイテムが置かれます。",
         "Una de las armas mezcladas se da en el inventario al empezar, con su munición básica. Su ubicación recibe "
-        "un objeto al azar en su lugar. Solo en partida nueva.",
+        "un objeto al azar en su lugar.",
         "Uma das armas embaralhadas é dada no inventário no início, com sua munição básica. O local dela recebe "
-        "um item aleatório no lugar. Só em um novo jogo.",
+        "um item aleatório no lugar.",
         "Одно из перемешанных орудий выдаётся в инвентарь в начале игры, с базовыми патронами. На его месте будет "
-        "случайный предмет. Только для новой игры.",
-        "被打乱的武器之一会在开局时连同基础弹药放入物品栏，其原位置改为放置一个随机物品。仅限新游戏。"),
+        "случайный предмет.",
+        "被打乱的武器之一会在开局时连同基础弹药放入物品栏，其原位置改为放置一个随机物品。"),
     "couteau_aleatoire": ("Couteau de départ aléatoire", "Random starting knife", "初期装備のナイフをランダム化",
                           "Cuchillo inicial aleatorio", "Faca inicial aleatória", "Случайный стартовый нож",
                           "随机初始小刀"),
@@ -795,19 +804,19 @@ T = {
         "种子是为“简单”难度制作的（目前只记录了这一难度）：请在游戏中选择相同难度，否则种子不会生效。"),
     "note_couteau_aleatoire": (
         "Le couteau du début est remplacé par un objet au hasard et se retrouve ailleurs. Sans « Arme garantie au "
-        "départ », tu risques de commencer la partie sans aucune arme ! Nouvelle partie seulement.",
+        "départ », tu risques de commencer la partie sans aucune arme !",
         "The starting knife is replaced by a random item and ends up somewhere else. Without “Guaranteed starting "
-        "weapon”, you may start the game with no weapon at all! New game only.",
+        "weapon”, you may start the game with no weapon at all!",
         "最初のナイフがランダムなアイテムに置き換わり、別の場所に移ります。「序盤に武器を確保」なしでは、武器なしで"
-        "始まることがあります！ニューゲームのみ。",
+        "始まることがあります！",
         "El cuchillo inicial se sustituye por un objeto al azar y acaba en otro sitio. Sin «Arma garantizada al "
-        "inicio», ¡puedes empezar sin ninguna arma! Solo en partida nueva.",
+        "inicio», ¡puedes empezar sin ninguna arma!",
         "A faca inicial é substituída por um item aleatório e vai parar em outro lugar. Sem “Arma garantida no "
-        "início”, você pode começar sem nenhuma arma! Só em um novo jogo.",
+        "início”, você pode começar sem nenhuma arma!",
         "Стартовый нож заменяется случайным предметом и оказывается в другом месте. Без «Гарантированного оружия» "
-        "можно начать игру вообще без оружия! Только для новой игры.",
+        "можно начать игру вообще без оружия!",
         "开局的小刀会被随机物品替换并出现在别处。如果不勾选“开局保证有武器”，可能会在没有任何武器的情况下开始游戏！"
-        "仅限新游戏。"),
+        ""),
     "inventaire_depart": ("Inventaire de départ", "Starting inventory", "初期インベントリ", "Inventario inicial",
                           "Inventário inicial", "Стартовый инвентарь", "初始物品栏"),
     "gen_arme_depart": ("Arme donnée au départ : {arme}", "Weapon given at the start: {arme}",
@@ -1325,6 +1334,11 @@ ALLEMAND_ITALIEN = {
     'carte_armes': ('Waffen', 'Armi'),
     'carte_cles': ('Schlüssel und Rätselgegenstände', 'Chiavi e oggetti degli enigmi'),
     'carte_gourde': ('Feldflasche', 'Borraccia'),
+    'vieille_109': ('Badewanne (Bad am gewundenen Flur)', 'Vasca da bagno (bagno del corridoio tortuoso)'),
+    'vieille_10e': ('Schrank im Schlafzimmer des Forschers', "Armadio della camera del ricercatore"),
+    'vieille_118': ('Lager im Ostflügel (Erdgeschoss)', 'Ripostiglio est (piano terra)'),
+    'vieille_209': ('Kommode im Schlafzimmer (Obergeschoss)', 'Cassettiera della camera (primo piano)'),
+    'vieille_21c': ('Regal in der Küche (Keller)', 'Scaffale della cucina (seminterrato)'),
     'disque_mo_93': ('Tigerstatue (Villa)', 'Statua della tigre (villa)'),
     'disque_mo_94': ('Treppe des Labors', 'Scala del laboratorio'),
     'disque_mo_95': ('Raum der Bilddaten (Labor)', 'Sala dei dati visivi (laboratorio)'),
@@ -1343,19 +1357,18 @@ ALLEMAND_ITALIEN = {
     'enigmes_aleatoires': ('Zufällige Rätselgegenstände', 'Oggetti degli enigmi casuali'),
     'note_enigmes_aleatoires': ('Die angehakten Rätselgegenstände (Kurbeln, Masken, Batterie, Schmuckkästchen…) '
                                 'werden mit den Gegenständen gemischt. Das Spiel bleibt immer schaffbar. Hake die ab, '
-                                'die an ihrem Platz bleiben sollen. Nur bei einem neuen Spiel.',
+                                'die an ihrem Platz bleiben sollen.',
                                 'Gli oggetti degli enigmi selezionati (manovelle, maschere, batteria, portagioie…) '
                                 'vengono mescolati con gli oggetti. La partita resta sempre completabile. Deseleziona '
-                                'quelli che devono restare al loro posto. Solo in una nuova partita.'),
+                                'quelli che devono restare al loro posto.'),
     'note_cles_aleatoires': ('Die Schlüssel des Herrenhauses (Schwert, Rüstung, Schild, Helm, die 5 alten Schlüssel) und der '
                              'Unterkunft (Räume 001 und 003, Galerie, Kontrollraum) sowie der Schlüssel für den Hochspannungsbereich im Labor werden mit den Gegenständen '
                              'gemischt. Das Spiel bleibt immer schaffbar: Ein Schlüssel liegt nie hinter der Tür, die '
-                             'er öffnet. Hake die ab, die an ihrem Platz bleiben sollen. '
-                             'Nur bei einem neuen Spiel.',
+                             'er öffnet. Hake die ab, die an ihrem Platz bleiben sollen.',
                              'Le chiavi della villa (spada, armatura, scudo, elmo, le 5 chiavi vecchie) e della residenza '
                              '(stanze 001 e 003, galleria, sala di controllo), oltre alla chiave della zona ad alta tensione del laboratorio, vengono mescolate con gli oggetti. La '
                              'partita resta sempre completabile: una chiave non è mai dietro la porta che apre. Deseleziona '
-                             'quelle che devono restare al loro posto. Solo in una nuova partita.'),
+                             'quelle che devono restare al loro posto.'),
     'gen_cles_echec': ('Die Schlüssel konnten für diesen Seed nicht platziert werden: Versuche einen anderen.',
                        'Impossibile piazzare le chiavi con questo seed: provane un altro.'),
     'role_beta': ('Betatester', 'Beta tester'),
@@ -1371,16 +1384,15 @@ ALLEMAND_ITALIEN = {
                             "mentre la porti, esplode (morte immediata). Mettila subito in un baule e cammina fino al "
                             "generatore del laboratorio."),
     'fusees_aleatoires': ('Signalraketen überall', 'Razzi di segnalazione ovunque'),
-    'note_fusees_aleatoires': ('Normalerweise liegen die Signalraketen, mit denen man ganz am Ende den Hubschrauber '
-                               'ruft, auf dem Hubschrauberlandeplatz. Aktiviert: Sie werden irgendwo im Spiel '
-                               'platziert (Villa, Wohnheim, Höhlen, Labor…), und du musst sie finden, bevor du zum '
-                               'Landeplatz gehst. Heb auf dem Landeplatz den Gegenstand auf, der an ihrer Stelle '
-                               'liegt: Solange du ihn nicht genommen hast, funktionieren die Raketen nicht.',
-                               "Normalmente i razzi di segnalazione, che servono a chiamare l'elicottero alla fine, "
-                               "si trovano sull'eliporto. Attivato: vengono messi in un punto qualsiasi del gioco "
-                               "(villa, residenza, grotte, laboratorio…) e devi trovarli prima di andare "
-                               "all'eliporto. Sull'eliporto, raccogli l'oggetto messo al loro posto: finché non lo "
-                               "prendi, i razzi non funzionano."),
+    'note_fusees_aleatoires': ('Am Ende des Spiels ruft man mit dem Gegenstand „Signalraketen“ (ein einziger '
+                               'Gegenstand) auf dem Hubschrauberlandeplatz den Hubschrauber. Aktiviert: Dieser '
+                               'Gegenstand ist woanders im Spiel versteckt und muss vor dem Ende gefunden werden. '
+                               'Wichtig: Heb auf dem Landeplatz auch den Gegenstand auf, der an seiner Stelle liegt, '
+                               'sonst funktioniert er nicht.',
+                               "Alla fine del gioco, si usa l'oggetto «Razzo di segnalazione» (un solo oggetto) "
+                               "sull'eliporto per chiamare l'elicottero. Attivato: questo oggetto è nascosto altrove "
+                               "nel gioco e va trovato prima della fine. Importante: sull'eliporto, raccogli anche "
+                               "l'oggetto messo al suo posto, altrimenti non funzionerà."),
     'note_serre_dangereuse': ('Öffnet man im Gewächshaus das falsche Rohr, sterben die Pflanzen: Die gemischten '
                               'Gegenstände an Stelle der Pflanzen können dann zerstört werden. Aktiviert: Jeder '
                               'Gegenstand kann eine Pflanze ersetzen, Waffen, Schlüssel und Rätselgegenstände inklusive. '
@@ -1608,9 +1620,9 @@ ALLEMAND_ITALIEN = {
     'arme_depart': ('Garantierte Startwaffe',
                     "Arma garantita all'inizio"),
     'note_arme_depart': ("Eine der gemischten Waffen kommt zu Spielbeginn mit ihrer Grundmunition ins Inventar. "
-                         "An ihrem Fundort liegt stattdessen ein zufälliger Gegenstand. Nur bei einem neuen Spiel.",
+                         "An ihrem Fundort liegt stattdessen ein zufälliger Gegenstand.",
                          "Una delle armi mescolate viene data nell'inventario all'inizio, con le sue munizioni di "
-                         "base. Al suo posto ci sarà un oggetto a caso. Solo in una nuova partita."),
+                         "base. Al suo posto ci sarà un oggetto a caso."),
     'graine': ('Seed',
                'Seed'),
     'au_hasard': ('Zufällig',
@@ -1771,15 +1783,15 @@ ALLEMAND_ITALIEN.update({
         "altrimenti il seed non viene applicato."),
     "note_couteau_aleatoire": (
         "Das Messer vom Anfang wird durch einen zufälligen Gegenstand ersetzt und landet woanders. Ohne „Garantierte "
-        "Startwaffe“ beginnst du das Spiel eventuell ganz ohne Waffe! Nur bei einem neuen Spiel.",
+        "Startwaffe“ beginnst du das Spiel eventuell ganz ohne Waffe!",
         "Il coltello iniziale viene sostituito da un oggetto a caso e finisce altrove. Senza «Arma garantita "
-        "all'inizio» rischi di iniziare la partita senza nessuna arma! Solo in una nuova partita."),
+        "all'inizio» rischi di iniziare la partita senza nessuna arma!"),
     "inventaire_depart": ("Startinventar", "Inventario iniziale"),
     "gen_arme_depart": ("Waffe zu Spielbeginn: {arme}", "Arma data all'inizio: {arme}"),
     "malle_aleatoire": ("Zufällige Kiste am Start", "Baule iniziale casuale"),
     "note_malle_aleatoire": (
-        "Die Gegenstände in der Kiste zu Spielbeginn werden mit den anderen gemischt. Nur bei einem neuen Spiel.",
-        "Gli oggetti del baule all'inizio vengono mescolati con gli altri. Solo in una nuova partita."),
+        "Die Gegenstände in der Kiste zu Spielbeginn werden mit den anderen gemischt.",
+        "Gli oggetti del baule all'inizio vengono mescolati con gli altri."),
     "malle_depart": ("Kiste am Start", "Baule iniziale"),
     "malle_case": ("Platz {n}", "casella {n}"),
 })

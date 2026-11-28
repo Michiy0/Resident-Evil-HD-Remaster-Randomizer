@@ -150,7 +150,7 @@ La aplicación tiene siete pestañas y un selector de idioma arriba a la derecha
   - *Armas*: armas aleatorias (con la lista de armas), arma garantizada al inicio, cuchillo inicial aleatorio;
     debajo, la *Cantimplora* (aleatoria, ya llena);
   - *Llaves y objetos de puzle*: llaves y objetos de puzle aleatorios, cada uno con su lista (*Disco MO*
-    despliega los 3 discos);
+    despliega los 3 discos, *Llave vieja* las 5 llaves viejas);
   - *Enemigos*: enemigos aleatorios (próximamente);
   - *Puertas*: puertas aleatorias, cada puerta lleva a otra sala (próximamente);
   - *Diversión*: armas extra (Samurai Edge, lanzacohetes o ambos) y cápsula de combustible ya llena;

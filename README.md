@@ -53,7 +53,7 @@ or strategies.
 </tr>
 </table>
 
-## Status: version 0.9.8.3 (test)
+## Status: version 0.9.8.3.1 (test)
 
 | Supported | Coming |
 |---|---|
@@ -123,7 +123,7 @@ Percentage of rooms surveyed in a **new game**, for each character and difficult
 | Jill | Hard | 0/118 (0%) | 0 | 0 |
 | Jill | Real Survival | 0/118 (0%) | 0 | 0 |
 
-Bonus weapons: 2/2 identified. Updated 2026-11-27.
+Bonus weapons: 2/2 identified. Updated 2026-11-28.
 
 </details>
 
@@ -197,7 +197,7 @@ otherwise).
     random starting knife (the knife ends up elsewhere: without a guaranteed weapon, you may start with no weapon);
     below, the *Fuel canteen* card: random canteen and canteen already filled;
   - *Keys and puzzle items*: random keys and random puzzle items, each with its list (untick an item to leave it
-    in place; *MO Disk* unfolds the 3 disks). The logic keeps the game completable;
+    in place; *MO Disk* unfolds the 3 disks, *Old Key* the 5 old keys). The logic keeps the game completable;
   - *Enemies*: random enemies (coming soon);
   - *Doors*: random doors, each door leads to a different room (coming soon);
   - *Fun*: bonus weapons (choose the Samurai Edge, the rocket launcher or both) and fuel capsule already full;

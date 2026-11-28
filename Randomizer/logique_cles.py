@@ -146,7 +146,8 @@ DONS = [
     ("10f", 70, (69, 32, 129)),
     # collier (24) examiné -> bijou -> fausse clé (pour la dalle du passage de la Mort)
     (None, "fausse_cle", (24,)),
-    ("215", 72, ()),                    # joyau rouge (tête de trophée)
+    # joyaux de la salle des trophées (72 rouge, 74 jaune) : objets examinés, mélangés depuis le 28/11/2026
+    # (generateur_seed.EXAMENS_SPECIAUX) ; ils ne sont plus donnés ici
     (None, 63, (102, 72)),              # boîte à bijoux 2 ouverte avec le joyau rouge -> broche -> clé emblème
     (None, 125, (103,)),                # boîte à bijoux 1 (salle des armures) -> masque sans visage
     (None, 45, (22,)),                  # Grimoire (Livre maudit) examiné -> clé de l'épée (joueur, 25/11/2026)
@@ -162,7 +163,6 @@ DONS = [
     ("20a", 115, ()), ("20a", 116, ()),  # spécimen d'abeille et leurre sans hameçon : sur les tableaux (non mélangés)
     (None, 118, (116, 117)),            # leurre d'abeille : leurre sans hameçon + hameçon (combinés n'importe où)
     ("507", "terminal_mo", ()), ("50a", "terminal_mo", ()), ("510", "terminal_mo", ()),
-    ("215", 74, ()),                    # joyau jaune (tête de taureau des trophées)
     # (disque MO de la statue du tigre : emplacement relevé, voir CONDITIONS_EMPLACEMENT)
 ]
 # Conditions propres à un emplacement relevé : (pièce, objet d'origine) -> objets nécessaires
@@ -209,9 +209,9 @@ BUT = (("512", (93, 94, 95)), ("514", ()), ("303", (97, 106)))   # 106 : fusées
 
 # Clés et objets d'énigme qu'on peut mélanger (25/11/2026) : seulement ceux dont la logique connaît l'usage. Chaque
 # entrée : (id, libellé si le nom du jeu ne suffit pas). Les vieilles clés (5) se cochent ensemble.
-CLES_CHOIX = [(22, "epee"), (46, None), (47, None), (48, None), (44, None), (49, None), (50, None), (30, None),
+CLES_CHOIX = [(22, "epee"), (46, None), (47, None), (48, None), (44, "vieilles"), (49, None), (50, None), (30, None),
               (110, None), (54, None)]                     # 22 : le Grimoire, qui donne la clé de l'épée
-ENIGMES_CHOIX = [(93, "mo"), (94, "mo"), (95, "mo"), (109, None), (97, None), (111, None), (117, None), (100, None), (76, None), (57, None), (59, None), (58, None), (56, None), (32, None), (129, None), (75, None), (96, None), (24, None), (90, None), (107, None), (69, None), (73, None), (108, None), (21, None), (53, None), (67, None), (60, None), (61, None), (65, None), (122, None), (123, None),
+ENIGMES_CHOIX = [(93, "mo"), (94, "mo"), (95, "mo"), (109, None), (97, None), (111, None), (117, None), (72, None), (74, None), (100, None), (76, None), (57, None), (59, None), (58, None), (56, None), (32, None), (129, None), (75, None), (96, None), (24, None), (90, None), (107, None), (69, None), (73, None), (108, None), (21, None), (53, None), (67, None), (60, None), (61, None), (65, None), (122, None), (123, None),
                  (126, None), (127, None), (128, None), (91, None), (103, "1"), (102, "2"), (99, "3")]
 IDS_CLES = {i for i, _ in CLES_CHOIX}
 IDS_ENIGMES = {i for i, _ in ENIGMES_CHOIX}
@@ -429,7 +429,7 @@ def _liberer_passe(emplacements, contenu, rng, libres, cles, ids):
     return gardes
 
 
-def placer_cles(emplacements, contenu, graine, interdits=(), essais=2000, ids=None):
+def placer_cles(emplacements, contenu, graine, interdits=(), essais=2000, ids=None, fixes=()):
     """Mélange les clés (IDS_CLES) parmi les emplacements, en gardant la partie finissable. emplacements : liste
     (piece, id d'origine) ; contenu : objets posés (même ordre), modifié sur place. interdits : index où une clé ne
     doit pas aller (ex. plantes de la serre). Méthode : on retire les clés, puis on les replace une à une sur un
@@ -441,7 +441,9 @@ def placer_cles(emplacements, contenu, graine, interdits=(), essais=2000, ids=No
     # pièces interdites selon l'objet (labo et héliport pour presque tous)
     hors_piece = {o: {i for i, (p, _) in enumerate(emplacements) if piece_sans_cle(p, o)}
                   for o in {_id(x) for x in contenu if _id(x) in ids} | {None}}
-    cles_idx = [i for i, o in enumerate(contenu) if _id(o) in ids]
+    # fixes : emplacements non mélangés ; une clé qui y est reste à sa place (ex. vieille clé décochée, 28/11/2026)
+    fixes = set(fixes)
+    cles_idx = [i for i, o in enumerate(contenu) if _id(o) in ids and i not in fixes]
     cles = [contenu[i] for i in cles_idx]
     for _ in range(essais):
         essai = list(contenu)
