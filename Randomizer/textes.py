@@ -110,6 +110,21 @@ T = {
     "arme_bonus_roquettes": ("Lance-roquettes", "Rocket launcher", "ロケットランチャー", "Lanzacohetes",
                              "Lança-foguetes", "Ракетница", "火箭筒"),
     "col_lieu": ("Lieu", "Location", "場所", "Lugar", "Local", "Место", "地点"),
+    "alerte_proton": (
+        "Tu utilises la version Windows avec Proton. Sur Steam Deck (ou Linux), télécharge plutôt la version Linux "
+        "(fichier …-linux.tar.gz) : elle est faite pour ça.",
+        "You are using the Windows version through Proton. On Steam Deck (or Linux), download the Linux version instead "
+        "(…-linux.tar.gz file): it is made for it.",
+        "Proton で Windows 版を使っています。Steam Deck（または Linux）では Linux 版（…-linux.tar.gz）をダウンロードして"
+        "ください。そのための版です。",
+        "Estás usando la versión de Windows con Proton. En Steam Deck (o Linux), descarga mejor la versión de Linux "
+        "(archivo …-linux.tar.gz): está hecha para eso.",
+        "Você está usando a versão Windows com o Proton. No Steam Deck (ou Linux), baixe a versão Linux "
+        "(arquivo …-linux.tar.gz): ela é feita para isso.",
+        "Вы используете версию для Windows через Proton. На Steam Deck (или Linux) лучше скачайте версию для Linux "
+        "(файл …-linux.tar.gz): она сделана для этого.",
+        "你正在通过 Proton 使用 Windows 版。在 Steam Deck（或 Linux）上，请改为下载 Linux 版（…-linux.tar.gz 文件）："
+        "它就是为此准备的。"),
     "onglet_indices": ("Indices", "Hints", "ヒント", "Pistas", "Dicas", "Подсказки", "提示"),
     "carte_indices_objets": ("Où est cet objet ?", "Where is this item?", "このアイテムはどこ？", "¿Dónde está este objeto?",
                              "Onde está este item?", "Где этот предмет?", "这个物品在哪里？"),
@@ -1291,6 +1306,10 @@ ALLEMAND_ITALIEN = {
                            'Samurai Edge'),
     'arme_bonus_roquettes': ('Raketenwerfer',
                              'Lanciarazzi'),
+    'alerte_proton': ('Du verwendest die Windows-Version mit Proton. Lade auf dem Steam Deck (oder unter Linux) lieber '
+                      'die Linux-Version herunter (Datei …-linux.tar.gz): Sie ist dafür gemacht.',
+                      'Stai usando la versione Windows con Proton. Su Steam Deck (o Linux), scarica invece la versione '
+                      'Linux (file …-linux.tar.gz): è fatta apposta.'),
     'onglet_indices': ('Hinweise', 'Indizi'),
     'carte_indices_objets': ('Wo ist dieser Gegenstand?', "Dov'è questo oggetto?"),
     'carte_indices_pieces': ('Verbirgt dieser Raum etwas?', 'Questa stanza nasconde qualcosa?'),

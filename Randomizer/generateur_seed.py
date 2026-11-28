@@ -32,6 +32,7 @@ Il faut Python 3 et la bibliothèque openpyxl (pip install openpyxl).
 """
 import argparse
 import json
+import os
 import random
 import re
 import sys
@@ -521,6 +522,18 @@ NOM_DOSSIER_JEU = "Resident Evil Biohazard HD REMASTER"
 NOM_SEED_JEU = "randomizer_seed.lua"
 
 
+def sous_wine():
+    """L'appli Windows tourne sous Wine / Proton (Steam Deck : exe ajouté à Steam avec Proton) ?"""
+    if sys.platform != "win32":
+        return False
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Wine"):
+            return True
+    except OSError:
+        return False
+
+
 def trouver_dossier_jeu():
     """Cherche le dossier du jeu dans les bibliothèques Steam (registre + libraryfolders.vdf)."""
     racines = []
@@ -537,22 +550,56 @@ def trouver_dossier_jeu():
         pass
     if sys.platform == "win32":
         racines.append(Path(r"C:\Program Files (x86)\Steam"))
+        if sous_wine():                     # Proton / Wine : le Linux de la machine est vu comme le lecteur Z:
+            for maison in [Path(r"Z:\home\deck")] + sorted(Path(r"Z:\home").glob("*")):
+                racines += [maison / ".steam" / "steam", maison / ".local" / "share" / "Steam",
+                            maison / ".var" / "app" / "com.valvesoftware.Steam" / ".local" / "share" / "Steam"]
     else:                                   # Linux, Steam Deck (Steam natif ou Flatpak)
-        maison = Path.home()
-        racines += [maison / ".steam" / "steam", maison / ".steam" / "root", maison / ".local" / "share" / "Steam",
-                    maison / ".var" / "app" / "com.valvesoftware.Steam" / ".local" / "share" / "Steam"]
+        # En mode Jeu (Steam Deck), l'appli lancée par Steam ne trouvait pas le jeu (joueur, 28/11/2026) : on
+        # essaie aussi le vrai dossier personnel (HOME peut être changé par Steam), celui de « deck », et les
+        # dossiers que Steam indique dans l'environnement
+        maisons = [Path.home()]
+        try:
+            import pwd
+            maisons.append(Path(pwd.getpwuid(os.getuid()).pw_dir))
+        except (ImportError, KeyError, OSError):
+            pass
+        maisons.append(Path("/home/deck"))
+        for maison in dict.fromkeys(maisons):
+            racines += [maison / ".steam" / "steam", maison / ".steam" / "root", maison / ".local" / "share" / "Steam",
+                        maison / ".var" / "app" / "com.valvesoftware.Steam" / ".local" / "share" / "Steam"]
+        for variable in ("STEAM_COMPAT_CLIENT_INSTALL_PATH", "STEAM_BASE_FOLDER", "STEAMSCRIPT_DIR"):
+            if os.environ.get(variable):
+                racines.append(Path(os.environ[variable]))
 
     bibliotheques = []
     for r in racines:
         bibliotheques.append(r)
-        vdf = r / "steamapps" / "libraryfolders.vdf"
-        if vdf.exists():
-            for m in re.finditer(r'"path"\s+"([^"]+)"', vdf.read_text(encoding="utf-8", errors="replace")):
-                bibliotheques.append(Path(m.group(1).replace("\\\\", "\\")))
+        for vdf in (r / "steamapps" / "libraryfolders.vdf", r / "config" / "libraryfolders.vdf"):
+            try:
+                texte = vdf.read_text(encoding="utf-8", errors="replace") if vdf.exists() else ""
+            except OSError:
+                texte = ""
+            for m in re.finditer(r'"path"\s+"([^"]+)"', texte):
+                chemin = m.group(1).replace("\\\\", "\\")
+                if sys.platform == "win32" and chemin.startswith("/"):      # chemin Linux vu depuis Wine
+                    chemin = "Z:" + chemin.replace("/", "\\")
+                bibliotheques.append(Path(chemin))
+    if sys.platform != "win32" or sous_wine():   # cartes SD et disques montés (Steam Deck : /run/media/…)
+        prefixe = "Z:" if sys.platform == "win32" else ""
+        for base in (Path(prefixe + "/run/media"), Path(prefixe + "/media"), Path(prefixe + "/mnt")):
+            try:
+                bibliotheques += [d for d in base.glob("*") if d.is_dir()] + [d for d in base.glob("*/*") if d.is_dir()]
+                bibliotheques += [d / "SteamLibrary" for d in base.glob("*")] + [d / "SteamLibrary" for d in base.glob("*/*")]
+            except OSError:
+                pass
     for b in bibliotheques:
         d = b / "steamapps" / "common" / NOM_DOSSIER_JEU
-        if (d / "bhd.exe").exists():
-            return d
+        try:
+            if (d / "bhd.exe").exists():
+                return d
+        except OSError:
+            pass
     return None
 
 

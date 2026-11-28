@@ -27,7 +27,7 @@ import progression
 import textes
 import modeles_sol
 
-VERSION = "0.9.8.3.1"
+VERSION = "0.9.8.3.2"
 TAILLE_BHD_EXE = 9640360
 URL_DEPOT = "https://github.com/Michiy0/Resident-Evil-HD-Remaster-Randomizer"
 # Crédits (onglet Info) : (pseudo, nom complet, profil GitHub)
@@ -40,6 +40,9 @@ SHA256_BHD_EXE = "39B840663E4B1A6835C60CBD176E4EE6C21B9197FC2C2DD733F2A7C36A0B42
 NOM_APPLI = "Resident Evil HD Remaster Randomizer"
 TITRE = f"{NOM_APPLI} v{VERSION}"
 SOUS_WINDOWS = sys.platform == "win32"
+# Appli Windows lancée par Proton / Wine (Steam Deck en mode Jeu, 28/11/2026) : pas de barre de titre non plus
+SOUS_WINE = SOUS_WINDOWS and bool(os.environ.get("STEAM_COMPAT_DATA_PATH") or os.environ.get("WINEPREFIX")
+                                  or gen.sous_wine())
 # Le jeu tourne sous Proton sur Linux / Steam Deck : la DLL doit être préférée à celle de Proton.
 OPTION_PROTON = 'WINEDLLOVERRIDES="xinput1_4=n,b" %command%'
 # avec BhdTool (ou un autre mod en dinput8.dll), Proton doit charger aussi ce dinput8.dll
@@ -424,6 +427,7 @@ def appliquer_style(racine):
     s.configure("Section.TLabel", background=c["carte"], font=(POLICE, 9, "bold"), foreground=c["discret"])
     s.configure("Note.TLabel", background=c["carte"], font=(POLICE, 9), foreground=c["discret"])
     s.configure("NotePage.TLabel", background=c["fond"], font=(POLICE, 10), foreground=c["discret"])
+    s.configure("AlertePage.TLabel", background=c["fond"], font=(POLICE, 10, "bold"), foreground=c["alerte"])
     s.configure("Nom.TLabel", background=c["carte"], font=(POLICE, 11, "bold"), foreground=c["texte"])
     s.configure("Mot.TLabel", background=c["carte"], font=(POLICE, 10), foreground=c["discret"])
     s.configure("Emoji.TLabel", background=c["carte"], font=("Segoe UI Emoji", 13), foreground=c["texte"])
@@ -805,7 +809,7 @@ class Application(tk.Tk):
         self.choix_langue = ttk.Combobox(entete, values=noms, state="readonly", font=(POLICE, 10),
                                          width=max(12, len(auto) + 2))
         self.choix_langue.set(auto if self.preference_langue == "auto" else textes.LANGUES[self.langue.get()])
-        if not SOUS_WINDOWS or os.environ.get("RANDOMIZER_LINUX"):
+        if not SOUS_WINDOWS or SOUS_WINE or os.environ.get("RANDOMIZER_LINUX"):
             # Steam Deck en mode Jeu : la fenêtre n'a pas de barre de titre, donc pas de croix pour fermer
             ttk.Button(entete, text=self.t("quitter"), style="Danger.TButton",
                        command=self.destroy).pack(side="right", padx=(12, 0), pady=(8, 0))
@@ -880,10 +884,14 @@ class Application(tk.Tk):
         cadre = defile.interieur
         cadre.columnconfigure(0, weight=1)
         etapes = self.t("install_etapes")
-        if not SOUS_WINDOWS or os.environ.get("RANDOMIZER_LINUX"):
+        if not SOUS_WINDOWS or SOUS_WINE or os.environ.get("RANDOMIZER_LINUX"):
             etapes += "\n" + self.t("install_etape_proton")
-        ttk.Label(cadre, text=etapes, wraplength=680, justify="left").grid(row=0, column=0, sticky="w",
-                                                                         pady=(0, 14))
+        haut = ttk.Frame(cadre)
+        haut.grid(row=0, column=0, sticky="w", pady=(0, 14))
+        if SOUS_WINE:                               # .exe Windows lancé avec Proton (joueur, 28/11/2026)
+            ttk.Label(haut, text=self.t("alerte_proton"), style="AlertePage.TLabel", wraplength=680,
+                      justify="left").pack(anchor="w", pady=(0, 10))
+        ttk.Label(haut, text=etapes, wraplength=680, justify="left").pack(anchor="w")
 
         jeu, j = self.carte(cadre, self.t("carte_jeu"))
         jeu.grid(row=1, column=0, sticky="nsew")
@@ -907,7 +915,7 @@ class Application(tk.Tk):
         self.bouton_retirer_dll.pack(side="left", padx=8)
         ttk.Label(j, text=self.t("note_desinstaller"),
                   style="Note.TLabel").grid(row=4, column=0, columnspan=2, sticky="w", pady=(6, 0))
-        if not SOUS_WINDOWS or os.environ.get("RANDOMIZER_LINUX"):
+        if not SOUS_WINDOWS or SOUS_WINE or os.environ.get("RANDOMIZER_LINUX"):
             # Sous Linux / Steam Deck, le jeu passe par Proton : l'option de lancement fait charger notre DLL
             ttk.Label(j, text=self.t("proton_titre"), style="Carte.TLabel").grid(
                 row=5, column=0, columnspan=2, sticky="w", pady=(12, 2))
